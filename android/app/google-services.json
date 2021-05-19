@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "362464302335",
+    "project_id": "awesome-burma",
+    "storage_bucket": "awesome-burma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362464302335:android:890fd14f817eeb133ca8ca",
+        "android_client_info": {
+          "package_name": "com.example.travel_guide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362464302335-maenl5eomculi0vovffluoebrorkee1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxG98mysYzi0LXPEOkqTL7haJIw48rAP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362464302335-maenl5eomculi0vovffluoebrorkee1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
