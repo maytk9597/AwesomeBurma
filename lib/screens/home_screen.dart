@@ -15,14 +15,42 @@ class _home_screenState extends State<home_screen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Builder(builder: (context)=>IconButton(icon: Icon(Icons.menu,color: Colors.black,), onPressed: ()=>Scaffold.of(context).openDrawer(),),),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: Colors.black,
+            ),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
       ),
       drawer: Drawer(),
-      body: ListView(children:<Widget> [
-        Padding(padding: EdgeInsets.all(20.0),
-        child: Text("Explore around \nBurma",style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.w600),),),
-        
-      ],),
+      body: ListView(
+        children: <Widget>[
+          Center(
+            child: KtitleTextStyle(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class KtitleTextStyle extends StatelessWidget {
+  const KtitleTextStyle({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "Awesome Burma",
+      style: TextStyle(
+          // color: Color(0xFFFFBD67),
+          fontFamily: 'Pattaya',
+          fontSize: 30.0,
+          fontWeight: FontWeight.w600),
     );
   }
 }

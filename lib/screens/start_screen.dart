@@ -50,12 +50,9 @@ class _start_screenState extends State<start_screen> {
                               MaterialPageRoute(
                                   builder: (context) => home_screen()));
                         },
-                        // color: Color(0xFFF7682E),
-                        color: Color(0xFFFFBD67),
-
+                        color: Color(0xFFFFBD67).withOpacity(0.6),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6.0),
-                          // side: BorderSide(color: Colors.green)
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
