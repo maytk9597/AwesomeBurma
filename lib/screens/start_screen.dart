@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home_screen.dart';
 
 class start_screen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _start_screenState extends State<start_screen> {
         child: Stack(
           children: <Widget>[
             Image(
-              image: AssetImage("assets/images/StartBagan.png"),
+              image: AssetImage("assets/images/BaganStart.jpg"),
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
@@ -30,16 +31,10 @@ class _start_screenState extends State<start_screen> {
                   children: <Widget>[
                     Container(
                       alignment: Alignment.center,
-                      child: Text(
-                        'Explore Around Burma...',
-                        style: TextStyle(
-                          fontFamily: 'Pattaya',
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          // color: Color(0xFF4B4B6F),
-                          color: Color(0xFF53292F),
-                          // color: Color(0xFFF7682E),
-                        ),
+                      child: KtitleText(
+                        title: "Explore Around Burma",
+                        fontSize: 40.0,
+                        color: ktextColor,
                       ),
                     ),
                     Container(
@@ -50,17 +45,19 @@ class _start_screenState extends State<start_screen> {
                               MaterialPageRoute(
                                   builder: (context) => home_screen()));
                         },
-                        color: Color(0xFFFFBD67).withOpacity(0.6),
+                        // color: Color(0xFFC6A6E9),
+                        color: kMainColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6.0),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Get Started ...",
+                            "Let's Go",
                             style: TextStyle(
-                              fontSize: 25.0,
-                            ),
+                                fontSize: 25.0,
+                                color: ktextColor,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
