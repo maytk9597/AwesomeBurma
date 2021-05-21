@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:travel_guide/screens/home/cities_list.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
 
 class home_screen extends StatefulWidget {
@@ -47,6 +48,8 @@ class _home_screenState extends State<home_screen> {
               ),
             ),
             Recommendations(),
+            SizedBox(height: 20.0),
+            Cities_list(),
           ],
         ),
         bottomNavigationBar: BubbleBottomBar(
