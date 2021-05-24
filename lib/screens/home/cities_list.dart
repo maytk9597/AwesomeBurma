@@ -22,6 +22,7 @@ class _Cities_listState extends State<Cities_list> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             int length = snapshot.data.docs.length;
+            print("city length = " + length.toString());
             return Column(
               children: [
                 Row(

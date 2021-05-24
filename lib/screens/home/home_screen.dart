@@ -3,6 +3,7 @@ import 'package:travel_guide/Components/textStyle.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
+import 'package:travel_guide/size_config.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({Key key}) : super(key: key);
@@ -48,7 +49,7 @@ class _home_screenState extends State<home_screen> {
               ),
             ),
             Recommendations(),
-            SizedBox(height: 20.0),
+            SizedBox(height: 20),
             Cities_list(),
           ],
         ),

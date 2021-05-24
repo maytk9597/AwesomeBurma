@@ -22,13 +22,14 @@ class _RecommendationsState extends State<Recommendations> {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore
-            .collection('attractions')
-            .where('recommendations', isEqualTo: true)
+            .collectionGroup('Attractions')
+            .where('recommendation', isEqualTo: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print('inside data fetched');
             int length = snapshot.data.docs.length;
+            print("recommendations length = " + length.toString());
 
             return Column(
               children: <Widget>[
@@ -72,6 +73,7 @@ class _RecommendationsState extends State<Recommendations> {
               ],
             );
           } else {
+            print("no data fetch");
             return Text('no data fetched');
           }
         });
