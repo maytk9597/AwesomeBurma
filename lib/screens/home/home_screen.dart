@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/Components/home_app_bar.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
+import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
+import 'package:travel_guide/size_config.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({Key key}) : super(key: key);
@@ -24,31 +27,18 @@ class _home_screenState extends State<home_screen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: ktextColor,
-              ),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-        ),
+        // appBar: buildAppBar(context, isTransparent: true),
         drawer: Drawer(),
         body: ListView(
           children: <Widget>[
-            Center(
-              child: KtitleText(
-                title: "Awesome Burma",
-                fontSize: 30.0,
-                color: ktextColor,
-              ),
+            HomeHeader(),
+            SizedBox(
+              height: getProportionateScreenHeight(20, context),
             ),
             Recommendations(),
-            SizedBox(height: 20.0),
+            SizedBox(
+              height: getProportionateScreenHeight(20, context),
+            ),
             Cities_list(),
           ],
         ),

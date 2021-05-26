@@ -29,31 +29,23 @@ class _RecommendationsState extends State<Recommendations> {
           if (snapshot.hasData) {
             print('inside data fetched');
             int length = snapshot.data.docs.length;
+            print("recommendations length = " + length.toString());
 
             return Column(
               children: <Widget>[
                 Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "Recommendations",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: ktextColor,
-                        ),
-                      ),
-                    ),
-                  ],
+                  children: [SectionTitle(text: 'Recommendations')],
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  child: Container(
-                    height: 150,
+
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: getProportionateScreenHeight(250, context),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
                     child: Row(
                       children: List.generate(length, (index) {
                         DocumentSnapshot recommendationPlace =
