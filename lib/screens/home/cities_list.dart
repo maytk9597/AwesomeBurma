@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/city_card.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/screens/home/section_title.dart';
 
 class Cities_list extends StatefulWidget {
   const Cities_list({
@@ -26,18 +27,7 @@ class _Cities_listState extends State<Cities_list> {
             return Column(
               children: [
                 Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "Cities",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: ktextColor,
-                        ),
-                      ),
-                    ),
-                  ],
+                  children: [SectionTitle(text: 'Cities')],
                 ),
                 SizedBox(
                   height: 20.0,
@@ -45,9 +35,23 @@ class _Cities_listState extends State<Cities_list> {
                 Container(
                   child: Column(
                       children: List.generate(length, (index) {
+                    // bool recommendation = false;
                     DocumentSnapshot city = snapshot.data.docs[index];
+                    // _firestore
+                    //     .collection('cities')
+                    //     .doc(city.id)
+                    //     .collection('Attractions')
+                    //     .add({
+                    //   'name': "",
+                    //   'address': "",
+                    //   'description': "",
+                    //   'recommendation': recommendation,
+                    //   'imageUrl': "",
+                    //   'note': "",
+                    //   'type': ""
+                    // });
                     return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: City_card(city: city),
                     );
                   })),

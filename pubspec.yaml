@@ -74,6 +74,12 @@ flutter:
     - family: GoblinOne
       fonts:
         - asset: assets/fonts/GoblinOne-Regular.ttf
+    - family: DancingScript
+      fonts:
+        - asset: assets/fonts/DancingScript-Regular.ttf
+    - family: PTSerif
+      fonts:
+        - asset: assets/fonts/PTSerif-Italic.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
