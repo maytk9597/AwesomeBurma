@@ -50,8 +50,7 @@ class _RecommendationsState extends State<Recommendations> {
                       children: List.generate(length, (index) {
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
-                        return Place_card(
-                            recommendationPlace: recommendationPlace);
+                        return Place_card(placeDocument: recommendationPlace);
                       }),
                     ),
                   ),
