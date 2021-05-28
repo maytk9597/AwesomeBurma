@@ -17,14 +17,16 @@ class Place_card extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('Tap on recommendation');
+        print(placeDocument['imageUrl']);
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => detail_screen(
                       imageUrl: placeDocument['imageUrl'],
                       name: placeDocument['name'],
-                      note: placeDocument['note'],
+                      type: placeDocument['type'],
                       description: placeDocument['description'],
+                      address: placeDocument['address'],
                     )));
       },
       child: Stack(children: [

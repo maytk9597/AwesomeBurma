@@ -34,27 +34,23 @@ class _Cities_listState extends State<Cities_list> {
               SizedBox(
                 height: getProportionateScreenHeight(20, context),
               ),
-              Expanded(
-                // height: MediaQuery.of(context).size.height,
-                // height: double.infinity,
-                child: Container(
-                  child: StaggeredGridView.countBuilder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: length,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 4,
-                      itemBuilder: (context, index) {
-                        print("inside grid view " + index.toString());
-                        print("snapshot data " +
-                            snapshot.data.docs[index]['city_name'].toString());
-                        return City_card(city: snapshot.data.docs[index]);
-                      },
-                      staggeredTileBuilder: (index) {
-                        return StaggeredTile.count(2, index.isEven ? 2 : 3);
-                      }),
-                ),
+              Container(
+                child: StaggeredGridView.countBuilder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: length,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 5,
+                    crossAxisCount: 4,
+                    itemBuilder: (context, index) {
+                      print("inside grid view " + index.toString());
+                      print("snapshot data " +
+                          snapshot.data.docs[index]['city_name'].toString());
+                      return City_card(city: snapshot.data.docs[index]);
+                    },
+                    staggeredTileBuilder: (index) {
+                      return StaggeredTile.count(2, index.isEven ? 2 : 3);
+                    }),
               )
             ]);
           } else {
