@@ -29,20 +29,18 @@ class _home_screenState extends State<home_screen> {
       child: Scaffold(
         // appBar: buildAppBar(context, isTransparent: true),
         drawer: Drawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              HomeHeader(),
-              SizedBox(
-                height: getProportionateScreenHeight(20, context),
-              ),
-              Recommendations(),
-              SizedBox(
-                height: getProportionateScreenHeight(20, context),
-              ),
-              Cities_list(),
-            ],
-          ),
+        body: Column(
+          children: <Widget>[
+            HomeHeader(),
+            SizedBox(
+              height: getProportionateScreenHeight(20, context),
+            ),
+            Recommendations(),
+            SizedBox(
+              height: getProportionateScreenHeight(20, context),
+            ),
+            Cities_list(),
+          ],
         ),
         bottomNavigationBar: BubbleBottomBar(
           backgroundColor: Colors.white,

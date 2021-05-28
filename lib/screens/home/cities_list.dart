@@ -39,6 +39,7 @@ class _Cities_listState extends State<Cities_list> {
                 // height: double.infinity,
                 child: Container(
                   child: StaggeredGridView.countBuilder(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: length,
                       crossAxisSpacing: 4,
