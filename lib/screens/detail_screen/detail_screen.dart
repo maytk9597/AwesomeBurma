@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+
 import 'package:travel_guide/screens/detail_screen/detail_button.dart';
 import 'package:travel_guide/screens/detail_screen/detail_description.dart';
 import 'package:travel_guide/screens/detail_screen/detail_header.dart';
@@ -16,6 +17,7 @@ class detail_screen extends StatefulWidget {
       this.address,
       this.type});
 
+
   @override
   _detail_screenState createState() => _detail_screenState();
 }
@@ -23,6 +25,7 @@ class detail_screen extends StatefulWidget {
 class _detail_screenState extends State<detail_screen> {
   @override
   Widget build(BuildContext context) {
+
     String name = widget.name;
     String description = widget.description;
     String address = widget.address;
@@ -44,6 +47,7 @@ class _detail_screenState extends State<detail_screen> {
               ),
             ],
           ),
+
         ),
       ),
     );

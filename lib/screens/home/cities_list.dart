@@ -27,6 +27,7 @@ class _Cities_listState extends State<Cities_list> {
             int length = snapshot.data.docs.length;
             print("city length = " + length.toString());
 
+
             return Column(children: [
               Row(
                 children: [SectionTitle(text: 'Cities')],
@@ -53,6 +54,7 @@ class _Cities_listState extends State<Cities_list> {
                     }),
               )
             ]);
+
           } else {
             return Text('no data fetched');
           }
