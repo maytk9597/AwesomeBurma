@@ -26,34 +26,35 @@ class _Cities_listState extends State<Cities_list> {
           if (snapshot.hasData) {
             int length = snapshot.data.docs.length;
             print("city length = " + length.toString());
-            return Container(
-              child: Column(children: [
-                Row(
-                  children: [SectionTitle(text: 'Cities')],
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20, context),
-                ),
-                Container(
-                  child: StaggeredGridView.countBuilder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: length,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 4,
-                      itemBuilder: (context, index) {
-                        print("inside grid view " + index.toString());
-                        print("snapshot data " +
-                            snapshot.data.docs[index]['city_name'].toString());
-                        return City_card(city: snapshot.data.docs[index]);
-                      },
-                      staggeredTileBuilder: (index) {
-                        return StaggeredTile.count(2, index.isEven ? 2 : 3);
-                      }),
-                )
-              ]),
-            );
+
+
+            return Column(children: [
+              Row(
+                children: [SectionTitle(text: 'Cities')],
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(20, context),
+              ),
+              Container(
+                child: StaggeredGridView.countBuilder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: length,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 5,
+                    crossAxisCount: 4,
+                    itemBuilder: (context, index) {
+                      print("inside grid view " + index.toString());
+                      print("snapshot data " +
+                          snapshot.data.docs[index]['city_name'].toString());
+                      return City_card(city: snapshot.data.docs[index]);
+                    },
+                    staggeredTileBuilder: (index) {
+                      return StaggeredTile.count(2, index.isEven ? 2 : 3);
+                    }),
+              )
+            ]);
+
           } else {
             return Text('no data fetched');
           }

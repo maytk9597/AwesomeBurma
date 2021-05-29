@@ -54,7 +54,7 @@ class _start_screenState extends State<start_screen> {
                             //   'description': "",
                             //   'recommendation': "",
                             // });
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => home_screen()));
