@@ -22,6 +22,7 @@ class Place_card extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => detail_screen(
+                      note: placeDocument['note'],
                       imageUrl: placeDocument['imageUrl'],
                       name: placeDocument['name'],
                       type: placeDocument['type'],
