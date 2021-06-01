@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+
 import 'package:travel_guide/screens/detail_screen/detail_button.dart';
 import 'package:travel_guide/screens/detail_screen/detail_description.dart';
 import 'package:travel_guide/screens/detail_screen/detail_header.dart';

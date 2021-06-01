@@ -58,7 +58,7 @@ class HomeHeader extends StatelessWidget {
               Center(
                 child: KtitleText(
                   title: "Awesome Burma",
-                  fontSize: getProportionateScreenHeight(50, context),
+                  fontSize: getProportionateScreenWidth(50, context),
                   color: ktextColor,
                 ),
               ),
