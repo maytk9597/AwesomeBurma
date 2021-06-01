@@ -1,40 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/place_card.dart';
-import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
-import 'package:travel_guide/size_config.dart';
 
-class Recommendations extends StatefulWidget {
-  const Recommendations({
+import '../../size_config.dart';
+
+class HotelList extends StatelessWidget {
+  const HotelList({
     Key key,
+    @required this.cityId,
   }) : super(key: key);
 
-  @override
-  _RecommendationsState createState() => _RecommendationsState();
-}
-
-class _RecommendationsState extends State<Recommendations> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final String cityId;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    print(cityId + " inside Attraction List");
+    // return Container();
+    return StreamBuilder(
         stream: _firestore
-            .collectionGroup('Attractions')
+            .collection('cities')
+            .doc(cityId)
+            .collection('Hotels')
             .where('recommendation', isEqualTo: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print('inside data fetched');
             int length = snapshot.data.docs.length;
-            print("recommendations length = " + length.toString());
-
+            print(snapshot.data.docs.length.toString() +
+                " inside fetch data for hotels");
             return Column(
               children: <Widget>[
                 Row(
-                  children: [SectionTitle(text: 'Recommendations')],
+                  children: [SectionTitle(text: 'Top Hotels in Yangon')],
                 ),
                 SizedBox(
                   height: 20,
@@ -48,12 +46,11 @@ class _RecommendationsState extends State<Recommendations> {
                     physics: BouncingScrollPhysics(),
                     child: Row(
                       children: List.generate(length, (index) {
-                        print("inside list generate");
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(
                           placeDocument: recommendationPlace,
-                          placeType: "attraction",
+                          placeType: "hotel",
                         );
                       }),
                     ),
@@ -66,9 +63,9 @@ class _RecommendationsState extends State<Recommendations> {
                 // )
               ],
             );
+            ;
           } else {
-            print("no data fetch");
-            return Text('no data fetched');
+            return Center(child: CircularProgressIndicator());
           }
         });
   }

@@ -8,26 +8,39 @@ class Place_card extends StatelessWidget {
   const Place_card({
     Key key,
     @required this.placeDocument,
+    @required this.placeType,
   }) : super(key: key);
 
   final DocumentSnapshot placeDocument;
+  final String placeType;
 
   @override
   Widget build(BuildContext context) {
+    print(placeType.toString() + "inside placeCard");
+    dynamic star = placeDocument['type'];
+    bool isHotel = false;
+    bool isRestaurant = false;
+    bool isAttraction = false;
+    if (placeType == "attraction") {
+      isAttraction = true;
+    } else if (placeType == "hotel") {
+      isHotel = true;
+    } else if (placeType == "restaurant") {
+      isRestaurant = true;
+    }
+    print("${star.runtimeType}  type");
+
     return GestureDetector(
       onTap: () {
         print('Tap on recommendation');
         print(placeDocument['imageUrl']);
+        print(placeType.toString());
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => detail_screen(
-                      note: placeDocument['note'],
-                      imageUrl: placeDocument['imageUrl'],
-                      name: placeDocument['name'],
-                      type: placeDocument['type'],
-                      description: placeDocument['description'],
-                      address: placeDocument['address'],
+                      placeDocument: placeDocument,
+                      placeType: placeType,
                     )));
       },
       child: Stack(children: [
@@ -75,15 +88,59 @@ class Place_card extends StatelessWidget {
                         color: ktextColor,
                         fontWeight: FontWeight.w600),
                   ),
-                  Text(
-                    placeDocument['address'],
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: getProportionateScreenWidth(15, context),
-                        color: ktextColor,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  isAttraction
+                      ? Text(
+                          placeDocument['address'],
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontSize:
+                                  getProportionateScreenWidth(15, context),
+                              color: ktextColor,
+                              fontWeight: FontWeight.w400),
+                        )
+                      : isRestaurant
+                          ? Text(
+                              placeDocument['type'],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize:
+                                      getProportionateScreenWidth(15, context),
+                                  color: ktextColor,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          : isHotel
+                              ? Row(
+                                  children: List.generate(5, (index) {
+                                  return index < star
+                                      ? Icon(
+                                          Icons.star,
+                                          color: kMainColor,
+                                        )
+                                      : Icon(
+                                          Icons.star_border,
+                                          color: kMainColor,
+                                        );
+                                }))
+                              // List.generate(
+                              //     5,
+                              //     (index) => index > star
+                              //         ? Icon(Icons.star)
+                              //         : Icon(Icons.star_border),
+                              //   )
+                              // ? Text(
+                              //    int myint = int.parse('')
+                              //     placeDocument['name'],
+                              //     overflow: TextOverflow.ellipsis,
+                              //     maxLines: 1,
+                              //     style: TextStyle(
+                              //         fontSize: getProportionateScreenWidth(
+                              //             15, context),
+                              //         color: ktextColor,
+                              //         fontWeight: FontWeight.w400),
+                              //   )
+                              : Text("Sth Wrong")
                 ],
               ),
             ],

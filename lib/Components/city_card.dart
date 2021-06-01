@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/screens/city_detail_screen/city_detail.dart';
 import 'package:travel_guide/size_config.dart';
 
 class City_card extends StatelessWidget {
@@ -13,11 +14,34 @@ class City_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('inside city card');
-    print(city.data()['city_name']);
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    bool recommendation = true;
+    // print('inside city card');
+    // print(city.data()['city_name']);
 
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CityDetails(
+                        city: city,
+                      )));
+          // _firestore
+          //     .collection('cities')
+          //     .doc(city.id)
+          //     .collection('Restaurants')
+          //     .add({
+          //   'name': "",
+          //   'address': "",
+          //   'description': "",
+          //   'recommendation': recommendation,
+          //   'imageUrl': "",
+          //   'note': "",
+          //   'type': "",
+          //   'ph_no': ""
+          // });
+        },
         child: Container(
           // height: 100,
           padding: EdgeInsets.all(10),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/screens/detail_screen/detail_screen.dart';
 import 'package:travel_guide/size_config.dart';
@@ -5,10 +6,10 @@ import 'package:travel_guide/size_config.dart';
 class Detail_header extends StatelessWidget {
   const Detail_header({
     Key key,
-    @required this.widget,
+    @required this.placeDocument,
   }) : super(key: key);
 
-  final detail_screen widget;
+  final DocumentSnapshot placeDocument;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class Detail_header extends StatelessWidget {
               // ),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(widget.imageUrl),
+                image: NetworkImage(placeDocument['imageUrl']),
               ),
             ),
           ),
