@@ -37,12 +37,12 @@ class _RecommendationsState extends State<Recommendations> {
                   children: [SectionTitle(text: 'Recommendations')],
                 ),
                 SizedBox(
-                  height: 20,
+                  height: getProportionateScreenHeight(15, context),
                 ),
 
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: getProportionateScreenHeight(250, context),
+                  height: getProportionateScreenHeight(210, context),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),

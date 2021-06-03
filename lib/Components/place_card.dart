@@ -63,12 +63,12 @@ class Place_card extends StatelessWidget {
             children: [
               Container(
                 // margin: EdgeInsets.all(10.0),
-                width: getProportionateScreenWidth(130, context),
-                height: getProportionateScreenWidth(130, context),
+                width: getProportionateScreenWidth(150, context),
+                height: getProportionateScreenWidth(100, context),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(placeDocument['imageUrl']),
-                        fit: BoxFit.fill),
+                        fit: BoxFit.cover),
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     boxShadow: [
                       BoxShadow(
@@ -112,17 +112,39 @@ class Place_card extends StatelessWidget {
                             )
                           : isHotel
                               ? Row(
-                                  children: List.generate(5, (index) {
-                                  return index < star
-                                      ? Icon(
-                                          Icons.star,
-                                          color: kMainColor,
-                                        )
-                                      : Icon(
-                                          Icons.star_border,
-                                          color: kMainColor,
-                                        );
-                                }))
+                                  children: [
+                                    Row(
+                                      children: List.generate(5, (index) {
+                                        return index < placeDocument['type']
+                                            ? Icon(
+                                                Icons.star,
+                                                color: kMainColor,
+                                                size:
+                                                    getProportionateScreenWidth(
+                                                        18, context),
+                                              )
+                                            : Icon(
+                                                Icons.star_border,
+                                                color: kMainColor,
+                                                size:
+                                                    getProportionateScreenWidth(
+                                                        18, context),
+                                              );
+                                      }),
+                                    ),
+                                    SizedBox(
+                                      width: getProportionateScreenWidth(
+                                          10, context),
+                                    ),
+                                    Text(
+                                      placeDocument['type'].toString(),
+                                      style: TextStyle(
+                                          color: ktextColor,
+                                          fontSize: getProportionateScreenWidth(
+                                              18, context)),
+                                    ),
+                                  ],
+                                )
                               // List.generate(
                               //     5,
                               //     (index) => index > star

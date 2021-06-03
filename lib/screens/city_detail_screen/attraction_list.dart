@@ -47,6 +47,15 @@ class AttractionList extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     child: Row(
                       children: List.generate(length, (index) {
+                        // _firestore
+                        //     .collection('cities')
+                        //     .doc(cityId)
+                        //     .collection('Attractions')
+                        //     .doc(snapshot.data.docs[index].id)
+                        //     .update({
+                        //   'ph_no': "There is no Ph-no for this place",
+                        //   'remark': "Open 24 Hours",
+                        // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(

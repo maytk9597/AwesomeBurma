@@ -19,7 +19,7 @@ class Detail_header extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            height: getProportionateScreenHeight(350, context),
+            height: getProportionateScreenHeight(300, context),
             decoration: BoxDecoration(
               // borderRadius: BorderRadius.only(
               //   bottomLeft: Radius.circular(30),
@@ -54,12 +54,12 @@ class Detail_header extends StatelessWidget {
                 //   size: getProportionateScreenWidth(24, context),
                 // ),
                 SizedBox(
-                  width: getProportionateScreenWidth(24, context),
+                  width: getProportionateScreenWidth(26, context),
                 ),
                 Icon(
-                  Icons.favorite_border,
+                  Icons.bookmark_border,
                   color: Colors.white,
-                  size: getProportionateScreenWidth(24, context),
+                  size: getProportionateScreenWidth(26, context),
                 ),
               ],
             ),

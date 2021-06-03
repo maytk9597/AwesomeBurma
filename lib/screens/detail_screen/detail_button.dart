@@ -25,21 +25,23 @@ class Detail_button extends StatelessWidget {
     } else if (placeType == "restaurant") {
       isRestaurant = true;
     }
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
-      child: FlatButton(
-          color: kMainColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          onPressed: () async {
-            print(placeDocument['note']);
-            if (await canLaunch(placeDocument['note'])) {
-              await launch(placeDocument['note']);
-            } else {
-              throw 'Could not launch ${placeDocument['note']}';
-            }
-          },
-          child: isAttraction || isRestaurant
-              ? Container(
+    return isAttraction || isRestaurant
+        ? Container(
+            height: 90,
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+            child: FlatButton(
+                color: kMainColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                onPressed: () async {
+                  print(placeDocument['note']);
+                  if (await canLaunch(placeDocument['note'])) {
+                    await launch(placeDocument['note']);
+                  } else {
+                    throw 'Could not launch ${placeDocument['note']}';
+                  }
+                },
+                child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   alignment: Alignment.center,
                   child: Text(
@@ -50,9 +52,25 @@ class Detail_button extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                )
-              : isHotel
-                  ? Container(
+                )),
+          )
+        : isHotel
+            ? Container(
+                height: 90,
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                child: FlatButton(
+                    color: kMainColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    onPressed: () async {
+                      print(placeDocument['note']);
+                      if (await canLaunch(placeDocument['note'])) {
+                        await launch(placeDocument['note']);
+                      } else {
+                        throw 'Could not launch ${placeDocument['note']}';
+                      }
+                    },
+                    child: Container(
                       padding: EdgeInsets.symmetric(vertical: 16),
                       alignment: Alignment.center,
                       child: Text(
@@ -63,8 +81,8 @@ class Detail_button extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    )
-                  : Text("Something went Wrong")),
-    );
+                    )),
+              )
+            : Text("Something went wrong");
   }
 }
