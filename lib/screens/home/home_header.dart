@@ -19,7 +19,7 @@ class HomeHeader extends StatelessWidget {
         // alignment: Alignment.center,
         children: [
           Container(
-              height: getProportionateScreenHeight(315, context),
+              height: getProportionateScreenHeight(350, context),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
@@ -60,6 +60,7 @@ class HomeHeader extends StatelessWidget {
                   title: "Awesome Burma",
                   fontSize: getProportionateScreenWidth(50, context),
                   color: ktextColor,
+                  // color: Colors.black,
                 ),
               ),
               Center(

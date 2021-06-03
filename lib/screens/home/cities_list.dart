@@ -27,13 +27,12 @@ class _Cities_listState extends State<Cities_list> {
             int length = snapshot.data.docs.length;
             print("city length = " + length.toString());
 
-
             return Column(children: [
               Row(
                 children: [SectionTitle(text: 'Cities')],
               ),
               SizedBox(
-                height: getProportionateScreenHeight(20, context),
+                height: getProportionateScreenHeight(10, context),
               ),
               Container(
                 child: StaggeredGridView.countBuilder(
@@ -50,11 +49,10 @@ class _Cities_listState extends State<Cities_list> {
                       return City_card(city: snapshot.data.docs[index]);
                     },
                     staggeredTileBuilder: (index) {
-                      return StaggeredTile.count(2, index.isEven ? 2 : 3);
+                      return StaggeredTile.count(2, index.isOdd ? 2.6 : 2);
                     }),
               )
             ]);
-
           } else {
             return Text('no data fetched');
           }

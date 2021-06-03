@@ -15,7 +15,7 @@ class City_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    bool recommendation = true;
+    // bool recommendation = true;
     // print('inside city card');
     // print(city.data()['city_name']);
 
@@ -30,16 +30,11 @@ class City_card extends StatelessWidget {
           // _firestore
           //     .collection('cities')
           //     .doc(city.id)
-          //     .collection('Restaurants')
-          //     .add({
-          //   'name': "",
-          //   'address': "",
-          //   'description': "",
-          //   'recommendation': recommendation,
-          //   'imageUrl': "",
-          //   'note': "",
-          //   'type': "",
-          //   'ph_no': ""
+          //     .collection('Attractions')
+          //     .doc()
+          //     .update({
+          //   'ph_no': "",
+          //   'remark': "",
           // });
         },
         child: Container(

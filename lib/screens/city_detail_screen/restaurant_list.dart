@@ -31,7 +31,7 @@ class RestaurantList extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Row(
-                  children: [SectionTitle(text: 'Top Restaurants in Yangon')],
+                  children: [SectionTitle(text: 'Top Restaurants')],
                 ),
                 SizedBox(
                   height: 20,

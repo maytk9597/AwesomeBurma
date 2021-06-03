@@ -37,9 +37,9 @@ class _home_screenState extends State<home_screen> {
                 height: getProportionateScreenHeight(20, context),
               ),
               Recommendations(),
-              SizedBox(
-                height: getProportionateScreenHeight(20, context),
-              ),
+              // SizedBox(
+              //   height: getProportionateScreenHeight(20, context),
+              // ),
               Cities_list(),
             ],
           ),

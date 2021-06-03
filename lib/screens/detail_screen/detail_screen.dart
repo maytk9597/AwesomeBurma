@@ -5,7 +5,7 @@ import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/detail_screen/detail_button.dart';
 import 'package:travel_guide/screens/detail_screen/detail_description.dart';
 import 'package:travel_guide/screens/detail_screen/detail_header.dart';
-import 'package:travel_guide/screens/detail_screen/detail_name&address.dart';
+import 'package:travel_guide/screens/detail_screen/detail_name.dart';
 import 'package:travel_guide/size_config.dart';
 
 class detail_screen extends StatefulWidget {
@@ -30,22 +30,29 @@ class _detail_screenState extends State<detail_screen> {
               Detail_header(
                 placeDocument: widget.placeDocument,
               ),
-              Detail_nameNaddress(
+              Detail_name(
                 placeDocument: widget.placeDocument,
+                placeType: widget.placeType,
+              ),
+              SizedBox(
+                width: getProportionateScreenHeight(15, context),
               ),
               Detail_description(
                 placeType: widget.placeType,
                 placeDocument: widget.placeDocument,
               ),
-              Detail_button(
-                placeDocument: widget.placeDocument,
-                placeType: widget.placeType,
-              ),
+              // Detail_button(
+              //   placeDocument: widget.placeDocument,
+              //   placeType: widget.placeType,
+              // ),
             ],
           ),
         ),
+        bottomNavigationBar: Detail_button(
+          placeDocument: widget.placeDocument,
+          placeType: widget.placeType,
+        ),
       ),
     );
-    ;
   }
 }
