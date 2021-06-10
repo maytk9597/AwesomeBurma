@@ -13,66 +13,128 @@ class Place_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Container(
-        margin: EdgeInsets.all(10.0),
-        width: getProportionateScreenWidth(130, context),
-        height: getProportionateScreenWidth(180, context),
-        decoration: BoxDecoration(
-          // image: DecorationImage(
-          //     image: NetworkImage(recommendationPlace['imageUrl']),
-          //     fit: BoxFit.fill),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          // boxShadow: [
-          //   BoxShadow(
-          //       color: Colors.purple[100], spreadRadius: 2, blurRadius: 3)
-          // ]
+    return GestureDetector(
+      onTap: (){
+      },
+      child: Stack(children: [
+        Container(
+          margin: EdgeInsets.all(10.0),
+          width: getProportionateScreenWidth(130, context),
+          height: getProportionateScreenWidth(180, context),
+          decoration: BoxDecoration(
+            // image: DecorationImage(
+            //     image: NetworkImage(recommendationPlace['imageUrl']),
+            //     fit: BoxFit.fill),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            // boxShadow: [
+            //   BoxShadow(
+            //       color: Colors.purple[100], spreadRadius: 2, blurRadius: 3)
+            // ]
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                // margin: EdgeInsets.all(10.0),
+                width: getProportionateScreenWidth(130, context),
+                height: getProportionateScreenWidth(130, context),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(recommendationPlace['imageUrl']),
+                        fit: BoxFit.fill),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12, spreadRadius: 2, blurRadius: 3)
+                    ]),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recommendationPlace['name'],
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18, context),
+                        color: ktextColor,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    recommendationPlace['address'],
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                        fontSize: getProportionateScreenWidth(15, context),
+                        color: ktextColor,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              // margin: EdgeInsets.all(10.0),
-              width: getProportionateScreenWidth(130, context),
-              height: getProportionateScreenWidth(130, context),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(recommendationPlace['imageUrl']),
-                      fit: BoxFit.fill),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black12, spreadRadius: 2, blurRadius: 3)
-                  ]),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  recommendationPlace['name'],
-                  overflow: TextOverflow.clip,
-                  maxLines: 1,
-                  style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18, context),
-                      color: ktextColor,
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  recommendationPlace['address'],
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                      fontSize: getProportionateScreenWidth(15, context),
-                      color: ktextColor,
-                      fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          ],
+        Container(
+          margin: EdgeInsets.all(10.0),
+          width: getProportionateScreenWidth(130, context),
+          height: getProportionateScreenWidth(180, context),
+          decoration: BoxDecoration(
+            // image: DecorationImage(
+            //     image: NetworkImage(recommendationPlace['imageUrl']),
+            //     fit: BoxFit.fill),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            // boxShadow: [
+            //   BoxShadow(
+            //       color: Colors.purple[100], spreadRadius: 2, blurRadius: 3)
+            // ]
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                // margin: EdgeInsets.all(10.0),
+                width: getProportionateScreenWidth(130, context),
+                height: getProportionateScreenWidth(130, context),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(recommendationPlace['imageUrl']),
+                        fit: BoxFit.fill),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12, spreadRadius: 2, blurRadius: 3)
+                    ]),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recommendationPlace['name'],
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18, context),
+                        color: ktextColor,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    recommendationPlace['address'],
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                        fontSize: getProportionateScreenWidth(15, context),
+                        color: ktextColor,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 }
 

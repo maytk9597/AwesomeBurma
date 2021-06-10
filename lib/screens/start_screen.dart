@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
@@ -11,7 +10,7 @@ class start_screen extends StatefulWidget {
 }
 
 class _start_screenState extends State<start_screen> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  //FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {

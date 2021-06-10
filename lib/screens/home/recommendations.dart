@@ -64,7 +64,7 @@ class _RecommendationsState extends State<Recommendations> {
               ],
             );
           } else {
-            print("no data fetch");
+            //print("no data fetch");
             return Text('no data fetched');
           }
         });

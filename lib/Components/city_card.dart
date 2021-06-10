@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/screens/list/list_view_screen.dart';
 import 'package:travel_guide/size_config.dart';
 
 class City_card extends StatelessWidget {
@@ -17,7 +18,15 @@ class City_card extends StatelessWidget {
     print(city.data()['city_name']);
 
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          print("Click on the city");
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => List_View_Screen(
+                city: city.data()['city_name'],
+                type: 'Hotels',
+                sub_type: 'All',
+              )));
+        },
         child: Container(
           // height: 100,
           padding: EdgeInsets.all(10),
