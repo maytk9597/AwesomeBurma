@@ -27,6 +27,7 @@ class HotelList extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             int length = snapshot.data.docs.length;
+
             print(snapshot.data.docs.length.toString() +
                 " inside fetch data for hotels");
             return Column(
@@ -42,6 +43,23 @@ class HotelList extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     child: Row(
                       children: List.generate(length, (index) {
+                        // _firestore
+                        //     .collection('cities')
+                        //     .doc(cityId)
+                        //     .collection('Hotels')
+                        //     // .doc(snapshot.data.docs[index].id)
+                        //     .add({
+                        //   // 'remark': "Open Everyday",
+                        //   'description': "",
+                        //   'imageUrl': "",
+                        //   'name': "",
+                        //   'note': "",
+                        //   'hours': "7 A.M - 9 P.M ",
+                        //   'ph_no': "Not Available",
+                        //   'type': "",
+                        //   'recommendation': false,
+                        //   'address': "",
+                        // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(

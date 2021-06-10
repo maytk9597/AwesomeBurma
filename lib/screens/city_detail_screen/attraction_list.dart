@@ -48,17 +48,18 @@ class AttractionList extends StatelessWidget {
                         //     .collection('cities')
                         //     .doc(cityId)
                         //     .collection('Attractions')
-                        //     .add({
-                        //   'remark': "Open EveryDay",
-                        //   'description': "",
-                        //   'imageUrl': "",
-                        //   'name': "",
-                        //   'note': "",
+                        //     .doc(snapshot.data.docs[index].id)
+                        //     .update({
+                        //   'remark': "Open Everyday",
+                        //   // 'description': "",
+                        //   // 'imageUrl': "",
+                        //   // 'name': "",
+                        //   // 'note': "",
                         //   'openingHours': "7 A.M - 9 P.M ",
                         //   'ph_no': "Not Available",
-                        //   'type': "",
-                        //   'recommendation': false,
-                        //   'address': "",
+                        //   // 'type': "",
+                        //   // 'recommendation': false,
+                        //   // 'address': "",
                         // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
