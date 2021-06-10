@@ -4,7 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:travel_guide/Components/city_card.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class Cities_list extends StatefulWidget {
   const Cities_list({
@@ -49,7 +49,7 @@ class _Cities_listState extends State<Cities_list> {
                       return City_card(city: snapshot.data.docs[index]);
                     },
                     staggeredTileBuilder: (index) {
-                      return StaggeredTile.count(2, index.isOdd ? 2.6 : 2);
+                      return StaggeredTile.count(2, index.isOdd ? 2 : 2);
                     }),
               )
             ]);

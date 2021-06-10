@@ -5,7 +5,7 @@ import 'package:flutter_html/style.dart';
 import 'package:travel_guide/Components/details_description_constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/detail_screen/detail_body.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class Detail_description extends StatefulWidget {
   const Detail_description(
@@ -26,11 +26,11 @@ class _Detail_descriptionState extends State<Detail_description> {
     bool isHotel = false;
     bool isRestaurant = false;
     bool isAttraction = false;
-    if (widget.placeType == "attraction") {
+    if (widget.placeType == "Attractions") {
       isAttraction = true;
-    } else if (widget.placeType == "hotel") {
+    } else if (widget.placeType == "Hotels") {
       isHotel = true;
-    } else if (widget.placeType == "restaurant") {
+    } else if (widget.placeType == "Restaurants") {
       isRestaurant = true;
     }
     return Container(

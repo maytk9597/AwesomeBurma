@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class Detail_name extends StatelessWidget {
   const Detail_name({Key key, @required this.placeDocument, this.placeType})
@@ -15,11 +15,11 @@ class Detail_name extends StatelessWidget {
     bool isHotel = false;
     bool isRestaurant = false;
     bool isAttraction = false;
-    if (placeType == "attraction") {
+    if (placeType == "Attractions") {
       isAttraction = true;
-    } else if (placeType == "hotel") {
+    } else if (placeType == "Hotels") {
       isHotel = true;
-    } else if (placeType == "restaurant") {
+    } else if (placeType == "Restaurants") {
       isRestaurant = true;
     }
     return Container(
@@ -35,28 +35,25 @@ class Detail_name extends StatelessWidget {
               ? Row(
                   children: [
                     Text(
-                      placeDocument['name'],
+                      placeDocument['name'].toString().toUpperCase(),
                       style: TextStyle(
                         color: ktextColor,
                         fontSize: getProportionateScreenWidth(23, context),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      width: getProportionateScreenWidth(20, context),
-                    ),
                     Row(
                       children: List.generate(5, (index) {
-                        return index < placeDocument['type']
+                        return index < int.parse(placeDocument['type'])
                             ? Icon(
                                 Icons.star,
                                 color: kMainColor,
-                                size: getProportionateScreenWidth(18, context),
+                                size: getProportionateScreenWidth(15, context),
                               )
                             : Icon(
                                 Icons.star_border,
                                 color: kMainColor,
-                                size: getProportionateScreenWidth(18, context),
+                                size: getProportionateScreenWidth(15, context),
                               );
                       }),
                     ),
@@ -73,7 +70,7 @@ class Detail_name extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      placeDocument['name'],
+                      placeDocument['name'].toString().toUpperCase(),
                       style: TextStyle(
                         color: ktextColor,
                         fontSize: getProportionateScreenWidth(23, context),

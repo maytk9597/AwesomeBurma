@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/place_card.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
 
-import '../../size_config.dart';
+import '../../models/size_config.dart';
 
 class HotelList extends StatelessWidget {
   const HotelList({
@@ -32,12 +32,8 @@ class HotelList extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Row(
-                  children: [SectionTitle(text: 'Top Hotels in Yangon')],
+                  children: [SectionTitle(text: 'Top Hotels')],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: getProportionateScreenHeight(250, context),
@@ -49,8 +45,11 @@ class HotelList extends StatelessWidget {
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(
+                          height: 120,
+                          width: 200,
+                          isHome: false,
                           placeDocument: recommendationPlace,
-                          placeType: "hotel",
+                          placeType: "Hotels",
                         );
                       }),
                     ),

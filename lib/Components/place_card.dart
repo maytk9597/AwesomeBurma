@@ -2,17 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/detail_screen/detail_screen.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class Place_card extends StatelessWidget {
-  const Place_card({
-    Key key,
-    @required this.placeDocument,
-    @required this.placeType,
-  }) : super(key: key);
+  const Place_card(
+      {Key key,
+      @required this.placeDocument,
+      @required this.placeType,
+      @required this.height,
+      @required this.width,
+      @required this.isHome})
+      : super(key: key);
 
   final DocumentSnapshot placeDocument;
   final String placeType;
+  final bool isHome;
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +27,11 @@ class Place_card extends StatelessWidget {
     bool isHotel = false;
     bool isRestaurant = false;
     bool isAttraction = false;
-    if (placeType == "attraction") {
+    if (placeType == "Attractions") {
       isAttraction = true;
-    } else if (placeType == "hotel") {
+    } else if (placeType == "Hotels") {
       isHotel = true;
-    } else if (placeType == "restaurant") {
+    } else if (placeType == "Restaurants") {
       isRestaurant = true;
     }
     print("${star.runtimeType}  type");
@@ -46,8 +52,8 @@ class Place_card extends StatelessWidget {
       child: Stack(children: [
         Container(
           margin: EdgeInsets.all(10.0),
-          width: getProportionateScreenWidth(130, context),
-          height: getProportionateScreenWidth(180, context),
+          width: getProportionateScreenWidth(width, context),
+          // height: getProportionateScreenWidth(200, context),
           decoration: BoxDecoration(
             // image: DecorationImage(
             //     image: NetworkImage(recommendationPlace['imageUrl']),
@@ -60,11 +66,12 @@ class Place_card extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 // margin: EdgeInsets.all(10.0),
-                width: getProportionateScreenWidth(150, context),
-                height: getProportionateScreenWidth(100, context),
+                width: getProportionateScreenWidth(width, context),
+                height: getProportionateScreenWidth(height, context),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(placeDocument['imageUrl']),
@@ -80,8 +87,8 @@ class Place_card extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    placeDocument['name'],
-                    overflow: TextOverflow.clip,
+                    placeDocument['name'].toString().toUpperCase(),
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
                         fontSize: getProportionateScreenWidth(18, context),
@@ -89,16 +96,20 @@ class Place_card extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   isAttraction
-                      ? Text(
-                          placeDocument['address'],
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontSize:
-                                  getProportionateScreenWidth(15, context),
-                              color: ktextColor,
-                              fontWeight: FontWeight.w400),
-                        )
+                      ? isHome
+                          ? SizedBox(
+                              width: 0,
+                            )
+                          : Text(
+                              placeDocument['type'],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize:
+                                      getProportionateScreenWidth(15, context),
+                                  color: ktextColor,
+                                  fontWeight: FontWeight.w400),
+                            )
                       : isRestaurant
                           ? Text(
                               placeDocument['type'],
@@ -115,7 +126,8 @@ class Place_card extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: List.generate(5, (index) {
-                                        return index < placeDocument['type']
+                                        return index <
+                                                int.parse(placeDocument['type'])
                                             ? Icon(
                                                 Icons.star,
                                                 color: kMainColor,

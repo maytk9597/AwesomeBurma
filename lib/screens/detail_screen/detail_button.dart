@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Detail_button extends StatelessWidget {
@@ -18,11 +18,11 @@ class Detail_button extends StatelessWidget {
     bool isHotel = false;
     bool isRestaurant = false;
     bool isAttraction = false;
-    if (placeType == "attraction") {
+    if (placeType == "Attractions") {
       isAttraction = true;
-    } else if (placeType == "hotel") {
+    } else if (placeType == "Hotels") {
       isHotel = true;
-    } else if (placeType == "restaurant") {
+    } else if (placeType == "Restaurants") {
       isRestaurant = true;
     }
     return isAttraction || isRestaurant
