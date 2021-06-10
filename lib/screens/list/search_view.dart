@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/list/search_screen.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 import 'content_list.dart';
 
 class SearchView extends StatefulWidget {

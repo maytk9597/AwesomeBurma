@@ -1,62 +1,73 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/place_card.dart';
-import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
-import 'package:travel_guide/models/size_config.dart';
 
-class Recommendations extends StatefulWidget {
-  const Recommendations({
+import '../../models/size_config.dart';
+
+class AttractionList extends StatelessWidget {
+  const AttractionList({
     Key key,
+    @required this.cityId,
   }) : super(key: key);
 
-  @override
-  _RecommendationsState createState() => _RecommendationsState();
-}
-
-class _RecommendationsState extends State<Recommendations> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final String cityId;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    print(cityId + " inside Attraction List");
+    // return Container();
+    return StreamBuilder(
         stream: _firestore
-            .collectionGroup('Attractions')
+            .collection('cities')
+            .doc(cityId)
+            .collection('Attractions')
             .where('recommendation', isEqualTo: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print('inside data fetched');
             int length = snapshot.data.docs.length;
-            print("recommendations length = " + length.toString());
-
+            print(snapshot.data.docs.length.toString() +
+                " inside fetch data for attraction");
             return Column(
               children: <Widget>[
                 Row(
-                  children: [SectionTitle(text: 'Recommendations')],
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(15, context),
+                  children: [SectionTitle(text: 'Top Destinations')],
                 ),
 
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: getProportionateScreenHeight(210, context),
+                  height: getProportionateScreenHeight(250, context),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
                     child: Row(
                       children: List.generate(length, (index) {
-                        print("inside list generate");
+                        // _firestore
+                        //     .collection('cities')
+                        //     .doc(cityId)
+                        //     .collection('Attractions')
+                        //     .add({
+                        //   'remark': "Open EveryDay",
+                        //   'description': "",
+                        //   'imageUrl': "",
+                        //   'name': "",
+                        //   'note': "",
+                        //   'openingHours': "7 A.M - 9 P.M ",
+                        //   'ph_no': "Not Available",
+                        //   'type': "",
+                        //   'recommendation': false,
+                        //   'address': "",
+                        // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(
                           height: 120,
                           width: 200,
+                          isHome: false,
                           placeDocument: recommendationPlace,
                           placeType: "Attractions",
-                          isHome: true,
                         );
                       }),
                     ),
@@ -70,8 +81,7 @@ class _RecommendationsState extends State<Recommendations> {
               ],
             );
           } else {
-            //print("no data fetch");
-            return Text('no data fetched');
+            return Center(child: CircularProgressIndicator());
           }
         });
   }

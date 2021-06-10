@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/search_field.dart';
 
-import '../../size_config.dart';
+import '../../models/size_config.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
@@ -19,7 +19,7 @@ class HomeHeader extends StatelessWidget {
         // alignment: Alignment.center,
         children: [
           Container(
-              height: getProportionateScreenHeight(315, context),
+              height: getProportionateScreenHeight(350, context),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
@@ -58,8 +58,9 @@ class HomeHeader extends StatelessWidget {
               Center(
                 child: KtitleText(
                   title: "Awesome Burma",
-                  fontSize: getProportionateScreenHeight(50, context),
+                  fontSize: getProportionateScreenWidth(50, context),
                   color: ktextColor,
+                  // color: Colors.black,
                 ),
               ),
               Center(

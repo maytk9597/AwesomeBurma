@@ -4,7 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 import 'title_card.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 import 'package:provider/provider.dart';
 
 dynamic selectedTitle = 'All';

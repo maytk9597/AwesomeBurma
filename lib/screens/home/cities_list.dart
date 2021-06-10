@@ -4,7 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:travel_guide/Components/city_card.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class Cities_list extends StatefulWidget {
   const Cities_list({
@@ -26,16 +26,17 @@ class _Cities_listState extends State<Cities_list> {
           if (snapshot.hasData) {
             int length = snapshot.data.docs.length;
             print("city length = " + length.toString());
+
             return Column(children: [
               Row(
                 children: [SectionTitle(text: 'Cities')],
               ),
               SizedBox(
-                height: getProportionateScreenHeight(20, context),
+                height: getProportionateScreenHeight(10, context),
               ),
               Container(
                 child: StaggeredGridView.countBuilder(
-                  physics: NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: length,
                     crossAxisSpacing: 4,
@@ -44,12 +45,11 @@ class _Cities_listState extends State<Cities_list> {
                     itemBuilder: (context, index) {
                       print("inside grid view " + index.toString());
                       print("snapshot data " +
-                          snapshot.data.docs[index]['city_name']
-                              .toString());
+                          snapshot.data.docs[index]['city_name'].toString());
                       return City_card(city: snapshot.data.docs[index]);
                     },
                     staggeredTileBuilder: (index) {
-                      return StaggeredTile.count(2, index.isEven ? 2 : 3);
+                      return StaggeredTile.count(2, index.isOdd ? 2 : 2);
                     }),
               )
             ]);

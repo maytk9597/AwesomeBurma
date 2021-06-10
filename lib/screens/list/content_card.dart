@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/screens/detail_screen/detail_screen.dart';
+import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 
 
@@ -9,13 +10,21 @@ class ContentCard extends StatelessWidget {
   ContentCard({@required this.item, this.type});
 
   final DocumentSnapshot item;
-  Text type;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => detail_screen(
+                  placeDocument: item,
+                  placeType: type,
+                )));
+      },
 
       child: Padding(
         padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),

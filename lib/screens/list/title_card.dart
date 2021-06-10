@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 import 'title_list.dart';
 
 

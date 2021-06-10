@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travel_guide/size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -29,6 +28,8 @@ const kContentAddressText = TextStyle(
 // FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // Stream<QuerySnapshot> stream = _firestore.collection('cities').doc(city).
 // collection(type).snapshots();
+
+
 
 class KtitleText extends StatelessWidget {
   KtitleText({
