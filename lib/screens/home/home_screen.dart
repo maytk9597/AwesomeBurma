@@ -3,9 +3,11 @@ import 'package:travel_guide/Components/home_app_bar.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
+import 'package:travel_guide/screens/home/homeScreen_body.dart';
+import 'package:travel_guide/screens/home/homeScreen_favourite.dart';
 import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({Key key}) : super(key: key);
@@ -23,27 +25,15 @@ class _home_screenState extends State<home_screen> {
     });
   }
 
+  var Screen = [HomeScreen_body(), HomeScreen_favourite()];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         // appBar: buildAppBar(context, isTransparent: true),
         drawer: Drawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              HomeHeader(),
-              SizedBox(
-                height: getProportionateScreenHeight(20, context),
-              ),
-              Recommendations(),
-              // SizedBox(
-              //   height: getProportionateScreenHeight(20, context),
-              // ),
-              Cities_list(),
-            ],
-          ),
-        ),
+        body: Screen[_selectedIndex],
         bottomNavigationBar: BubbleBottomBar(
           backgroundColor: Colors.white,
           opacity: 0.7,

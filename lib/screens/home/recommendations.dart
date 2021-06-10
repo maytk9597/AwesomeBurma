@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/place_card.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class Recommendations extends StatefulWidget {
   const Recommendations({
@@ -52,8 +52,11 @@ class _RecommendationsState extends State<Recommendations> {
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(
+                          height: 120,
+                          width: 200,
                           placeDocument: recommendationPlace,
-                          placeType: "attraction",
+                          placeType: "Attractions",
+                          isHome: true,
                         );
                       }),
                     ),

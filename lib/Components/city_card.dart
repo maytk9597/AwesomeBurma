@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/city_detail_screen/city_detail.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class City_card extends StatelessWidget {
   const City_card({
@@ -33,8 +33,7 @@ class City_card extends StatelessWidget {
           //     .collection('Attractions')
           //     .doc()
           //     .update({
-          //   'ph_no': "",
-          //   'remark': "",
+          //   'remark': "Not Available",
           // });
         },
         child: Container(

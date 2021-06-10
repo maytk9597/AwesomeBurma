@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/search_field.dart';
 
-import '../../size_config.dart';
+import '../../models/size_config.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({

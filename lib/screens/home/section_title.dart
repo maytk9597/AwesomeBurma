@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import '../../size_config.dart';
+import '../../models/size_config.dart';
 
 class SectionTitle extends StatelessWidget {
   const SectionTitle({

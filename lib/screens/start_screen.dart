@@ -36,7 +36,7 @@ class _start_screenState extends State<start_screen> {
                       Container(
                         alignment: Alignment.center,
                         child: KtitleText(
-                          title: "Explore Around Burma",
+                          title: "Explore Burma",
                           fontSize: 40.0,
                           color: ktextColor,
                         ),

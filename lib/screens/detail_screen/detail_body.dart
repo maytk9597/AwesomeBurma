@@ -4,7 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:travel_guide/Components/details_description_constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class detailBody extends StatelessWidget {
@@ -21,11 +21,11 @@ class detailBody extends StatelessWidget {
     bool isHotel = false;
     bool isRestaurant = false;
     bool isAttraction = false;
-    if (placeType == "attraction") {
+    if (placeType == "Attractions") {
       isAttraction = true;
-    } else if (placeType == "hotel") {
+    } else if (placeType == "Hotels") {
       isHotel = true;
-    } else if (placeType == "restaurant") {
+    } else if (placeType == "Restaurants") {
       isRestaurant = true;
     }
     return Padding(
@@ -54,14 +54,31 @@ class detailBody extends StatelessWidget {
                         throw 'Could not launch ${placeDocument['note']}';
                       }
                     },
-                    child: Text(
-                      placeDocument['address'],
-                      maxLines: 3,
-                      overflow: TextOverflow.fade,
-                      style: TextStyle(
-                          color: ktextColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: getProportionateScreenWidth(20, context)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Address",
+                          maxLines: 2,
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                              color: ktextColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize:
+                                  getProportionateScreenWidth(20, context)),
+                        ),
+                        Text(
+                          placeDocument['address'],
+                          maxLines: 3,
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                              color: ktextColor,
+                              // fontWeight: FontWeight.w500,
+                              fontSize:
+                                  getProportionateScreenWidth(18, context)),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -115,14 +132,29 @@ class detailBody extends StatelessWidget {
                     print(placeDocument['ph_no']);
                     launch('tel://${placeDocument['ph_no']}');
                   },
-                  child: Text(
-                    placeDocument['ph_no'],
-                    maxLines: 2,
-                    overflow: TextOverflow.fade,
-                    style: TextStyle(
-                        color: ktextColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenWidth(20, context)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Contact Number",
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(
+                            color: ktextColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: getProportionateScreenWidth(20, context)),
+                      ),
+                      Text(
+                        placeDocument['ph_no'],
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(
+                            color: ktextColor,
+                            // fontWeight: FontWeight.w500,
+                            fontSize: getProportionateScreenWidth(18, context)),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -164,7 +196,7 @@ class detailBody extends StatelessWidget {
                             fontSize: getProportionateScreenWidth(18, context)),
                       )
                     : Text(
-                        placeDocument['description'].substring(0, 250) + '...',
+                        placeDocument['description'].substring(0, 100) + '...',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                             color: ktextColor,

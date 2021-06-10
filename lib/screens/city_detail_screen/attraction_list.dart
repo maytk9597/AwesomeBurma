@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/place_card.dart';
 import 'package:travel_guide/screens/home/section_title.dart';
 
-import '../../size_config.dart';
+import '../../models/size_config.dart';
 
 class AttractionList extends StatelessWidget {
   const AttractionList({
@@ -33,10 +33,7 @@ class AttractionList extends StatelessWidget {
             return Column(
               children: <Widget>[
                 Row(
-                  children: [SectionTitle(text: 'Top Attractions in Yangon')],
-                ),
-                SizedBox(
-                  height: 20,
+                  children: [SectionTitle(text: 'Top Destinations')],
                 ),
 
                 Container(
@@ -51,16 +48,26 @@ class AttractionList extends StatelessWidget {
                         //     .collection('cities')
                         //     .doc(cityId)
                         //     .collection('Attractions')
-                        //     .doc(snapshot.data.docs[index].id)
-                        //     .update({
-                        //   'ph_no': "There is no Ph-no for this place",
-                        //   'remark': "Open 24 Hours",
+                        //     .add({
+                        //   'remark': "Open EveryDay",
+                        //   'description': "",
+                        //   'imageUrl': "",
+                        //   'name': "",
+                        //   'note': "",
+                        //   'openingHours': "7 A.M - 9 P.M ",
+                        //   'ph_no': "Not Available",
+                        //   'type': "",
+                        //   'recommendation': false,
+                        //   'address': "",
                         // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(
+                          height: 120,
+                          width: 200,
+                          isHome: false,
                           placeDocument: recommendationPlace,
-                          placeType: "attraction",
+                          placeType: "Attractions",
                         );
                       }),
                     ),
@@ -73,7 +80,6 @@ class AttractionList extends StatelessWidget {
                 // )
               ],
             );
-            ;
           } else {
             return Center(child: CircularProgressIndicator());
           }

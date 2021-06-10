@@ -6,7 +6,7 @@ import 'package:travel_guide/screens/detail_screen/detail_button.dart';
 import 'package:travel_guide/screens/detail_screen/detail_description.dart';
 import 'package:travel_guide/screens/detail_screen/detail_header.dart';
 import 'package:travel_guide/screens/detail_screen/detail_name.dart';
-import 'package:travel_guide/size_config.dart';
+import 'package:travel_guide/models/size_config.dart';
 
 class detail_screen extends StatefulWidget {
   DocumentSnapshot placeDocument;
@@ -29,6 +29,7 @@ class _detail_screenState extends State<detail_screen> {
             children: [
               Detail_header(
                 placeDocument: widget.placeDocument,
+                placeType: widget.placeType,
               ),
               Detail_name(
                 placeDocument: widget.placeDocument,
