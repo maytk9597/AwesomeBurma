@@ -26,7 +26,6 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
       isEmptyList = false;
     // print("${favouri
     // .teList[0].type}");
-
     return isEmptyList
         ? EmptyList()
         : ListView.builder(
@@ -138,7 +137,7 @@ class EmptyList extends StatelessWidget {
           Container(
             width: getProportionateScreenWidth(220, context),
             child: FlatButton(
-                color: kMainColor,
+                color: buttonBackgroundColour,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 onPressed: () {

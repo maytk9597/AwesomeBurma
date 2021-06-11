@@ -28,9 +28,9 @@ class Detail_button extends StatelessWidget {
     return isAttraction || isRestaurant
         ? Container(
             height: 90,
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
             child: FlatButton(
-                color: kMainColor,
+                color: buttonBackgroundColour,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 onPressed: () async {
@@ -57,24 +57,24 @@ class Detail_button extends StatelessWidget {
         : isHotel
             ? Container(
                 height: 90,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
                 child: FlatButton(
-                    color: kMainColor,
+                    color: buttonBackgroundColour,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     onPressed: () async {
-                      print(placeDocument['note']);
-                      if (await canLaunch(placeDocument['note'])) {
-                        await launch(placeDocument['note']);
+                      print(placeDocument['booking']);
+                      if (await canLaunch(placeDocument['booking'])) {
+                        await launch(placeDocument['booking']);
                       } else {
-                        throw 'Could not launch ${placeDocument['note']}';
+                        throw 'Could not launch ${placeDocument['booking']}';
                       }
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 16),
                       alignment: Alignment.center,
                       child: Text(
-                        'Open in Booking.com',
+                        'Book Now',
                         style: TextStyle(
                           fontSize: getProportionateScreenWidth(18, context),
                           color: ktextColor,

@@ -196,7 +196,10 @@ class detailBody extends StatelessWidget {
                             fontSize: getProportionateScreenWidth(18, context)),
                       )
                     : Text(
-                        placeDocument['description'].substring(0, 100) + '...',
+                        placeDocument['description'].length < 100
+                            ? placeDocument['description']
+                            : placeDocument['description'].substring(0, 100) +
+                                '...',
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                             color: ktextColor,

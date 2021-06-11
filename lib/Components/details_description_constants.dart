@@ -49,7 +49,7 @@ Expanded buildHotelTime(BuildContext context, var placeDocument) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Check In/ Check Out Time",
+          "Check In / Check Out Time",
           style: TextStyle(
               fontWeight: FontWeight.w500,
               color: ktextColor,

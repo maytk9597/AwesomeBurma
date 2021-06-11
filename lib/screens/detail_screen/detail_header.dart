@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/screens/detail_screen/detail_screen.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -70,7 +71,7 @@ class _Detail_headerState extends State<Detail_header> {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(20, context)),
+            padding: EdgeInsets.all(getProportionateScreenWidth(15, context)),
             child: Row(
               children: [
                 GestureDetector(
@@ -94,10 +95,14 @@ class _Detail_headerState extends State<Detail_header> {
                 SizedBox(
                   width: getProportionateScreenWidth(26, context),
                 ),
-                IconButton(
-                    icon: Icon(
-                      Icons.bookmark,
-                      color: isFavourite ? Colors.purple : Colors.white,
+
+                RawMaterialButton(
+                    constraints: BoxConstraints(minHeight: 40, minWidth: 40),
+                    fillColor: Colors.white,
+                    shape: new CircleBorder(),
+                    child: Icon(
+                      isFavourite ? Icons.favorite : Icons.favorite_border,
+                      color: kMainColor,
                       // color: Colors.white,
                       size: getProportionateScreenWidth(26, context),
                     ),
@@ -110,32 +115,7 @@ class _Detail_headerState extends State<Detail_header> {
                       print(widget.placeType.toString());
                       print(favouriteList.length.toString());
                       print("add to favourite");
-                      // if (favouriteList.length == 0) {
-                      //   print("There is no data in local file");
-                      //   favouriteList.add(Favourite(
-                      //       id: widget.placeDocument.id.toString(),
-                      //       type: widget.placeType));
-                      //   await writeData(favouriteList);
-                      // } else {
-                      //   for (int i = 0; i < favouriteList.length; i++) {
-                      //     if (favouriteList[i].id == widget.placeDocument.id) {
-                      //       print("same item inside the local file");
-                      //       flag = flag * (-1);
-                      //       index = i;
-                      //       // favouriteList.removeAt(i);
-                      //       // await writeData(favouriteList);
-                      //       // print("After removing data");
-                      //     } else {
-                      //       print("no same item inside the local file");
-                      //       flag = flag * 1;
-                      //       // favouriteList.add(Favourite(
-                      //       //     id: widget.placeDocument.id.toString(),
-                      //       //     type: widget.placeType));
-                      //       // await writeData(favouriteList);
-                      //     }
-                      //   }
 
-                      // }
                       for (int i = 0; i < favouriteList.length; i++) {
                         if (favouriteList[i].id == widget.placeDocument.id) {
                           print("same item inside the local file");

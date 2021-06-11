@@ -5,7 +5,8 @@ import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/list/list_view_screen.dart';
 
 class Build_icon extends StatefulWidget {
-  const Build_icon({Key key, @required this.index,@required this.city}) : super(key: key);
+  const Build_icon({Key key, @required this.index, @required this.city})
+      : super(key: key);
   final int index;
   final String city;
   @override
@@ -20,13 +21,18 @@ class _Build_iconState extends State<Build_icon> {
       onTap: () {
         setState(() {
           selectedIndex = widget.index;
+          Duration(milliseconds: 10);
+          selectedIndex = null;
         });
         print(type[widget.index]);
-        Navigator.push(context,  MaterialPageRoute(builder: (context) => List_View_Screen(
-          city: widget.city,
-          type: type[widget.index].toString(),
-          sub_type: "All",
-        )));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => List_View_Screen(
+                      city: widget.city,
+                      type: type[widget.index].toString(),
+                      sub_type: "All",
+                    )));
       },
       child: Container(
         padding: EdgeInsets.symmetric(

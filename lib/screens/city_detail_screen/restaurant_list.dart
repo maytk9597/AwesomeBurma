@@ -53,7 +53,7 @@ class RestaurantList extends StatelessWidget {
                         //   // 'imageUrl': "",
                         //   // 'name': "",
                         //   // 'note': "",
-                        //   'OpeningHours': "7 A.M - 9 P.M ",
+                        //   'openingHours': "7 A.M - 9 P.M ",
                         //   // 'ph_no': "Not Available",
                         //   // 'type': "",
                         //   // 'recommendation': false,
