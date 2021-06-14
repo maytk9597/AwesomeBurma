@@ -78,14 +78,14 @@ class City_detail_header extends StatelessWidget {
                       name.toUpperCase(),
                       style: TextStyle(
                           fontSize: 50,
-                          color: buttonBackgroundColour,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       type.toUpperCase(),
                       style: TextStyle(
                           fontSize: 20,
-                          color: buttonBackgroundColour,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
                   ],

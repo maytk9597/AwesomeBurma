@@ -48,18 +48,35 @@ class AttractionList extends StatelessWidget {
                         //     .collection('cities')
                         //     .doc(cityId)
                         //     .collection('Attractions')
-                        //     .doc(snapshot.data.docs[index].id)
-                        //     .update({
+                        //     // .doc(snapshot.data.docs[index].id)
+                        //     .add({
                         //   'remark': "Open Everyday",
-                        //   // 'description': "",
-                        //   // 'imageUrl': "",
-                        //   // 'name': "",
-                        //   // 'note': "",
+                        //   'description': "",
+                        //   'imageUrl': "",
+                        //   'name': "",
+                        //   'note': "",
                         //   'openingHours': "7 A.M - 9 P.M ",
                         //   'ph_no': "Not Available",
-                        //   // 'type': "",
-                        //   // 'recommendation': false,
-                        //   // 'address': "",
+                        //   'type': "",
+                        //   'recommendation': false,
+                        //   'address': "",
+                        // });
+                        // _firestore
+                        //     .collection('cities')
+                        //     .doc(cityId)
+                        //     .collection('Restaurants')
+                        //     // .doc(snapshot.data.docs[index].id)
+                        //     .add({
+                        //   'remark': "Open Everyday",
+                        //   'description': "",
+                        //   'imageUrl': "",
+                        //   'name': "",
+                        //   'note': "",
+                        //   'openingHours': "7 A.M - 9 P.M ",
+                        //   'ph_no': "Not Available",
+                        //   'type': "",
+                        //   'recommendation': false,
+                        //   'address': "",
                         // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];

@@ -190,7 +190,7 @@ class detailBody extends StatelessWidget {
                 : isPressed
                     ? Text(
                         placeDocument['description'],
-                        textAlign: TextAlign.justify,
+                        // textAlign: TextAlign.justify,
                         style: TextStyle(
                             color: ktextColor,
                             fontSize: getProportionateScreenWidth(18, context)),
@@ -200,7 +200,7 @@ class detailBody extends StatelessWidget {
                             ? placeDocument['description']
                             : placeDocument['description'].substring(0, 100) +
                                 '...',
-                        textAlign: TextAlign.justify,
+                        // textAlign: TextAlign.justify,
                         style: TextStyle(
                             color: ktextColor,
                             fontSize: getProportionateScreenWidth(18, context)),
