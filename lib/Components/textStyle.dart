@@ -7,8 +7,8 @@ Color kMainColor = Color(0xFFBB83FA);
 Color buttonBackgroundColour = Color(0xFFC6BCEE);
 Color kSecondaryColour = Color(0xFFF4F0FE);
 const double size = 50;
-const contentCardHeight = 150.0;
-const contentCardWidth = 120.0;
+const contentCardHeight = 220.0;
+const contentCardWidth = 350.0;
 //double fSize = getProportionateScreenWidth(15, context);
 
 // font style of the text on the card of the list_view screen
@@ -23,13 +23,6 @@ const kContentAddressText = TextStyle(
     fontWeight: FontWeight.bold,
     color: Color(0xFF53292F),
 );
-
-//Stream<QuerySnapshot> stream2;
-// FirebaseFirestore _firestore = FirebaseFirestore.instance;
-// Stream<QuerySnapshot> stream = _firestore.collection('cities').doc(city).
-// collection(type).snapshots();
-
-
 
 class KtitleText extends StatelessWidget {
   KtitleText({

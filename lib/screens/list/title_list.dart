@@ -25,12 +25,10 @@ class _TitleListState extends State<TitleList> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<dynamic> myList = List<dynamic>();
-
   int t;
 
   @override
   Widget build(BuildContext context) {
-
 
     print('type = ${widget.type}');
 
@@ -83,7 +81,6 @@ class _TitleListState extends State<TitleList> {
               )
             ),
           );
-
         }
         else{
           print("no data  # In TitleList");

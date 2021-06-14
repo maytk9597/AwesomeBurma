@@ -17,51 +17,36 @@ class List_View_Screen extends StatelessWidget {
   final String type;
   final String city;
   final dynamic sub_type;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
+
   @override
   Widget build(BuildContext context) {
 
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   elevation: 0,
-        //   backgroundColor: Colors.white,
-        //   title: Center(child: KtitleText(title: type, fontSize: size, color: ktextColor,)),
-        // ),
-        
+
         body: Column(
           children: <Widget>[
-            Center(child: Text(
-              type,
+            Center(child: Text(type,
               style: TextStyle(
                 fontSize: size,
                 color: ktextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),),
-            //Center(child: KtitleText(title: type, fontSize: size, color: ktextColor,)),
-            //Container(height: getProportionateScreenHeight(80, context),),
+
             SizedBox(height: getProportionateScreenHeight(5, context),),
 
             SearchView(city: city, type: type, search: false,),
 
             SizedBox(height: getProportionateScreenHeight(5, context),),
 
-            TitleList(
-              city: city,
-              type: type +'_type',
-            ),
+            TitleList(city: city, type: type +'_type',),
 
-            ContentList(
-              city: city,
-              type: type,
-              sub_type: Provider.of<StateChanger>(context).sub,
+            ContentList(city: city, type: type, sub_type: Provider.of<StateChanger>(context).sub,
             )
           ],
         ),
       ),
     );
   }
-
 }

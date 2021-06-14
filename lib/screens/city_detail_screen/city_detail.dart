@@ -55,9 +55,7 @@ class _CityDetailsState extends State<CityDetails> {
                       )
                       .toList(),
                 ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20, context),
-                ),
+                SizedBox(height: getProportionateScreenHeight(20, context),),
                 AttractionList(cityId: cityId),
                 HotelList(cityId: cityId),
                 RestaurantList(cityId: cityId),
