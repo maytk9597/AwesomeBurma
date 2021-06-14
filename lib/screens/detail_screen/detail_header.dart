@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/favourite.dart';
+import 'package:travel_guide/models/favouriteButton.dart';
 import 'package:travel_guide/models/heartPainter.dart';
 import 'package:travel_guide/screens/detail_screen/detail_screen.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -32,29 +33,31 @@ class _Detail_headerState extends State<Detail_header> {
     print("${favouriteList.length.toString()}");
   }
 
-  checkFavourite() {
-    int flag = 1;
-    if (favouriteList.isEmpty) {
-      return false;
-    } else {
-      for (int i = 0; i < favouriteList.length; i++) {
-        if (favouriteList[i].id == widget.placeDocument.id) {
-          flag = flag * (-1);
-        } else
-          flag = flag * 1;
-      }
-    }
-    if (flag < 1) {
-      return true;
-    } else
-      return false;
-  }
+  // checkFavourite() {
+  //   int flag = 1;
+  //   if (favouriteList.isEmpty) {
+  //     return false;
+  //   } else {
+  //     for (int i = 0; i < favouriteList.length; i++) {
+  //       if (favouriteList[i].id == widget.placeDocument.id) {
+  //         flag = flag * (-1);
+  //       } else
+  //         flag = flag * 1;
+  //     }
+  //   }
+  //   if (flag < 1) {
+  //     return true;
+  //   } else
+  //     return false;
+  // }
 
   @override
   Widget build(BuildContext context) {
-    bool isFavourite = checkFavourite();
+    // bool isFavourite = checkFavourite();
     StateChanger listChange = Provider.of<StateChanger>(context);
-    print(isFavourite.toString());
+    String id = widget.placeDocument.id;
+    String type = widget.placeType;
+    // print(isFavourite.toString());
 
     return Container(
       width: double.infinity,
@@ -103,63 +106,7 @@ class _Detail_headerState extends State<Detail_header> {
                 SizedBox(
                   width: getProportionateScreenWidth(30, context),
                 ),
-                RawMaterialButton(
-                  onPressed: () async {
-                    await writeData(favouriteList);
-                    await readData();
-                    int index;
-                    int flag = 1;
-                    print(widget.placeDocument.id.toString());
-                    print(widget.placeType.toString());
-                    print(favouriteList.length.toString());
-                    print("add to favourite");
-
-                    for (int i = 0; i < favouriteList.length; i++) {
-                      if (favouriteList[i].id == widget.placeDocument.id) {
-                        print("same item inside the local file");
-                        flag = flag * (-1);
-                        index = i;
-                        // favouriteList.removeAt(i);
-                        // await writeData(favouriteList);
-                        // print("After removing data");
-                      } else {
-                        print("no same item inside the local file");
-                        flag = flag * 1;
-                        // favouriteList.add(Favourite(
-                        //     id: widget.placeDocument.id.toString(),
-                        //     type: widget.placeType));
-                        // await writeData(favouriteList);
-                      }
-                    }
-                    if (flag < 1) {
-                      favouriteList.removeAt(index);
-                      await writeData(favouriteList);
-                      print("After removing data");
-                      setState(() {
-                        isFavourite ? isFavourite = false : isFavourite = true;
-                      });
-                    } else {
-                      favouriteList.add(Favourite(
-                          id: widget.placeDocument.id.toString(),
-                          type: widget.placeType));
-                      await writeData(favouriteList);
-                      setState(() {
-                        isFavourite ? isFavourite = false : isFavourite = true;
-                      });
-                    }
-                    await readData();
-                    listChange.changeFavourite();
-
-                    // setState(() {
-                    //   isFavourite ? isFavourite = false : isFavourite = true;
-                    // });
-                  },
-                  child: CustomPaint(
-                    size: Size(30, 33),
-                    painter: HeartPainter(
-                        fillColor: isFavourite ? kMainColor : Colors.white),
-                  ),
-                )
+                FavouriteButton(id: id, type: type, listChange: listChange)
 
                 // IconButton(
                 //     // constraints: BoxConstraints(minHeight: 40, minWidth: 40),
