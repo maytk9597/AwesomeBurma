@@ -39,8 +39,8 @@ class Place_card extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print('Tap on recommendation');
-        print(placeDocument['imageUrl']);
-        print(placeType.toString());
+        // print(placeDocument['imageUrl']);
+        // print(placeType.toString());
         Navigator.push(
             context,
             MaterialPageRoute(
