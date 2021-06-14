@@ -1,11 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
-import 'package:travel_guide/Components/constants.dart';
-import 'package:travel_guide/screens/list/state_changer.dart';
-import 'package:travel_guide/models/size_config.dart';
-import 'title_list.dart';
 
 import 'content_card.dart';
 
@@ -48,7 +43,6 @@ class _ContentListState extends State<ContentList> {
     return StreamBuilder<QuerySnapshot>(
       stream: stream,
       builder: (context, snapshot){
-        print("again again !!! // length = ${snapshot.data.docs.length}");
         if(snapshot.hasData){
           ContentList.documentSnapshotList.clear();
           //print("???" + snapshot.data.docs[0].data()['type'].toString());
@@ -59,6 +53,7 @@ class _ContentListState extends State<ContentList> {
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
+                dragStartBehavior: DragStartBehavior.start,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

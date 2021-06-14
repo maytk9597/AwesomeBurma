@@ -83,7 +83,6 @@ class _TitleListState extends State<TitleList> {
               )
             ),
           );
-
         }
         else{
           print("no data  # In TitleList");

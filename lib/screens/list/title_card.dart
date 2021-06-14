@@ -27,7 +27,7 @@ class TitleCard extends StatelessWidget {
           height: getProportionateScreenHeight(50, context),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(10.0),
               child: Text(
                 sub_type_name,
                 overflow: TextOverflow.clip,
@@ -43,7 +43,7 @@ class TitleCard extends StatelessWidget {
             //color: kMainColor,
             borderRadius: BorderRadius.circular(10),
             color: selectedTitle == sub_type ? buttonBackgroundColour : kSecondaryColour,
-            //border: Border.all(color: kMainColor),
+            border: Border.all(color: kMainColor),
           ),
         ),
       ),
