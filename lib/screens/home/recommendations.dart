@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,16 @@ class _RecommendationsState extends State<Recommendations> {
             print('inside data fetched');
             int length = snapshot.data.docs.length;
             print("recommendations length = " + length.toString());
+            List<int> rndIndex = [];
+            var rng = new Random();
+            for (var i = 0; i < 7; i++) {
+              int rnd = rng.nextInt(length);
+              if (rndIndex.contains(rnd)) {
+                i--;
+              } else
+                rndIndex.add(rnd);
+            }
+            print("random index Number = ${rndIndex.toString()}");
 
             return Column(
               children: <Widget>[
@@ -47,10 +59,12 @@ class _RecommendationsState extends State<Recommendations> {
                     scrollDirection: Axis.horizontal,
                     physics: BouncingScrollPhysics(),
                     child: Row(
-                      children: List.generate(length, (index) {
+                      children: List.generate(rndIndex.length, (index) {
+                        int indexNumber = rndIndex[index];
+
                         print("inside list generate");
                         DocumentSnapshot recommendationPlace =
-                            snapshot.data.docs[index];
+                            snapshot.data.docs[indexNumber];
                         return Place_card(
                           height: 120,
                           width: 200,

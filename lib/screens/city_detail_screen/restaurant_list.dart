@@ -42,6 +42,23 @@ class RestaurantList extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     child: Row(
                       children: List.generate(length, (index) {
+                        // _firestore
+                        //     .collection('cities')
+                        //     .doc(cityId)
+                        //     .collection('Restaurants')
+                        //     // .doc(snapshot.data.docs[index].id)
+                        //     .add({
+                        //   'remark': "Open Everyday",
+                        //   'description': "",
+                        //   'imageUrl': "",
+                        //   'name': "",
+                        //   'note': "",
+                        //   'openingHours': "7 A.M - 9 P.M ",
+                        //   'ph_no': "Not Available",
+                        //   'type': "",
+                        //   'recommendation': false,
+                        //   'address': "",
+                        // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];
                         return Place_card(

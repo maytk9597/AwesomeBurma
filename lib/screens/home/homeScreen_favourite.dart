@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/place_card.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/models/size_config.dart';
+import 'package:travel_guide/screens/home/empty_favourite_screen.dart';
 import 'package:travel_guide/screens/home/homeScreen_body.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
 
 class HomeScreen_favourite extends StatefulWidget {
   const HomeScreen_favourite({Key key}) : super(key: key);
@@ -16,16 +19,24 @@ class HomeScreen_favourite extends StatefulWidget {
 
 class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
   @override
+  void initState() {
+    // TODO: implement initState
+    readData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bool isEmptyList;
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    readData();
+    StateChanger listChange = Provider.of<StateChanger>(context);
+    // List<Favourite> favListChange = listChange.getFavouriteList;
+    // readData();
+    // listChange.changeFavourite();
     if (favouriteList.isEmpty) {
       isEmptyList = true;
     } else
       isEmptyList = false;
-    // print("${favouri
-    // .teList[0].type}");
 
     return isEmptyList
         ? EmptyList()
@@ -108,58 +119,6 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
           color: Colors.white,
         ),
       ),
-    );
-  }
-}
-
-class EmptyList extends StatelessWidget {
-  const EmptyList({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.close,
-            color: kMainColor,
-            size: getProportionateScreenWidth(40, context),
-          ),
-          Text(
-            "There is No Items in Favourite List",
-            style: TextStyle(
-                color: ktextColor,
-                fontSize: getProportionateScreenWidth(20, context)),
-          ),
-          Container(
-            width: getProportionateScreenWidth(220, context),
-            child: FlatButton(
-                color: kMainColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => home_screen()));
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Let\'s Find Some Favourites',
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(15, context),
-                      color: ktextColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )),
-          ),
-        ],
-      )),
     );
   }
 }

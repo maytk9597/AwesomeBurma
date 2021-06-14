@@ -7,11 +7,11 @@ import 'package:travel_guide/models/size_config.dart';
 class Place_card extends StatelessWidget {
   const Place_card(
       {Key key,
-        @required this.placeDocument,
-        @required this.placeType,
-        @required this.height,
-        @required this.width,
-        @required this.isHome})
+      @required this.placeDocument,
+      @required this.placeType,
+      @required this.height,
+      @required this.width,
+      @required this.isHome})
       : super(key: key);
 
   final DocumentSnapshot placeDocument;
@@ -45,9 +45,9 @@ class Place_card extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => detail_screen(
-                  placeDocument: placeDocument,
-                  placeType: placeType,
-                )));
+                      placeDocument: placeDocument,
+                      placeType: placeType,
+                    )));
       },
       child: Stack(children: [
         Container(
@@ -87,7 +87,7 @@ class Place_card extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    placeDocument['name'].toString().toUpperCase(),
+                    placeDocument['name'].toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
@@ -97,84 +97,84 @@ class Place_card extends StatelessWidget {
                   ),
                   isAttraction
                       ? isHome
-                      ? SizedBox(
-                    width: 0,
-                  )
-                      : Text(
-                    placeDocument['type'],
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize:
-                        getProportionateScreenWidth(15, context),
-                        color: ktextColor,
-                        fontWeight: FontWeight.w400),
-                  )
+                          ? SizedBox(
+                              width: 0,
+                            )
+                          : Text(
+                              placeDocument['type'],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize:
+                                      getProportionateScreenWidth(15, context),
+                                  color: ktextColor,
+                                  fontWeight: FontWeight.w400),
+                            )
                       : isRestaurant
-                      ? Text(
-                    placeDocument['type'],
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize:
-                        getProportionateScreenWidth(15, context),
-                        color: ktextColor,
-                        fontWeight: FontWeight.w400),
-                  )
-                      : isHotel
-                      ? Row(
-                    children: [
-                      Row(
-                        children: List.generate(5, (index) {
-                          return index <
-                              int.parse(placeDocument['type'])
-                              ? Icon(
-                            Icons.star,
-                            color: kMainColor,
-                            size:
-                            getProportionateScreenWidth(
-                                18, context),
-                          )
-                              : Icon(
-                            Icons.star_border,
-                            color: kMainColor,
-                            size:
-                            getProportionateScreenWidth(
-                                18, context),
-                          );
-                        }),
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(
-                            10, context),
-                      ),
-                      Text(
-                        placeDocument['type'].toString(),
-                        style: TextStyle(
-                            color: ktextColor,
-                            fontSize: getProportionateScreenWidth(
-                                18, context)),
-                      ),
-                    ],
-                  )
-                  // List.generate(
-                  //     5,
-                  //     (index) => index > star
-                  //         ? Icon(Icons.star)
-                  //         : Icon(Icons.star_border),
-                  //   )
-                  // ? Text(
-                  //    int myint = int.parse('')
-                  //     placeDocument['name'],
-                  //     overflow: TextOverflow.ellipsis,
-                  //     maxLines: 1,
-                  //     style: TextStyle(
-                  //         fontSize: getProportionateScreenWidth(
-                  //             15, context),
-                  //         color: ktextColor,
-                  //         fontWeight: FontWeight.w400),
-                  //   )
-                      : Text("Sth Wrong")
+                          ? Text(
+                              placeDocument['type'],
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize:
+                                      getProportionateScreenWidth(15, context),
+                                  color: ktextColor,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          : isHotel
+                              ? Row(
+                                  children: [
+                                    Row(
+                                      children: List.generate(5, (index) {
+                                        return index <
+                                                int.parse(placeDocument['type'])
+                                            ? Icon(
+                                                Icons.star,
+                                                color: kMainColor,
+                                                size:
+                                                    getProportionateScreenWidth(
+                                                        18, context),
+                                              )
+                                            : Icon(
+                                                Icons.star_border,
+                                                color: kMainColor,
+                                                size:
+                                                    getProportionateScreenWidth(
+                                                        18, context),
+                                              );
+                                      }),
+                                    ),
+                                    SizedBox(
+                                      width: getProportionateScreenWidth(
+                                          10, context),
+                                    ),
+                                    Text(
+                                      placeDocument['type'].toString(),
+                                      style: TextStyle(
+                                          color: ktextColor,
+                                          fontSize: getProportionateScreenWidth(
+                                              18, context)),
+                                    ),
+                                  ],
+                                )
+                              // List.generate(
+                              //     5,
+                              //     (index) => index > star
+                              //         ? Icon(Icons.star)
+                              //         : Icon(Icons.star_border),
+                              //   )
+                              // ? Text(
+                              //    int myint = int.parse('')
+                              //     placeDocument['name'],
+                              //     overflow: TextOverflow.ellipsis,
+                              //     maxLines: 1,
+                              //     style: TextStyle(
+                              //         fontSize: getProportionateScreenWidth(
+                              //             15, context),
+                              //         color: ktextColor,
+                              //         fontWeight: FontWeight.w400),
+                              //   )
+                              : Text("Sth Wrong")
                 ],
               ),
             ],

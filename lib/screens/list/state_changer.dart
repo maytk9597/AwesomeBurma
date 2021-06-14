@@ -1,13 +1,19 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class StateChanger with ChangeNotifier{
+import 'package:travel_guide/models/favourite.dart';
 
+
+class StateChanger extends ChangeNotifier {
   dynamic sub = 'All';
 
-  void changeState(dynamic newTitle){
+  void changeState(dynamic newTitle) {
     sub = newTitle;
+    notifyListeners();
+  }
+
+  void changeFavourite() {
+    readData();
     notifyListeners();
   }
 }

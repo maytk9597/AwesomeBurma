@@ -32,10 +32,12 @@ class Detail_name extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           isHotel
-              ? Row(
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      placeDocument['name'].toString().toUpperCase(),
+                      placeDocument['name'].toString(),
                       style: TextStyle(
                         color: ktextColor,
                         fontSize: getProportionateScreenWidth(23, context),
@@ -43,25 +45,34 @@ class Detail_name extends StatelessWidget {
                       ),
                     ),
                     Row(
-                      children: List.generate(5, (index) {
-                        return index < int.parse(placeDocument['type'])
-                            ? Icon(
-                                Icons.star,
-                                color: kMainColor,
-                                size: getProportionateScreenWidth(15, context),
-                              )
-                            : Icon(
-                                Icons.star_border,
-                                color: kMainColor,
-                                size: getProportionateScreenWidth(15, context),
-                              );
-                      }),
-                    ),
-                    Text(
-                      placeDocument['type'].toString(),
-                      style: TextStyle(
-                          color: ktextColor,
-                          fontSize: getProportionateScreenWidth(18, context)),
+                      children: [
+                        Row(
+                          children: List.generate(5, (index) {
+                            return index < int.parse(placeDocument['type'])
+                                ? Icon(
+                                    Icons.star,
+                                    color: kMainColor,
+                                    size: getProportionateScreenWidth(
+                                        15, context),
+                                  )
+                                : Icon(
+                                    Icons.star_border,
+                                    color: kMainColor,
+                                    size: getProportionateScreenWidth(
+                                        15, context),
+                                  );
+                          }),
+                        ),
+                        SizedBox(
+                            width: getProportionateScreenWidth(10, context)),
+                        Text(
+                          placeDocument['type'].toString(),
+                          style: TextStyle(
+                              color: ktextColor,
+                              fontSize:
+                                  getProportionateScreenWidth(18, context)),
+                        ),
+                      ],
                     ),
                   ],
                 )
@@ -70,7 +81,7 @@ class Detail_name extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      placeDocument['name'].toString().toUpperCase(),
+                      placeDocument['name'].toString(),
                       style: TextStyle(
                         color: ktextColor,
                         fontSize: getProportionateScreenWidth(23, context),

@@ -32,7 +32,7 @@ class _ContentListState extends State<ContentList> {
 
     if(widget.sub_type == 'All'){
       //print('**** sub_type = all');
-          stream = ContentList.default_stream;
+      stream = ContentList.default_stream;
     }
     else  {
       //print('*** Not all // sub_type = ${widget.sub_type}');
