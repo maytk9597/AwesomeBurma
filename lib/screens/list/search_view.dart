@@ -69,7 +69,6 @@ class _SearchViewState extends State<SearchView> {
           SizedBox(height: getProportionateScreenHeight(20, context),),
           _createSearchView(),
           if(widget.search) _performSearch(), //else Container(height: 400, color: kMainColor,),
-          //if(widget.searchAll) _performSearchAll(),
         ],
       ),
     ): _createSearchView();

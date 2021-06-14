@@ -41,8 +41,6 @@ class TitleCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: selectedTitle == sub_type ? buttonBackgroundColour : kSecondaryColour,
             border: Border.all(color: kMainColor),
-
-
           ),
         ),
       ),

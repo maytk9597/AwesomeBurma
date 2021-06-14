@@ -26,8 +26,6 @@ class SearchScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SearchView(search: true, searchAll: searchAll,),
-
-              //if (SearchView.search_) _performSearch(),
             ],
           ),
         ),
