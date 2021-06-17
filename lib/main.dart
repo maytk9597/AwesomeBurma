@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/splash_screen.dart';
+import 'package:travel_guide/screens/home/home_screen.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 // import 'package:travel_guide/screens/home_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Splash(),
+        home: home_screen(),
       ),
     );
   }
