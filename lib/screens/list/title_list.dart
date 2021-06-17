@@ -7,7 +7,7 @@ import 'title_card.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:provider/provider.dart';
 
-dynamic selectedTitle = 'All';
+
 bool showContainer = false;
 
 class TitleList extends StatefulWidget {
@@ -16,6 +16,8 @@ class TitleList extends StatefulWidget {
 
   final dynamic type;
   String city;
+  static List<dynamic> myList = List<dynamic>();
+  static dynamic selectedTitle = 'All';
 
   @override
   _TitleListState createState() => _TitleListState();
@@ -24,7 +26,7 @@ class TitleList extends StatefulWidget {
 class _TitleListState extends State<TitleList> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<dynamic> myList = List<dynamic>();
+
   int t;
 
   @override
@@ -45,8 +47,8 @@ class _TitleListState extends State<TitleList> {
 
         if(snapshot.hasData){
 
-          myList = snapshot.data.docs[t]['type'];
-          int length = myList.length;
+          TitleList.myList = snapshot.data.docs[t]['type'];
+          int length = TitleList.myList.length;
 
           return Container(
             width: MediaQuery.of(context).size.width,
@@ -56,24 +58,25 @@ class _TitleListState extends State<TitleList> {
                 physics: BouncingScrollPhysics(),
               child: Row(
                 children: List.generate(length, (index){
-                  dynamic title = myList[index];
-                  print(myList[index].runtimeType);
+                  dynamic title = TitleList.myList[index];
+                  print(TitleList.myList[index].runtimeType);
                   dynamic title2;
                   if(widget.type == 'Hotels_type' && title != 'All')
                     title2 = title + ' star';
                   else
                     title2 = title;
-                  //print("title = $title");
                   return TitleCard(
 
                     sub_type: title,
                     sub_type_name: title2,
                     onPress: () {
-                      print("pressed!!!!");
+                      //print("pressed!!!!");
                       Provider.of<StateChanger>(context).changeState(title);
                       setState(() {
-                        selectedTitle = title;
-                        //Provider.of<StateChanger>(context).changeState(title);
+                        if(TitleList.myList.contains(Provider.of<StateChanger>(context).sub))
+                          TitleList.selectedTitle = title;
+                        else
+                          TitleList.selectedTitle = "All";
                       });
                     },
                   );

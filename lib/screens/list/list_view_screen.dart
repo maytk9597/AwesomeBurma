@@ -36,14 +36,16 @@ class List_View_Screen extends StatelessWidget {
 
             SizedBox(height: getProportionateScreenHeight(5, context),),
 
-            SearchView(city: city, type: type, search: false,),
+            SearchView(city: city, type: type, searchType: search_type.search, search: false,),
 
             SizedBox(height: getProportionateScreenHeight(5, context),),
 
             TitleList(city: city, type: type +'_type',),
 
-            ContentList(city: city, type: type, sub_type: Provider.of<StateChanger>(context).sub,
-            )
+            ContentList(city: city, type: type,
+              sub_type: TitleList.myList.contains(Provider.of<StateChanger>(context).sub) ?
+              Provider.of<StateChanger>(context).sub  : "All"),
+
           ],
         ),
       ),

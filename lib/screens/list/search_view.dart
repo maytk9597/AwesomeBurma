@@ -1,19 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/screens/list/item.dart';
 import 'package:travel_guide/screens/list/search_screen.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'content_list.dart';
+enum search_type { search, searchAll}
 
 class SearchView extends StatefulWidget {
-  SearchView({this.city, this.type, this.search, this.searchAll});
+  SearchView({this.city, this.type, this.searchType, this.search, });
 
   final String city;
   final String type;
+  final search_type searchType;
   final bool search;
-  final bool searchAll;
+  //final bool searchAll;
 
   static bool search_;
+  static List<Item> searchList = <Item>[];
+
 
   @override
   _SearchViewState createState() => _SearchViewState();
@@ -39,6 +45,10 @@ class _SearchViewState extends State<SearchView> {
     else{
       print("In search view, list is null");
     }
+    if(SearchView.searchList.length != 0)
+      SearchView.searchList.clear();
+    getAllData();
+
   }
 
   _SearchViewState(){
@@ -62,16 +72,36 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     //widget.search = false;
-    return widget.search ? Expanded(
-      child:  Column(
-        //mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          SizedBox(height: getProportionateScreenHeight(20, context),),
-          _createSearchView(),
-          if(widget.search) _performSearch(), //else Container(height: 400, color: kMainColor,),
-        ],
-      ),
-    ): _createSearchView();
+    //getAllData();
+    if(widget.searchType == search_type.search){
+      return widget.search ? Expanded(
+        child:  Column(
+          //mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SizedBox(height: getProportionateScreenHeight(20, context),),
+            _createSearchView(),
+            _performSearch(),
+            // if(widget.search) _performSearch(),
+            // if(widget.searchAll) _performSearchAll(_query)//else Container(height: 400, color: kMainColor,),
+          ],
+        ),
+      ):_createSearchView();
+    }
+    else if(widget.searchType == search_type.searchAll){
+      return widget.search ? Expanded(
+        child:  Column(
+          //mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            SizedBox(height: getProportionateScreenHeight(20, context),),
+            _createSearchView(),
+            _performSearchAll(),
+            // if(widget.search) _performSearch(),
+            // if(widget.searchAll) _performSearchAll(_query)//else Container(height: 400, color: kMainColor,),
+          ],
+        ),
+      ):_createSearchView();
+    }
+     return Text("wrong Type");
   }
 
   Widget _performSearch() {
@@ -92,31 +122,52 @@ class _SearchViewState extends State<SearchView> {
     return _filteredListView();
   }
 
-  // Widget _performSearchAll(){
-  //   FirebaseFirestore _firebase = FirebaseFirestore.instance;
-  //   return StreamBuilder<QuerySnapshot>(
-  //     //stream: _firebase.collection('cities').snapshots(),
-  //     builder: (context, snapshot){
-  //       if(snapshot.hasData){
-  //         int length = snapshot.data.docs.length;
-  //         List.generate(length, (index){
-  //           String city = snapshot.data.docs[index]['city_name'];
-  //           return StreamBuilder<QuerySnapshot>(
-  //             stream: _firebase.collection('cities').doc(city).collection(collectionPath),
-  //             builder: (context, snapshot2){
-  //               if(snapshot2.hasData)
-  //             },
-  //           );
-  //         });
-  //       }
-  //       else{
-  //         return Text("no data");
-  //       }
-  //     },
-  //   );
-  //
-  //   return _filteredListView();
-  // }
+  void getAllData() async{
+    //SearchView.searchList.clear();
+    FirebaseFirestore _firebase = FirebaseFirestore.instance;
+    var attractions = await _firebase.collectionGroup('Attractions').get();
+    var hotels = await _firebase.collectionGroup('Hotels').get();
+    var restaurants = await _firebase.collectionGroup('Restaurants').get();
+    int a_length = attractions.docs.length;
+    int h_length = hotels.docs.length;
+    int r_length = restaurants.docs.length;
+    print("length of attractions = $a_length");
+    print("length of hotels = $h_length");
+    print("length of restaruants = $r_length");
+    print("total length = ${a_length + h_length + r_length}");
+    for(int i = 0 ; i < a_length ; i++){
+      SearchView.searchList.add(Item(data: attractions.docs[i], type: 'Attractions'));
+      //print("Attraction name = ${attractions.docs[i]['name'].toString()}");
+    }
+    for(int i = 0 ; i < h_length ; i++){
+      SearchView.searchList.add(Item(data: hotels.docs[i], type: 'Hotels'));
+    }
+    for(int i = 0 ; i < r_length ; i++){
+      SearchView.searchList.add(Item(data: restaurants.docs[i], type: 'Restaurants'));
+    }
+    print("Search view list lenght 1 = ${SearchView.searchList.length}");
+  }
+
+  Widget _performSearchAll(){
+
+    _filterList = new List<DocumentSnapshot>();
+    int length = SearchView.searchList.length;
+    print("Search view list length 2 = $length");
+
+    if(_query == "") _filterList.clear();
+
+    for(int i = 0; i < length; i++){
+      DocumentSnapshot item = SearchView.searchList[i].data;
+
+      if(item.data()['name'].toString().toLowerCase().contains(_query.toLowerCase())){
+        _filterList.add(item);
+      }
+    }
+    if(_query == "") _filterList.clear();
+    print("length of filter list = ${_filterList.length}");
+
+    return _filteredListView();
+  }
 
   Widget _filteredListView(){
     if(widget.search)
@@ -124,15 +175,21 @@ class _SearchViewState extends State<SearchView> {
       child: ListView.builder(
           itemCount: _filterList.length,
           itemBuilder: (context, index){
-            return GestureDetector(
-
+            return Card(
               //color: Colors.white60,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: getProportionateScreenHeight(25, context),
-                  child: Text(_filterList[index].data()['name'],
-                    style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),
+                  height: getProportionateScreenHeight(60, context),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(_filterList[index].data()['name'],
+                        style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),
+                      ),
+                      Text(_filterList[index].data()['address'], overflow: TextOverflow.clip, maxLines: 1,
+                        style: TextStyle(fontSize: getProportionateScreenWidth(14, context), color: Colors.grey)),
+                    ],
                   ),
                 ),
               ),
@@ -145,40 +202,56 @@ class _SearchViewState extends State<SearchView> {
   Widget _createSearchView() {
     //bool enable = false;
     return Container(
-        width: getProportionateScreenWidth(300, context),
-        height: getProportionateScreenHeight(50, context),
+        width: getProportionateScreenWidth(313, context),
+        height: getProportionateScreenHeight(60, context),
         decoration: BoxDecoration(
-          border: Border.all(color: ktextColor, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            // color: Color(0xFF3E4067),
+              color: kMainColor,
+              width: getProportionateScreenWidth(2, context)),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(3, 3),
+              blurRadius: 10,
+              color: Colors.black.withOpacity(0.16),
+              spreadRadius: -2,
+            )
+          ],
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8, top: 10),
-          child: TextField(
-            onTap: (){
-              if(widget.search == false){
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => SearchScreen()));
-              }
-              print("click the text field");
-              setState(() {});
-            },
-            focusNode: FocusNode(),
-            enableInteractiveSelection: false,
-            cursorColor: ktextColor,
-            controller: _searchView,
-            style: TextStyle(
-              //height: getProportionateScreenHeight(2, context),// cursor height
-              fontSize: getProportionateScreenWidth(18, context),
-              color: Colors.black,
-            ),
-            decoration: InputDecoration(
-              focusColor: ktextColor,
-              border: InputBorder.none,
-              hintText: "Search",
-              hintStyle: new TextStyle(color: ktextColor, fontSize: 20),
-            ),
-            textAlign: TextAlign.left,
+        child: TextField(
+          onTap: (){
+            if(widget.search == false){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => SearchScreen(searchType: widget.searchType,)));
+            }
+            print("click the text field");
+            setState(() {});
+          },
+          cursorColor: ktextColor,
+          controller: _searchView,
+          style: TextStyle(
+            //height: getProportionateScreenHeight(2, context),// cursor height
+            fontSize: getProportionateScreenWidth(18, context),
+            color: Colors.black,
           ),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "Search your destination…",
+            hintStyle: TextStyle(
+                fontSize: getProportionateScreenWidth(18, context),
+                color: ktextColor),
+            suffixIcon: Icon(
+              Icons.search,
+              color: kMainColor,
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(20, context),
+              vertical: getProportionateScreenWidth(10, context),
+            ),
+          ),
+          textAlign: TextAlign.left,
         )
     );
   }

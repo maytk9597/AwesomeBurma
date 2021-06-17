@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/list/list_view_screen.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
+import 'package:travel_guide/screens/list/title_list.dart';
 
 class Build_icon extends StatefulWidget {
   const Build_icon({Key key, @required this.index, @required this.city})
@@ -19,6 +22,8 @@ class _Build_iconState extends State<Build_icon> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        TitleList.selectedTitle = "All";
+        Provider.of<StateChanger>(context).changeState(TitleList.selectedTitle);
         setState(() {
           selectedIndex = widget.index;
           Duration(milliseconds: 10);
@@ -31,7 +36,7 @@ class _Build_iconState extends State<Build_icon> {
                 builder: (context) => List_View_Screen(
                       city: widget.city,
                       type: type[widget.index].toString(),
-                      sub_type: "All",
+                      sub_type: TitleList.selectedTitle,
                     )));
       },
       child: Container(
