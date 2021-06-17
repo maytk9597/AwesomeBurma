@@ -34,6 +34,20 @@ class _Cities_listState extends State<Cities_list> {
               SizedBox(
                 height: getProportionateScreenHeight(10, context),
               ),
+              // Container(
+              //     child: Wrap(
+              //         spacing: 8, //vertical spacing
+              //         runSpacing: 8, //horizontal spacing
+              //         alignment: WrapAlignment.center,
+              //         crossAxisAlignment: WrapCrossAlignment.center,
+              //         children: [
+              //       ListView.builder(
+              //         itemCount: length,
+              //         itemBuilder: (context, index) {
+              //           return City_card(city: snapshot.data.docs[index]);
+              //         },
+              //       ),
+              //     ]))
               Container(
                 child: StaggeredGridView.countBuilder(
                     physics: NeverScrollableScrollPhysics(),
@@ -49,7 +63,14 @@ class _Cities_listState extends State<Cities_list> {
                       return City_card(city: snapshot.data.docs[index]);
                     },
                     staggeredTileBuilder: (index) {
-                      return StaggeredTile.count(2, index.isOdd ? 2 : 2);
+                      bool lastIndex = false;
+                      if (index == length - 1 && length.isOdd)
+                        lastIndex = true;
+                      else
+                        lastIndex = false;
+
+                      return StaggeredTile.count(
+                          lastIndex ? 4 : 2, index.isOdd ? 2 : 2.5);
                     }),
               )
             ]);
