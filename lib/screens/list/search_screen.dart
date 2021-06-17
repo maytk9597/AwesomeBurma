@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/screens/home/search_field.dart';
 import 'package:travel_guide/screens/list/search_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'content_list.dart';
 import 'content_card.dart';
+import 'search_view.dart';
 import 'search_view.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -11,8 +13,10 @@ class SearchScreen extends StatelessWidget {
   List <dynamic> _list = <dynamic>[];
   List<DocumentSnapshot> _filterList = <DocumentSnapshot>[];
 
-  SearchScreen({this.searchAll});
+  SearchScreen({this.searchAll, this.searchType});
   final bool searchAll;
+  final search_type searchType;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,8 @@ class SearchScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SearchView(search: true, searchAll: searchAll,),
+              SearchView(search: true, searchType: searchType,),
+              //SearchField(),
             ],
           ),
         ),

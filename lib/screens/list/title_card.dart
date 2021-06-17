@@ -39,7 +39,7 @@ class TitleCard extends StatelessWidget {
           decoration: BoxDecoration(
             //color: kMainColor,
             borderRadius: BorderRadius.circular(10),
-            color: selectedTitle == sub_type ? buttonBackgroundColour : kSecondaryColour,
+            color: TitleList.selectedTitle == sub_type ? buttonBackgroundColour : kSecondaryColour,
             border: Border.all(color: kMainColor),
           ),
         ),

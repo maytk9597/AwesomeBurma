@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/home/search_field.dart';
+import 'package:travel_guide/screens/list/search_view.dart';
 
 import '../../models/size_config.dart';
 
@@ -82,10 +83,13 @@ class HomeHeader extends StatelessWidget {
           Positioned.fill(
             // bottom: getProportionateScreenWidth(-300, context),
             bottom: -280,
-            child: Align(alignment: Alignment.center, child: SearchField()),
+            child: Align(alignment: Alignment.center,
+                child: SearchView(search: false, searchType: search_type.searchAll,)),
           )
         ],
       ),
     );
   }
 }
+
+// SearchView(search: false, searchAll: true,)

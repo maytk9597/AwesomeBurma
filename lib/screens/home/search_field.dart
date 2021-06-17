@@ -29,6 +29,7 @@ class SearchField extends StatelessWidget {
         ],
       ),
       child: TextField(
+        onTap: () {},
         cursorColor: kMainColor,
         onChanged: (value) {},
         decoration: InputDecoration(
@@ -46,6 +47,7 @@ class SearchField extends StatelessWidget {
             vertical: getProportionateScreenWidth(10, context),
           ),
         ),
+        textAlign: TextAlign.left,
       ),
     );
   }

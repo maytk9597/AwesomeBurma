@@ -34,13 +34,13 @@ class Place_card extends StatelessWidget {
     } else if (placeType == "Restaurants") {
       isRestaurant = true;
     }
-    print("${star.runtimeType}  type");
+    // print("${star.runtimeType}  type");
 
     return GestureDetector(
       onTap: () {
-        print('Tap on recommendation');
-        print(placeDocument['imageUrl']);
-        print(placeType.toString());
+        // print('Tap on recommendation');
+        // print(placeDocument['imageUrl']);
+        // print(placeType.toString());
         Navigator.push(
             context,
             MaterialPageRoute(
