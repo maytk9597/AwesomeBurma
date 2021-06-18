@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/fade_animation.dart';
@@ -124,6 +125,16 @@ class LoginScreen extends StatelessWidget {
                                 if (validate == false) {
                                   return null;
                                 } else {
+                                  User currentUser =
+                                      FirebaseAuth.instance.currentUser;
+                                  if (currentUser != null) {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                home_screen()));
+                                  }
+
                                   print(
                                       "Login ------------ > email $email Password $password");
                                 }

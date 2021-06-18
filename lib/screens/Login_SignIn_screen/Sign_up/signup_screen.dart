@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/fade_animation.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/components/makeInputField.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
+import 'package:travel_guide/screens/home/home_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -25,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -114,11 +117,36 @@ class SignUpScreen extends StatelessWidget {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: getProportionateScreenHeight(70, context),
-                          onPressed: () {
+                          onPressed: () async {
                             validateAndSave();
                             if (validate == false) {
                               return null;
                             } else {
+                              try {
+                                final new_user = await FirebaseAuth.instance
+                                    .createUserWithEmailAndPassword(
+                                        email: email, password: password);
+                                if (new_user != null) {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => home_screen()));
+                                }
+                              } catch (e) {
+                                print(e);
+                              }
+                              //                             FirebaseAuth.getInstance()
+                              // .createUserWithEmailAndPassword(email, password)
+                              // .addOnCompleteListener(this, { task: Task<AuthResult> ->
+                              //   // Receive response from Firebase Console
+                              // })
+                              // .addOnSuccessListener(this, { authResult: AuthResult? ->
+                              //   // Account has been created
+                              //   val currentUser = FirebaseAuth.getInstance().currentUser
+                              // })
+                              // .addOnFailureListener(this, { exception: Exception ->
+                              //   // New account cannot be created and exception is thrown
+                              // })
                               //                             FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
                               //    try {
                               //       await user.sendEmailVerification();
