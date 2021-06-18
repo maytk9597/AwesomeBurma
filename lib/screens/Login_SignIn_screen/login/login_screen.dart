@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/fade_animation.dart';
 import 'package:travel_guide/models/size_config.dart';
+import 'package:travel_guide/screens/Login_SignIn_screen/Sign_up/signup_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/components/makeInputField.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _email;
-  String _password;
+  String password;
+  String email;
+  bool validate;
 
   void validateAndSave() {
     final FormState form = _formKey.currentState;
+
     if (form.validate()) {
       print('Form is valid');
+      validate = true;
     } else {
       print('Form is invalid');
+      validate = false;
     }
   }
 
@@ -84,7 +89,9 @@ class LoginScreen extends StatelessWidget {
                                 label: "Email",
                                 obscureText: false,
                                 onChanged: (text) {
-                                  print("Email = " + text);
+                                  email = text;
+
+                                  // print("Email = " + text);
                                 },
                               )),
                           FadeAnimation(
@@ -93,7 +100,8 @@ class LoginScreen extends StatelessWidget {
                                 label: "Password",
                                 obscureText: true,
                                 onChanged: (text) {
-                                  print("Password = " + text);
+                                  password = text;
+                                  // print("Password = " + text);
                                 },
                               )),
                         ],
@@ -110,9 +118,15 @@ class LoginScreen extends StatelessWidget {
                                 border: Border.all(color: ktextColor)),
                             child: MaterialButton(
                               minWidth: double.infinity,
-                              height: 60,
+                              height: getProportionateScreenHeight(70, context),
                               onPressed: () {
                                 validateAndSave();
+                                if (validate == false) {
+                                  return null;
+                                } else {
+                                  print(
+                                      "Login ------------ > email $email Password $password");
+                                }
                               },
                               color: kMainColor,
                               elevation: 0,
@@ -134,42 +148,28 @@ class LoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text("Don't have an account?"),
-                            Text(
-                              "Sign up",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignUpScreen()));
+                              },
+                              child: Text(
+                                "Sign up",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 18),
+                              ),
                             ),
                           ],
                         ))
                   ],
                 ),
               ),
-              // FadeAnimation(
-              //     1.2,
-              //     Container(
-              //       height: MediaQuery.of(context).size.height / 3,
-              //       decoration: BoxDecoration(
-              //           image: DecorationImage(
-              //               image: AssetImage('assets/background.png'),
-              //               fit: BoxFit.cover)),
-              //     ))
             ],
           ),
         ),
       ),
-      // body: new Center(
-      //   child: Column(
-      //     children: [
-      //       new Text('This is the Login Screen'),
-      //       FlatButton(
-      //           onPressed: () {
-      //             Navigator.of(context).pushReplacement(new MaterialPageRoute(
-      //                 builder: (context) => new home_screen()));
-      //           },
-      //           child: Text("To Home Screen"))
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

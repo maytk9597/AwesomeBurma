@@ -10,7 +10,9 @@ class makeInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RegExp emailRegex = new RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -26,17 +28,33 @@ class makeInput extends StatelessWidget {
           onChanged: onChanged,
           obscureText: obscureText,
           validator: (value) {
-            if (value.isEmpty) {
-              return '$label cannot be blank';
-            }
             if (label == 'Email') {
-              if (emailRegex.hasMatch(value)) {
-                return 'Enter a Valid Email';
+              if (value.isEmpty) {
+                return '$label cannot be blank';
+              } else {
+                if (!emailRegex.hasMatch(value)) {
+                  return 'Enter a valid email';
+                }
               }
-            }
-            if (label == 'Password') {
-              if (value.length < 6) {
-                return 'Password Length must be at least 6 characters long';
+
+              // if (emailRegex.hasMatch(value)) {
+              //   return 'Enter a Valid Email';
+              // }
+              // } else {
+              //   if (value.length < 6) {
+              //     return 'Password Length must be at least 6 characters long';
+              //   }
+            } else if (label == 'Password') {
+              if (value.isEmpty) {
+                return '$label cannot be blank';
+              } else {
+                if (value.length < 6) {
+                  return 'Password Length must be at least 6 characters long';
+                }
+              }
+            } else {
+              if (value.isEmpty) {
+                return '$label cannot be blank';
               }
             }
           },
