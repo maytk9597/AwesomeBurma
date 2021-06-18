@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/buildIcon.dart';
 import 'package:travel_guide/Components/constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import 'package:travel_guide/screens/city_detail_screen/attraction_list.dart';
+import 'package:travel_guide/screens/city_detail_screen/top_place_list.dart';
 import 'package:travel_guide/screens/city_detail_screen/city_detail_header.dart';
-import 'package:travel_guide/screens/city_detail_screen/hotel_list.dart';
-import 'package:travel_guide/screens/city_detail_screen/restaurant_list.dart';
 
 import '../../models/size_config.dart';
 
@@ -55,10 +53,21 @@ class _CityDetailsState extends State<CityDetails> {
                       )
                       .toList(),
                 ),
-                SizedBox(height: getProportionateScreenHeight(20, context),),
-                AttractionList(cityId: cityId),
-                HotelList(cityId: cityId),
-                RestaurantList(cityId: cityId),
+                SizedBox(
+                  height: getProportionateScreenHeight(20, context),
+                ),
+                TopPlacesList(
+                  cityId: cityId,
+                  type: "Attractions",
+                ),
+                TopPlacesList(
+                  cityId: cityId,
+                  type: "Hotels",
+                ),
+                TopPlacesList(
+                  cityId: cityId,
+                  type: "Restaurants",
+                ),
               ],
             ),
           ),

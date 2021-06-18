@@ -33,31 +33,11 @@ class _Detail_headerState extends State<Detail_header> {
     print("${favouriteList.length.toString()}");
   }
 
-  // checkFavourite() {
-  //   int flag = 1;
-  //   if (favouriteList.isEmpty) {
-  //     return false;
-  //   } else {
-  //     for (int i = 0; i < favouriteList.length; i++) {
-  //       if (favouriteList[i].id == widget.placeDocument.id) {
-  //         flag = flag * (-1);
-  //       } else
-  //         flag = flag * 1;
-  //     }
-  //   }
-  //   if (flag < 1) {
-  //     return true;
-  //   } else
-  //     return false;
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // bool isFavourite = checkFavourite();
     StateChanger listChange = Provider.of<StateChanger>(context);
     String id = widget.placeDocument.id;
     String type = widget.placeType;
-    // print(isFavourite.toString());
 
     return Container(
       width: double.infinity,
@@ -107,71 +87,6 @@ class _Detail_headerState extends State<Detail_header> {
                   width: getProportionateScreenWidth(30, context),
                 ),
                 FavouriteButton(id: id, type: type, listChange: listChange)
-
-                // IconButton(
-                //     // constraints: BoxConstraints(minHeight: 40, minWidth: 40),
-                //     // fillColor: Colors.white,
-                //     // shape: new CircleBorder(),
-
-                //     icon: Icon(
-                //       isFavourite ? Icons.favorite : Icons.favorite_border,
-                //       color: kMainColor,
-                //       // color: Colors.white,
-                //       size: getProportionateScreenWidth(26, context),
-                //     ),
-                //     onPressed: () async {
-                //       await writeData(favouriteList);
-                //       await readData();
-                //       int index;
-                //       int flag = 1;
-                //       print(widget.placeDocument.id.toString());
-                //       print(widget.placeType.toString());
-                //       print(favouriteList.length.toString());
-                //       print("add to favourite");
-
-                //       for (int i = 0; i < favouriteList.length; i++) {
-                //         if (favouriteList[i].id == widget.placeDocument.id) {
-                //           print("same item inside the local file");
-                //           flag = flag * (-1);
-                //           index = i;
-                //           // favouriteList.removeAt(i);
-                //           // await writeData(favouriteList);
-                //           // print("After removing data");
-                //         } else {
-                //           print("no same item inside the local file");
-                //           flag = flag * 1;
-                //           // favouriteList.add(Favourite(
-                //           //     id: widget.placeDocument.id.toString(),
-                //           //     type: widget.placeType));
-                //           // await writeData(favouriteList);
-                //         }
-                //       }
-                //       if (flag < 1) {
-                //         favouriteList.removeAt(index);
-                //         await writeData(favouriteList);
-                //         print("After removing data");
-                //         setState(() {
-                //           isFavourite
-                //               ? isFavourite = false
-                //               : isFavourite = true;
-                //         });
-                //       } else {
-                //         favouriteList.add(Favourite(
-                //             id: widget.placeDocument.id.toString(),
-                //             type: widget.placeType));
-                //         await writeData(favouriteList);
-                //         setState(() {
-                //           isFavourite
-                //               ? isFavourite = false
-                //               : isFavourite = true;
-                //         });
-                //       }
-                //       await readData();
-
-                //       // setState(() {
-                //       //   isFavourite ? isFavourite = false : isFavourite = true;
-                //       // });
-                //     })
               ],
             ),
           ),
