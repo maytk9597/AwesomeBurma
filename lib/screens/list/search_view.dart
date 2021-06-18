@@ -57,15 +57,15 @@ class _SearchViewState extends State<SearchView> {
         print("EMPTY empty empty empty empty");
         setState(() {
           _firstSearch = false;
-           _query = "";
+          _query = "";
         });
       }
       else
         SearchView.search_ = true;
-        setState(() {
-          _firstSearch = true;
-          _query = _searchView.text;
-        });
+      setState(() {
+        _firstSearch = true;
+        _query = _searchView.text;
+      });
     });
   }
 
@@ -79,13 +79,13 @@ class _SearchViewState extends State<SearchView> {
           //mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             SizedBox(height: getProportionateScreenHeight(20, context),),
-            _createSearchView(),
+            _createSearchView(true),
             _performSearch(),
             // if(widget.search) _performSearch(),
             // if(widget.searchAll) _performSearchAll(_query)//else Container(height: 400, color: kMainColor,),
           ],
         ),
-      ):_createSearchView();
+      ):_createSearchView(false);
     }
     else if(widget.searchType == search_type.searchAll){
       return widget.search ? Expanded(
@@ -93,15 +93,15 @@ class _SearchViewState extends State<SearchView> {
           //mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             SizedBox(height: getProportionateScreenHeight(20, context),),
-            _createSearchView(),
+            _createSearchView(true),
             _performSearchAll(),
             // if(widget.search) _performSearch(),
             // if(widget.searchAll) _performSearchAll(_query)//else Container(height: 400, color: kMainColor,),
           ],
         ),
-      ):_createSearchView();
+      ):_createSearchView(false);
     }
-     return Text("wrong Type");
+    return Text("wrong Type");
   }
 
   Widget _performSearch() {
@@ -171,35 +171,35 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _filteredListView(){
     if(widget.search)
-    return Flexible(
-      child: ListView.builder(
-          itemCount: _filterList.length,
-          itemBuilder: (context, index){
-            return Card(
-              //color: Colors.white60,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: getProportionateScreenHeight(60, context),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(_filterList[index].data()['name'],
-                        style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),
-                      ),
-                      Text(_filterList[index].data()['address'], overflow: TextOverflow.clip, maxLines: 1,
-                        style: TextStyle(fontSize: getProportionateScreenWidth(14, context), color: Colors.grey)),
-                    ],
+      return Flexible(
+        child: ListView.builder(
+            itemCount: _filterList.length,
+            itemBuilder: (context, index){
+              return Card(
+                //color: Colors.white60,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: getProportionateScreenHeight(60, context),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(_filterList[index].data()['name'],
+                          style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),
+                        ),
+                        Text(_filterList[index].data()['address'], overflow: TextOverflow.clip, maxLines: 1,
+                            style: TextStyle(fontSize: getProportionateScreenWidth(14, context), color: Colors.grey)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }
-      ),
-    );
+              );
+            }
+        ),
+      );
   }
 
-  Widget _createSearchView() {
+  Widget _createSearchView(bool active) {
     //bool enable = false;
     return Container(
         width: getProportionateScreenWidth(313, context),
@@ -209,7 +209,7 @@ class _SearchViewState extends State<SearchView> {
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
             // color: Color(0xFF3E4067),
-              color: kMainColor,
+              color: ktextColor,
               width: getProportionateScreenWidth(2, context)),
           boxShadow: [
             BoxShadow(
@@ -220,38 +220,39 @@ class _SearchViewState extends State<SearchView> {
             )
           ],
         ),
-        child: TextField(
+        child: GestureDetector(
           onTap: (){
-            if(widget.search == false){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => SearchScreen(searchType: widget.searchType,)));
-            }
-            print("click the text field");
-            setState(() {});
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => SearchScreen(searchType: widget.searchType,)));
+            print("click the button behind text field");
           },
-          cursorColor: ktextColor,
-          controller: _searchView,
-          style: TextStyle(
-            //height: getProportionateScreenHeight(2, context),// cursor height
-            fontSize: getProportionateScreenWidth(18, context),
-            color: Colors.black,
-          ),
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: "Search your destination…",
-            hintStyle: TextStyle(
-                fontSize: getProportionateScreenWidth(18, context),
-                color: ktextColor),
-            suffixIcon: Icon(
-              Icons.search,
-              color: kMainColor,
+          child: TextField(
+
+            enabled: active,
+            cursorColor: ktextColor,
+            controller: _searchView,
+            style: TextStyle(
+              //height: getProportionateScreenHeight(2, context),// cursor height
+              fontSize: getProportionateScreenWidth(18, context),
+              color: Colors.black,
             ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: getProportionateScreenWidth(20, context),
-              vertical: getProportionateScreenWidth(10, context),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: "Search your destination…",
+              hintStyle: TextStyle(
+                  fontSize: getProportionateScreenWidth(18, context),
+                  color: ktextColor),
+              suffixIcon: Icon(
+                Icons.search,
+                color: ktextColor,
+              ),
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20, context),
+                vertical: getProportionateScreenWidth(10, context),
+              ),
             ),
+            textAlign: TextAlign.left,
           ),
-          textAlign: TextAlign.left,
         )
     );
   }

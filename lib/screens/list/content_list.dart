@@ -1,6 +1,11 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
+//import 'package:travel_guide/size_config.dart';
+import 'title_list.dart';
+
 import 'content_card.dart';
 
 class ContentList extends StatefulWidget {
@@ -11,12 +16,11 @@ class ContentList extends StatefulWidget {
   final String type;
   dynamic sub_type;
 
-  static Stream<QuerySnapshot> default_stream;
+  static var default_stream;
   static List<DocumentSnapshot> documentSnapshotList = <DocumentSnapshot>[];
 
   @override
   _ContentListState createState() => _ContentListState();
-
 }
 
 class _ContentListState extends State<ContentList> {
@@ -25,45 +29,52 @@ class _ContentListState extends State<ContentList> {
   @override
   Widget build(BuildContext context) {
 
-    Stream<QuerySnapshot> stream;
     ContentList.default_stream = _firestore.collection('cities').doc(widget.city).
     collection(widget.type).snapshots();
-
-    if(widget.sub_type == 'All'){
-      //print('**** sub_type = all');
-      stream = ContentList.default_stream;
-    }
-    else  {
-      //print('*** Not all // sub_type = ${widget.sub_type}');
-      stream = _firestore.collection('cities').doc(widget.city).
-      collection(widget.type).where('type', isEqualTo: widget.sub_type.toString()).snapshots();
-    }
+    List<DocumentSnapshot> newList = List <DocumentSnapshot>();
+    // if(widget.sub_type == 'All'){
+    //   //print('**** sub_type = all');
+    //   stream = ContentList.default_stream;
+    // }
+    // else  {
+    //   //print('*** Not all // sub_type = ${widget.sub_type}');
+    //   stream = _firestore.collection('cities').doc(widget.city).
+    //   collection(widget.type).where('type', isEqualTo: widget.sub_type.toString()).snapshots();
+    // }
 
     return StreamBuilder<QuerySnapshot>(
-      stream: stream,
+      stream: ContentList.default_stream,
       builder: (context, snapshot){
         if(snapshot.hasData){
           ContentList.documentSnapshotList.clear();
-          //print("???" + snapshot.data.docs[0].data()['type'].toString());
           int length = snapshot.data.docs.length;
           print("length = $length");//print(snapshot.data.docs[0]['name']);
-          //print("first item is =  " + snapshot.data.docs[0].data()['name'].toString());
+
+          for(int i = 0 ; i < length; i ++){
+            if(widget.sub_type != "All"){
+              if(snapshot.data.docs[i]['type'] == widget.sub_type){
+                newList.add(snapshot.data.docs[i]);
+              }
+            }
+            else
+              newList.add(snapshot.data.docs[i]);
+            ContentList.documentSnapshotList.add(snapshot.data.docs[i]);
+          }
+
           return Expanded(
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
-                dragStartBehavior: DragStartBehavior.start,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
 
-                  children: List.generate(length, (index){
-                    DocumentSnapshot item = snapshot.data.docs[index];
+                  children: List.generate(newList.length, (index){
+                    DocumentSnapshot item = newList[index];
                     //print("index = $index");
-                    ContentList.documentSnapshotList.add(item);
+                    //ContentList.documentSnapshotList.add(item);
                     return ContentCard(
                       item: item,
-                      type: widget.type,
                     );
                   }),
                 )

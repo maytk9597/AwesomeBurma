@@ -84,7 +84,8 @@ class HomeHeader extends StatelessWidget {
             // bottom: getProportionateScreenWidth(-300, context),
             bottom: -280,
             child: Align(alignment: Alignment.center,
-                child: SearchView(search: false, searchType: search_type.searchAll,)),
+                child: SearchView(search: false, searchType: search_type.searchAll,)
+            ),
           )
         ],
       ),
