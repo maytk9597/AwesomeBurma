@@ -5,6 +5,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
 import 'package:travel_guide/screens/home/homeScreen_body.dart';
 import 'package:travel_guide/screens/home/homeScreen_favourite.dart';
+import 'package:travel_guide/screens/home/homeScreen_profile.dart';
 import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -25,7 +26,7 @@ class _home_screenState extends State<home_screen> {
     });
   }
 
-  var Screen = [HomeScreen_body(), HomeScreen_favourite()];
+  var Screen = [HomeScreen_body(), HomeScreen_favourite(), HomeScreen_userProfile()];
 
   @override
   Widget build(BuildContext context) {

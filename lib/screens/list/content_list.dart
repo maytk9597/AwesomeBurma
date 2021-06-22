@@ -32,15 +32,6 @@ class _ContentListState extends State<ContentList> {
     ContentList.default_stream = _firestore.collection('cities').doc(widget.city).
     collection(widget.type).snapshots();
     List<DocumentSnapshot> newList = List <DocumentSnapshot>();
-    // if(widget.sub_type == 'All'){
-    //   //print('**** sub_type = all');
-    //   stream = ContentList.default_stream;
-    // }
-    // else  {
-    //   //print('*** Not all // sub_type = ${widget.sub_type}');
-    //   stream = _firestore.collection('cities').doc(widget.city).
-    //   collection(widget.type).where('type', isEqualTo: widget.sub_type.toString()).snapshots();
-    // }
 
     return StreamBuilder<QuerySnapshot>(
       stream: ContentList.default_stream,
@@ -48,8 +39,8 @@ class _ContentListState extends State<ContentList> {
         if(snapshot.hasData){
           ContentList.documentSnapshotList.clear();
           int length = snapshot.data.docs.length;
-          print("length = $length");//print(snapshot.data.docs[0]['name']);
-
+          //print("length = $length");//print(snapshot.data.docs[0]['name']);
+          newList = List <DocumentSnapshot>();
           for(int i = 0 ; i < length; i ++){
             if(widget.sub_type != "All"){
               if(snapshot.data.docs[i]['type'] == widget.sub_type){
@@ -58,9 +49,9 @@ class _ContentListState extends State<ContentList> {
             }
             else
               newList.add(snapshot.data.docs[i]);
-            ContentList.documentSnapshotList.add(snapshot.data.docs[i]);
+              ContentList.documentSnapshotList.add(snapshot.data.docs[i]);
           }
-
+          //print("length of new list = ${newList.length}");
           return Expanded(
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,

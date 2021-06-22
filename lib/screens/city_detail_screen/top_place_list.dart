@@ -99,7 +99,7 @@ class TopPlacesList extends StatelessWidget {
                           width: 200,
                           isHome: false,
                           placeDocument: recommendationPlace,
-                          placeType: "Attractions",
+                          placeType: type,
                         );
                       }),
                     ),

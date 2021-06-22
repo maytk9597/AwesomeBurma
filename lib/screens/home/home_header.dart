@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
-import 'package:travel_guide/screens/home/search_field.dart';
 import 'package:travel_guide/screens/list/search_view.dart';
 
 import '../../models/size_config.dart';
