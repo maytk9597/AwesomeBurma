@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/home_app_bar.dart';
 import 'package:travel_guide/Components/textStyle.dart';
@@ -5,6 +6,7 @@ import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
 import 'package:travel_guide/screens/home/homeScreen_body.dart';
 import 'package:travel_guide/screens/home/homeScreen_favourite.dart';
+import 'package:travel_guide/screens/home/homeScreen_profile.dart';
 import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -25,10 +27,26 @@ class _home_screenState extends State<home_screen> {
     });
   }
 
-  var Screen = [HomeScreen_body(), HomeScreen_favourite()];
+
 
   @override
   Widget build(BuildContext context) {
+    bool isUserLogin = false;
+    String currentuser_id;
+    final _auth = FirebaseAuth.instance;
+    var user = _auth.currentUser;
+    if(user == null)
+      {
+        isUserLogin = false;
+        currentuser_id = null;
+      }
+    else{
+      currentuser_id = user.uid;
+      isUserLogin = true;
+    }
+
+    var Screen = [HomeScreen_body(), HomeScreen_favourite(),HomeScreenProfile(isLogin: isUserLogin, userId: currentuser_id)];
+
     return SafeArea(
       child: Scaffold(
         // appBar: buildAppBar(context, isTransparent: true),

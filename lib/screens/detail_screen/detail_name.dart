@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_guide/Components/constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 
@@ -22,6 +23,11 @@ class Detail_name extends StatelessWidget {
     } else if (placeType == "Restaurants") {
       isRestaurant = true;
     }
+    // print("Inside detail name +++++++++++++++++++");
+    // print(placeType.toString());
+    // print(placeDocument['type']);
+
+
     return Container(
       // height: getProportionateScreenHeight(120, context),
       padding: EdgeInsets.symmetric(
@@ -48,6 +54,7 @@ class Detail_name extends StatelessWidget {
                       children: [
                         Row(
                           children: List.generate(5, (index) {
+                            // return Icon(Icons.star,color: kMainColor,);
                             return index < int.parse(placeDocument['type'])
                                 ? Icon(
                                     Icons.star,
