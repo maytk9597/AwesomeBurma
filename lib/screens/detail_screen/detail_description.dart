@@ -52,35 +52,35 @@ class _Detail_descriptionState extends State<Detail_description> {
             ),
             child: isRestaurant
                 ? SizedBox(
-                    height: 20,
-                  )
+              height: 20,
+            )
                 : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isPressed = !isPressed;
-                        print(isPressed);
-                      });
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          isPressed ? 'See Less' : 'See More',
-                          style: TextStyle(
-                            color: ktextColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 12,
-                          color: ktextColor,
-                        )
-                      ],
+              onTap: () {
+                setState(() {
+                  isPressed = !isPressed;
+                  print(isPressed);
+                });
+              },
+              child: Row(
+                children: [
+                  Text(
+                    isPressed ? 'See Less' : 'See More',
+                    style: TextStyle(
+                      color: ktextColor,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 12,
+                    color: ktextColor,
+                  )
+                ],
+              ),
+            ),
           ),
         ],
       ),
