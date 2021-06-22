@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_guide/Components/constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 
 import 'package:travel_guide/screens/detail_screen/detail_button.dart';
@@ -20,6 +21,8 @@ class detail_screen extends StatefulWidget {
 class _detail_screenState extends State<detail_screen> {
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
