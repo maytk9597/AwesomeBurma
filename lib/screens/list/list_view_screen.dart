@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
-import 'package:travel_guide/screens/home/search_field.dart';
 import 'package:travel_guide/screens/list/content_list.dart';
 import 'package:travel_guide/screens/list/search_view.dart';
 import 'title_list.dart';
@@ -23,16 +22,33 @@ class List_View_Screen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
 
         body: Column(
           children: <Widget>[
-            Center(child: Text(type,
-              style: TextStyle(
-                fontSize: size,
-                color: ktextColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),),
+
+            SizedBox(height: getProportionateScreenHeight(20, context),),
+
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, size: 30, color: ktextColor,),
+                    onPressed: (){
+                      Navigator. pop(context);
+                    },
+                  )
+                ),
+                Center(
+                  child: Text("  " + type, textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: size, color: ktextColor, fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+
+            ),
 
             SizedBox(height: getProportionateScreenHeight(5, context),),
 

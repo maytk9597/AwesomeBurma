@@ -27,62 +27,62 @@ class Detail_button extends StatelessWidget {
     }
     return isAttraction || isRestaurant
         ? Container(
-            height: 90,
-            padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-            child: FlatButton(
-                color: buttonBackgroundColour,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                onPressed: () async {
-                  print(placeDocument['note']);
-                  if (await canLaunch(placeDocument['note'])) {
-                    await launch(placeDocument['note']);
-                  } else {
-                    throw 'Could not launch ${placeDocument['note']}';
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'View on Google Map',
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18, context),
-                      color: ktextColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )),
-          )
+      height: 90,
+      padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+      child: FlatButton(
+          color: buttonBackgroundColour,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8)),
+          onPressed: () async {
+            print(placeDocument['note']);
+            if (await canLaunch(placeDocument['note'])) {
+              await launch(placeDocument['note']);
+            } else {
+              throw 'Could not launch ${placeDocument['note']}';
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            alignment: Alignment.center,
+            child: Text(
+              'View on Google Map',
+              style: TextStyle(
+                fontSize: getProportionateScreenWidth(18, context),
+                color: ktextColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          )),
+    )
         : isHotel
-            ? Container(
-                height: 90,
-                padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-                child: FlatButton(
-                    color: buttonBackgroundColour,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    onPressed: () async {
-                      print(placeDocument['booking']);
-                      if (await canLaunch(placeDocument['booking'])) {
-                        await launch(placeDocument['booking']);
-                      } else {
-                        throw 'Could not launch ${placeDocument['booking']}';
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Book Now',
-                        style: TextStyle(
-                          fontSize: getProportionateScreenWidth(18, context),
-                          color: ktextColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )),
-              )
-            : Text("Something went wrong");
+        ? Container(
+      height: 90,
+      padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+      child: FlatButton(
+          color: buttonBackgroundColour,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8)),
+          onPressed: () async {
+            print(placeDocument['booking']);
+            if (await canLaunch(placeDocument['booking'])) {
+              await launch(placeDocument['booking']);
+            } else {
+              throw 'Could not launch ${placeDocument['booking']}';
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            alignment: Alignment.center,
+            child: Text(
+              'Book Now',
+              style: TextStyle(
+                fontSize: getProportionateScreenWidth(18, context),
+                color: ktextColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          )),
+    )
+        : Text("Something went wrong");
   }
 }

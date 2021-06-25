@@ -16,6 +16,7 @@ class TopPlacesList extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isAttraction = false;
     bool isRestaurant = false;
+    var typeList = [];
     bool isHotel = false;
     if (type == "Attractions") {
       isAttraction = true;
@@ -78,7 +79,7 @@ class TopPlacesList extends StatelessWidget {
                         //     .collection('cities')
                         //     .doc(cityId)
                         //     .collection('Restaurants')
-                        //     // .doc(snapshot.data.docs[index].id)
+                        //     //.doc(snapshot.data.docs[index].id)
                         //     .add({
                         //   'remark': "Open Everyday",
                         //   'description': "",
@@ -87,8 +88,8 @@ class TopPlacesList extends StatelessWidget {
                         //   'note': "",
                         //   'openingHours': "7 A.M - 9 P.M ",
                         //   'ph_no': "Not Available",
-                        //   'type': "",
-                        //   'recommendation': false,
+                        //   'type_list': typeList,
+                        //   'recommendation': true,
                         //   'address': "",
                         // });
                         DocumentSnapshot recommendationPlace =

@@ -66,7 +66,7 @@ class detailBody extends StatelessWidget {
                               color: ktextColor,
                               fontWeight: FontWeight.w500,
                               fontSize:
-                                  getProportionateScreenWidth(20, context)),
+                              getProportionateScreenWidth(20, context)),
                         ),
                         Text(
                           placeDocument['address'],
@@ -76,7 +76,7 @@ class detailBody extends StatelessWidget {
                               color: ktextColor,
                               // fontWeight: FontWeight.w500,
                               fontSize:
-                                  getProportionateScreenWidth(18, context)),
+                              getProportionateScreenWidth(18, context)),
                         ),
                       ],
                     ),
@@ -170,41 +170,41 @@ class detailBody extends StatelessWidget {
             ),
             isRestaurant
                 ? SizedBox(
-                    height: 0,
-                  )
+              height: 0,
+            )
                 : Text(
-                    "Description",
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: ktextColor,
-                      // color: Colors.black,
-                      fontSize: getProportionateScreenWidth(20, context),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+              "Description",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+                color: ktextColor,
+                // color: Colors.black,
+                fontSize: getProportionateScreenWidth(20, context),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             SizedBox(
               height: getProportionateScreenHeight(10, context),
             ),
             isRestaurant
                 ? SizedBox()
                 : isPressed
-                    ? Text(
-                        placeDocument['description'],
-                        // textAlign: TextAlign.justify,
-                        style: TextStyle(
-                            color: ktextColor,
-                            fontSize: getProportionateScreenWidth(18, context)),
-                      )
-                    : Text(
-                        placeDocument['description'].length < 100
-                            ? placeDocument['description']
-                            : placeDocument['description'].substring(0, 100) +
-                                '...',
-                        // textAlign: TextAlign.justify,
-                        style: TextStyle(
-                            color: ktextColor,
-                            fontSize: getProportionateScreenWidth(18, context)),
-                      ),
+                ? Text(
+              placeDocument['description'],
+              // textAlign: TextAlign.justify,
+              style: TextStyle(
+                  color: ktextColor,
+                  fontSize: getProportionateScreenWidth(18, context)),
+            )
+                : Text(
+              placeDocument['description'].length < 100
+                  ? placeDocument['description']
+                  : placeDocument['description'].substring(0, 100) +
+                  '...',
+              // textAlign: TextAlign.justify,
+              style: TextStyle(
+                  color: ktextColor,
+                  fontSize: getProportionateScreenWidth(18, context)),
+            ),
           ],
         ));
   }
