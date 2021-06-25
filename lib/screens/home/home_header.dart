@@ -59,7 +59,7 @@ class HomeHeader extends StatelessWidget {
                 child: KtitleText(
                   title: "Awesome Burma",
                   fontSize: getProportionateScreenWidth(50, context),
-                  color: ktextColor,
+                  color: temp,
                   // color: Colors.black,
                 ),
               ),

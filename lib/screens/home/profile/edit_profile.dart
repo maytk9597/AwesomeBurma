@@ -51,10 +51,9 @@ class _EditProfileState extends State<EditProfile> {
             ),
             onPressed: (){
               setState(() {
-                  name_controller = new TextEditingController(text: HomeScreenProfile.name);
-                  email_controller = new TextEditingController(text: HomeScreenProfile.email);
-                // name_controller.dispose();
-                // email_controller.dispose();
+
+                name_controller = new TextEditingController(text: HomeScreenProfile.name);
+                email_controller = new TextEditingController(text: HomeScreenProfile.email);
                 Provider.of<StateChanger>(context).changeToEdit(2);
               });
             },
@@ -140,7 +139,6 @@ class _EditProfileState extends State<EditProfile> {
         style: TextStyle(
           height: getProportionateScreenHeight(2, context),// cursor height
           fontSize: getProportionateScreenWidth(20, context),
-          color: Colors.black,
         ),
 
         decoration: InputDecoration(
