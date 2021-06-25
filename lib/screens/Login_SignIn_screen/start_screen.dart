@@ -13,6 +13,7 @@ class start_screen extends StatefulWidget {
 class _start_screenState extends State<start_screen> {
   //FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

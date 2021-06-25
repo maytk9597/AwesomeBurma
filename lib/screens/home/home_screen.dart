@@ -1,14 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/home_app_bar.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
+import 'package:travel_guide/screens/home/edit_profile.dart';
 import 'package:travel_guide/screens/home/homeScreen_body.dart';
 import 'package:travel_guide/screens/home/homeScreen_favourite.dart';
 import 'package:travel_guide/screens/home/homeScreen_profile.dart';
 import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
 import 'package:travel_guide/models/size_config.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({Key key}) : super(key: key);
@@ -21,20 +26,42 @@ class _home_screenState extends State<home_screen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
+    print("current index = $index");
     setState(() {
-      _selectedIndex = index;
+      Provider.of<StateChanger>(context).changeToEdit(index);
+      _selectedIndex = Provider.of<StateChanger>(context).index;
     });
   }
 
-  var Screen = [HomeScreen_body(), HomeScreen_favourite(), HomeScreen_userProfile()];
 
   @override
   Widget build(BuildContext context) {
+
+    bool isUserLogin = false;
+    String currentuser_id;
+    final _auth = FirebaseAuth.instance;
+    var user = _auth.currentUser;
+    if(user == null)
+      {
+        isUserLogin = false;
+        currentuser_id = null;
+      }
+    else{
+      currentuser_id = user.uid;
+      isUserLogin = true;
+    }
+    HomeScreenProfile.getData(currentuser_id); // get user info first because of await
+
+    var Screen = [HomeScreen_body(), HomeScreen_favourite(),
+      HomeScreenProfile(isLogin: isUserLogin, userId: currentuser_id,),
+      EditProfile(userId: currentuser_id,),
+    ];
+
     return SafeArea(
       child: Scaffold(
         // appBar: buildAppBar(context, isTransparent: true),
         drawer: Drawer(),
-        body: Screen[_selectedIndex],
+        body: Screen[Provider.of<StateChanger>(context).index],
         bottomNavigationBar: BubbleBottomBar(
           backgroundColor: Colors.white,
           opacity: 0.7,

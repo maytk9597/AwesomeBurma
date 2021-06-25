@@ -28,7 +28,6 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
 
   var _searchView = new TextEditingController();
-  bool _firstSearch = false;
   String _query = "";
   //List <dynamic> _list = <dynamic>[];
   List<DocumentSnapshot> _filterList = <DocumentSnapshot>[];
@@ -56,14 +55,12 @@ class _SearchViewState extends State<SearchView> {
       if(_searchView.text.isEmpty || widget.search == false){
         print("EMPTY empty empty empty empty");
         setState(() {
-          _firstSearch = false;
           _query = "";
         });
       }
       else
         SearchView.search_ = true;
       setState(() {
-        _firstSearch = true;
         _query = _searchView.text;
       });
     });
@@ -203,7 +200,7 @@ class _SearchViewState extends State<SearchView> {
     //bool enable = false;
     return Container(
         width: getProportionateScreenWidth(313, context),
-        height: getProportionateScreenHeight(60, context),
+        height: getProportionateScreenHeight(55, context),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
@@ -231,6 +228,7 @@ class _SearchViewState extends State<SearchView> {
             enabled: active,
             cursorColor: ktextColor,
             controller: _searchView,
+
             style: TextStyle(
               //height: getProportionateScreenHeight(2, context),// cursor height
               fontSize: getProportionateScreenWidth(18, context),

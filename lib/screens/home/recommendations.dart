@@ -29,9 +29,9 @@ class _RecommendationsState extends State<Recommendations> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print('inside data fetched');
+            // print('inside data fetched');
             int length = snapshot.data.docs.length;
-            print("recommendations length = " + length.toString());
+            // print("recommendations length = " + length.toString());
             List<int> rndIndex = [];
             var rng = new Random();
             for (var i = 0; i < 7; i++) {
@@ -41,7 +41,7 @@ class _RecommendationsState extends State<Recommendations> {
               } else
                 rndIndex.add(rnd);
             }
-            print("random index Number = ${rndIndex.toString()}");
+            // print("random index Number = ${rndIndex.toString()}");
 
             return Column(
               children: <Widget>[

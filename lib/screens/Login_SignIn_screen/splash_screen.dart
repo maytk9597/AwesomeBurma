@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
@@ -11,15 +12,21 @@ class Splash extends StatefulWidget {
 }
 
 class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
+
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _seen = (prefs.getBool('seen') ?? false);
+    bool _Loginseen = (prefs.getBool('logInseen') ?? false);
+    bool status = prefs.getBool('isLoggedIn') ?? false;
 
-    if (_seen) {
+    if (_Loginseen||status) {
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+          new MaterialPageRoute(builder: (context) => new home_screen()));
     } else {
-      await prefs.setBool('seen', true);
+      await prefs.setBool('LogInseen', true);
+
+
+
+
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new start_screen()));
     }
@@ -32,6 +39,7 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
       body: new Center(
         child: new Text('Loading...'),

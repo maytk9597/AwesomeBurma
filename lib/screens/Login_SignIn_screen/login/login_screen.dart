@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/fade_animation.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -133,6 +134,13 @@ class LoginScreen extends StatelessWidget {
                                       if(user != null)
                                         {
                                           print("Able to Login");
+                                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          prefs?.setBool("isLoggedIn", true);
+                                          Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        home_screen()));
                                         }
                                     }
                                     catch(e){
