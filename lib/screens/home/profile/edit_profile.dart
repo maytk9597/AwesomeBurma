@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
+import 'package:travel_guide/screens/home/profile/ImagePicker.dart';
 import 'package:travel_guide/screens/home/profile/homeScreen_profile.dart';
 import 'package:travel_guide/screens/home/profile/profile_pic.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
@@ -24,13 +29,78 @@ class _EditProfileState extends State<EditProfile> {
   static var email_controller = new TextEditingController(text: HomeScreenProfile.email);
   String name, email;
   String photoUrl = HomeScreenProfile.photoUrl;
-  @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   name_controller.dispose();
-  //   email_controller.dispose();
-  // }
+
+
+  String uploadedPhotoUrl, uId;
+  File _image;
+  PickedFile pickedFile;
+  final _picker = ImagePicker();
+  bool hasChange = false;
+  Future getImageFromCamera() async {
+    pickedFile = await _picker.getImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      if (_image != null) {
+        url = await getPhotoUrl(_image);
+        setState(() {
+          uploadedPhotoUrl = url;
+          hasChange = true;
+        });
+      }
+    } else {
+      print('No image selected.');
+    }
+  }
+  Future getImageFromGallery() async {
+    pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      _image = File(pickedFile.path);
+      if (_image != null) {
+        url = await getPhotoUrl(_image);
+        setState(() {
+          photoUrl = url;
+          hasChange = true;
+        });
+      }
+    } else {
+      print('No image selected.');
+    }
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.photo_camera, color: kMainColor),
+                    title: Text('Camera'),
+                    onTap: () {
+                      getImageFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ListTile(
+                      leading: Icon(
+                        Icons.photo_library,
+                        color: kMainColor,
+                      ),
+                      title: Text('Photo Library'),
+                      onTap: () {
+                        getImageFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -58,7 +128,9 @@ class _EditProfileState extends State<EditProfile> {
               });
             },
           ),
-          ProfilePic(isEdit: false, photoUrl: photoUrl,),
+          ProfilePic(isEdit: true, photoUrl: photoUrl,onPressed: () {
+            _showPicker(context);
+          }),
 
           // Center(
           //   child: Padding(

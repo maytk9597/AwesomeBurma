@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
+import 'package:travel_guide/screens/home/profile/profile_pic.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
@@ -64,21 +65,22 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
               children: [
 
                 SizedBox(height: getProportionateScreenHeight(space_height*2, context),),
-                Center(
-                  child: SizedBox(
-                    height: 120,
-                    width: 120,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
-                        side: BorderSide(color: Colors.white),
-                      ),
-                      color: Color(0xFFF5F6F9),
-                      onPressed: () {},
-                      // TODO: Icon not centered.
-                      child: Center(child: Icon(Icons.person, size: 70,),),
-                    )),
-                ), // photo avater
+                ProfilePic(isEdit: false,photoUrl: HomeScreenProfile.photoUrl),
+                // Center(
+                //   child: SizedBox(
+                //     height: 120,
+                //     width: 120,
+                //     child: FlatButton(
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(60),
+                //         side: BorderSide(color: Colors.white),
+                //       ),
+                //       color: Color(0xFFF5F6F9),
+                //       onPressed: () {},
+                //       // TODO: Icon not centered.
+                //       child: Center(child: Icon(Icons.person, size: 70,),),
+                //     )),
+                // ), // photo avater
                 SizedBox(height: space_height,),
                 Text(HomeScreenProfile.name, style: TextStyle(fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenWidth(22, context)),),

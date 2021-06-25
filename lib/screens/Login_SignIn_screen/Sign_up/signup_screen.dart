@@ -169,7 +169,8 @@ class SignUpScreen extends StatelessWidget {
                                         .set({
                                       'name': name,
                                       'email': email,
-                                      'uid': new_user.user.uid
+                                      'uid': new_user.user.uid,
+                                       'image':"https://firebasestorage.googleapis.com/v0/b/awesome-burma.appspot.com/o/user_galary%2FProfile_Image_PNG.png?alt=media&token=3c874677-ba57-49b4-beaa-5acdf9cf38da"
 
                                     }).whenComplete(() => print('Updated user.'))
                                          .catchError((e) => print(e));
