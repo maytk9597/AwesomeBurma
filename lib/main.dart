@@ -8,8 +8,10 @@ import 'package:travel_guide/screens/list/state_changer.dart';
 // import 'package:travel_guide/screens/home_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_guide/sub_main.dart';
 
 Future<void> main() async {
+  print("In main");
   WidgetsFlutterBinding.ensureInitialized();
   //print("dark mode on is = ${Provider.of<StateChanger>(context).dark.toString()}");
   await Firebase.initializeApp();
@@ -32,27 +34,7 @@ class _MyAppState extends State<MyApp> {
     //print("dark mode on is = ${Provider.of<StateChanger>(context).dark.toString()}");
     return ChangeNotifierProvider(
       create: (context) => StateChanger(),
-      child: MaterialApp(
-        // theme: Provider.of<StateChanger>(context).dark == true ?
-        // ThemeData(
-        //   primaryColor: Color(0xFF0A0E21),
-        //   scaffoldBackgroundColor: Color(0xFF0A0E21),
-        //   accentColor: Colors.blue,
-        //   textTheme: TextTheme(
-        //       body1: TextStyle(color: Colors.white)
-        //   ),) :
-        // ThemeData(
-        //   primarySwatch: Colors.blue,
-        //   visualDensity: VisualDensity.adaptivePlatformDensity,
-        // ),
-
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-
-        home: Splash(),
-      ),
+      child: SubMain(),
     );
   }
 }

@@ -22,7 +22,7 @@ class List_View_Screen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
 
         body: Column(
           children: <Widget>[

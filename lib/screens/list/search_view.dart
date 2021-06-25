@@ -202,7 +202,7 @@ class _SearchViewState extends State<SearchView> {
         width: getProportionateScreenWidth(313, context),
         height: getProportionateScreenHeight(55, context),
         decoration: BoxDecoration(
-          color: Colors.white,
+          //color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
             // color: Color(0xFF3E4067),

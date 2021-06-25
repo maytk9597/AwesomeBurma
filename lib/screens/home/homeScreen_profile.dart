@@ -32,7 +32,7 @@ class HomeScreenProfile extends StatefulWidget {
 
 class _HomeScreenProfileState extends State<HomeScreenProfile> {
 
-  var switchControl = false;
+  //var switchControl = Provider.of<StateChanger>(context).dark;
 
   @override
   Widget build(BuildContext context){
@@ -41,11 +41,11 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     print(" Login "+widget.isLogin.toString());
     print(" user id "+widget.userId);
     return Container(
-      color: Colors.grey.withOpacity(0.3),
+      //color: Colors.grey.withOpacity(0.3),
       child: Column(
         children: [
           Container(
-            color: Colors.white,
+            //color: Colors.white,
             child: Column(
               children: [
 
@@ -82,8 +82,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
                         setState(() {
                           Provider.of<StateChanger>(context).changeToEdit(3);
                         });
-                        // print("Current index after clicking edit = "
-                        //     "${Provider.of<StateChanger>(context).index}");
+
                       },
                       color: kMainColor,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -98,7 +97,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
               ],
             ),
           ),
-          SizedBox(height: getProportionateScreenHeight(space_height*3, context),),
+          SizedBox( height: getProportionateScreenHeight(space_height*3, context), ),
           darkMode(context),
 
           SizedBox ( height: 0, width: getProportionateScreenWidth(300, context),
@@ -114,7 +113,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
   Widget darkMode(BuildContext context){
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        //color: Colors.white,
 
         border: Border(
           bottom: BorderSide(width: 1.0,  color: Colors.white),
@@ -127,7 +126,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Text("Dark Mode", style: TextStyle(
-            color: Colors.black, fontSize: getProportionateScreenWidth(18, context)
+            fontSize: getProportionateScreenWidth(18, context)
           ),),
         ),
           createSwitch(context),
@@ -138,11 +137,12 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
   }
   void toggleSwitch(bool value) {
 
-    if(switchControl == false)
+    if(Provider.of<StateChanger>(context).dark == false)
     {
       setState(() {
-        switchControl = true;
-        //Provider.of<StateChanger>(context).changeDarkMode(true);
+        //switchControl = true;
+        Provider.of<StateChanger>(context).changeDarkMode(true);
+        ktextColor = kMainColor;
       });
       print('Switch is ON');
 
@@ -151,7 +151,9 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     else
     {
       setState(() {
-        switchControl = false;
+        //switchControl = false;
+        Provider.of<StateChanger>(context).changeDarkMode(false);
+        ktextColor = temp;
       });
       print('Switch is OFF');
       // Put your code here which you want to execute on Switch OFF event.
@@ -169,7 +171,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         toggleSize: 20.0,
         borderRadius: switchHeight/2,
         activeColor: kMainColor,
-        value: switchControl,
+        value: Provider.of<StateChanger>(context).dark,
         onToggle: toggleSwitch,
 
       ),

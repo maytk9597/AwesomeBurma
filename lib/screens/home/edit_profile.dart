@@ -40,6 +40,8 @@ class _EditProfileState extends State<EditProfile> {
             ),
             onPressed: (){
               setState(() {
+                name_controller = new TextEditingController(text: HomeScreenProfile.name);
+                email_controller = new TextEditingController(text: HomeScreenProfile.email);
                 Provider.of<StateChanger>(context).changeToEdit(2);
               });
             },
@@ -87,15 +89,15 @@ class _EditProfileState extends State<EditProfile> {
         ],
         ),
         SizedBox(height: space_height,),
-        createTextField(context, HomeScreenProfile.name, name_controller),
+        createTextField(context, name_controller),
         SizedBox(height: space_height,),
-        createTextField(context, HomeScreenProfile.email, email_controller)
+        createTextField(context, email_controller)
       ],
       ),
     );
   }
 
-  Widget createTextField(BuildContext context, String content, var controller){
+  Widget createTextField(BuildContext context, var controller){
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: TextField(
@@ -106,7 +108,6 @@ class _EditProfileState extends State<EditProfile> {
         style: TextStyle(
           height: getProportionateScreenHeight(2, context),// cursor height
           fontSize: getProportionateScreenWidth(20, context),
-          color: Colors.black,
         ),
 
         decoration: InputDecoration(
