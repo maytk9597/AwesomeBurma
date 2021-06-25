@@ -48,6 +48,19 @@ class LoginScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
+        actions: <Widget>[
+        RawMaterialButton(
+          onPressed: (){
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => home_screen()));
+          },
+          child: 
+          Text('Skip >>',style: TextStyle(color: kMainColor,fontSize: getProportionateScreenWidth(18, context),),),
+        )
+        ],
+
       ),
       body: Builder(
         builder:(context)=>  Form(

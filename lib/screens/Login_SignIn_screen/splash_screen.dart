@@ -15,20 +15,18 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
 
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool _Loginseen = (prefs.getBool('logInseen') ?? false);
+    bool _Loginseen = (prefs.getBool('logIn_seen') ?? true);
     bool status = prefs.getBool('isLoggedIn') ?? false;
+    print("inside splash +++++++ $status login Status ${_Loginseen} loginScreen status");
 
     if (_Loginseen||status) {
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new home_screen()));
     } else {
-      await prefs.setBool('LogInseen', true);
-
-
-
+      await prefs.setBool('LogIn_seen', true);
 
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new start_screen()));
+          new MaterialPageRoute(builder: (context) => new LoginScreen()));
     }
   }
 

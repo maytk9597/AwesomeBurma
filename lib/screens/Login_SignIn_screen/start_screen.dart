@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
+import 'package:travel_guide/screens/Login_SignIn_screen/splash_screen.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
 
 class start_screen extends StatefulWidget {
@@ -58,7 +59,7 @@ class _start_screenState extends State<start_screen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                                    builder: (context) => Splash()));
                           },
                           // color: Color(0xFFC6A6E9),
                           color: kMainColor,

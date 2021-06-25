@@ -41,6 +41,8 @@ class _home_screenState extends State<home_screen> {
         currentuser_id = null;
       }
     else{
+      // bool verify = user.emailVerified;
+      // print("Email verification ========== ${verify.toString()}");
       currentuser_id = user.uid;
       isUserLogin = true;
     }
