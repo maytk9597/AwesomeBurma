@@ -52,7 +52,7 @@ class _home_screenState extends State<home_screen> {
       currentuser_id = user.uid;
       isUserLogin = true;
     }
-    HomeScreenProfile.getData(currentuser_id); // get user info first because of await
+    HomeScreenProfile.getData(currentuser_id,isUserLogin); // get user info first because of await
 
     var Screen = [HomeScreen_body(), HomeScreen_favourite(),
       HomeScreenProfile(isLogin: isUserLogin, userId: currentuser_id,),

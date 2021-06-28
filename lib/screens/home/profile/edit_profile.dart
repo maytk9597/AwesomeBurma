@@ -58,7 +58,7 @@ class _EditProfileState extends State<EditProfile> {
       if (_image != null) {
         url = await getPhotoUrl(_image);
         setState(() {
-          photoUrl = url;
+          uploadedPhotoUrl = url;
           hasChange = true;
         });
       }
@@ -80,6 +80,7 @@ class _EditProfileState extends State<EditProfile> {
                     leading: Icon(Icons.photo_camera, color: kMainColor),
                     title: Text('Camera'),
                     onTap: () {
+                      print("get image from camera");
                       getImageFromCamera();
                       Navigator.of(context).pop();
                     },
@@ -128,7 +129,7 @@ class _EditProfileState extends State<EditProfile> {
               });
             },
           ),
-          ProfilePic(isEdit: true, photoUrl: photoUrl,onPressed: () {
+          ProfilePic(isEdit: true, photoUrl: hasChange? uploadedPhotoUrl:photoUrl,onPressed: () {
             _showPicker(context);
           }),
 
@@ -176,15 +177,18 @@ class _EditProfileState extends State<EditProfile> {
               print("** userid = ${widget.userId}");
               print("** name = ${name_controller.text}");
               print("** email = ${email_controller.text}");
+              print("** imageUrl = ${uploadedPhotoUrl}");
               name = name_controller.text;
               email = email_controller.text;
               _firestore.collection('users').doc(widget.userId).update({
                 'name' : name,
                 'email': email,
+                'image': uploadedPhotoUrl
               }).then((value) => "update successfully #### ");
               setState(() {
                 HomeScreenProfile.name = name;
                 HomeScreenProfile.email = email;
+                HomeScreenProfile.photoUrl= uploadedPhotoUrl;
                 Provider.of<StateChanger>(context).changeToEdit(2);
               });
             },
