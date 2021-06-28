@@ -202,7 +202,7 @@ class _SearchViewState extends State<SearchView> {
         width: getProportionateScreenWidth(313, context),
         height: getProportionateScreenHeight(55, context),
         decoration: BoxDecoration(
-          //color: Colors.white,
+          color: white,
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
             // color: Color(0xFF3E4067),
@@ -224,7 +224,6 @@ class _SearchViewState extends State<SearchView> {
             print("click the button behind text field");
           },
           child: TextField(
-
             enabled: active,
             cursorColor: ktextColor,
             controller: _searchView,
@@ -232,7 +231,7 @@ class _SearchViewState extends State<SearchView> {
             style: TextStyle(
               //height: getProportionateScreenHeight(2, context),// cursor height
               fontSize: getProportionateScreenWidth(18, context),
-              color: Colors.black,
+              //color: Colors.black,
             ),
             decoration: InputDecoration(
               border: InputBorder.none,

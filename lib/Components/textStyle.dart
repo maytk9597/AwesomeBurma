@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 
 Color kMainColor = Color(0xFFBB83FA);
+Color white = Colors.white;
+Color darkWhite = white.withOpacity(0.05);
 Color ktextColor = Color(0xFF53292F);
 Color temp = ktextColor;
 //Color kMainColor = Color(0xFF7063fe);

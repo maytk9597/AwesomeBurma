@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,17 +6,18 @@ import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-
+// import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:translator/translator.dart';
 
 class HomeScreenProfile extends StatefulWidget {
-  const HomeScreenProfile({Key key,@required this.isLogin,@required this.userId, this.user_name, this.user_email}) : super(key: key);
+  HomeScreenProfile({Key key,@required this.isLogin,@required this.userId, this.user_name, this.user_email}) : super(key: key);
 
   final bool isLogin;
   final String userId;
   final String user_name; final String user_email;
   static String name; static String email= ""; static var user_info;
+  static String result = "";
   //static bool switchControl;
-
 
   @override
   _HomeScreenProfileState createState() => _HomeScreenProfileState();
@@ -32,20 +34,43 @@ class HomeScreenProfile extends StatefulWidget {
 
 class _HomeScreenProfileState extends State<HomeScreenProfile> {
 
+
   //var switchControl = Provider.of<StateChanger>(context).dark;
+  var _translator = new GoogleTranslator();
+  var translation;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   setState(() {
+  //     translation = _translator.translate("hello", from: 'en', to: 'es');
+  //   });
+  //   print("Init state = $translation");
+  // }
 
   @override
   Widget build(BuildContext context){
+    print("The translator is active &&&&&&&&&&&&&&&&&&&&&");
+    _translator.translate("I love Brazil!", from: 'en', to: 'pt').then((s) {
+      print(s);
+    });
+    translation = _translator.translate("hello", from: 'English', to: 'French');
+    print("After translation = ${translation.text}");
+    //_translator.translateAndPrint("wait", to: 'es');
+    //_translator.translate("hello", from: 'en', to: 'es').toString().then(print);
+    // print('${translation.source} (${translation.sourceLanguage}) == ${translation.text} (${translation.targetLanguage})');
     var space_height = 10.0;
     print("inside user Profile++++++++++++");
-    print(" Login "+widget.isLogin.toString());
+    print(" Login "+ widget.isLogin.toString());
     print(" user id "+widget.userId);
+    getTranslation("hello");
     return Container(
-      //color: Colors.grey.withOpacity(0.3),
+      color: Colors.grey.withOpacity(0.3),
       child: Column(
         children: [
           Container(
-            //color: Colors.white,
+            color: white,
             child: Column(
               children: [
 
@@ -88,7 +113,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Edit Profile", style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),),
+                        child: Text(HomeScreenProfile.result, style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),),
                       ),
                     ),
                   ),
@@ -110,10 +135,18 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     );
   }
 
+  Future translate(String text) async{
+   HomeScreenProfile.result = await _translator.translate(text,  to: 'es').toString();
+  }
+
+  String getTranslation(String text){
+    translate(text);
+  }
+
   Widget darkMode(BuildContext context){
     return Container(
       decoration: BoxDecoration(
-        //color: Colors.white,
+        color: white,
 
         border: Border(
           bottom: BorderSide(width: 1.0,  color: Colors.white),
@@ -143,6 +176,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         //switchControl = true;
         Provider.of<StateChanger>(context).changeDarkMode(true);
         ktextColor = kMainColor;
+        white = darkWhite;
       });
       print('Switch is ON');
 
@@ -154,6 +188,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         //switchControl = false;
         Provider.of<StateChanger>(context).changeDarkMode(false);
         ktextColor = temp;
+        white = Colors.white;
       });
       print('Switch is OFF');
       // Put your code here which you want to execute on Switch OFF event.
