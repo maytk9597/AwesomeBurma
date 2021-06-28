@@ -1,11 +1,15 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
+import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
+import 'package:travel_guide/screens/home/profile/profile_pic.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-
 
 class HomeScreenProfile extends StatefulWidget {
   const HomeScreenProfile({Key key,@required this.isLogin,@required this.userId, this.user_name, this.user_email}) : super(key: key);
@@ -13,20 +17,29 @@ class HomeScreenProfile extends StatefulWidget {
   final bool isLogin;
   final String userId;
   final String user_name; final String user_email;
-  static String name; static String email= ""; static var user_info;
+  static String name; static String email= ""; static var user_info; static String photoUrl;
   //static bool switchControl;
 
 
   @override
   _HomeScreenProfileState createState() => _HomeScreenProfileState();
 
-  static void getData(String userId) async{
+  static void getData(String userId,bool isLogin) async{
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  if(isLogin){
     HomeScreenProfile.user_info =  await _firestore.collection('users').doc(userId).get();
     HomeScreenProfile.name = HomeScreenProfile.user_info.data()['name'];
+    HomeScreenProfile.photoUrl = HomeScreenProfile.user_info.data()['image'];
     HomeScreenProfile.email = HomeScreenProfile.user_info.data()['email'];
-    print("name = ${HomeScreenProfile.name}");
-    print("email = ${HomeScreenProfile.email}");
+    // print("name = ${HomeScreenProfile.name}");
+    // print("email = ${HomeScreenProfile.email}");
+    }
+  else{
+    HomeScreenProfile.user_info = "";
+    HomeScreenProfile.name = "";
+    HomeScreenProfile.photoUrl = "";
+    HomeScreenProfile.email = "";
+  }
   }
 }
 
@@ -39,8 +52,21 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     var space_height = 10.0;
     print("inside user Profile++++++++++++");
     print(" Login "+widget.isLogin.toString());
+    print(" user id "+widget.userId.toString());
+    // return Container(
+    //   child: RawMaterialButton(
+    //     onPressed: ()async{
+    //       FirebaseAuth.instance.signOut();
+    //       SharedPreferences prefs = await SharedPreferences.getInstance();
+    //       prefs?.setBool("isLoggedIn", false);
+    //       Navigator.pushReplacement(context, MaterialPageRoute(
+    //           builder: (context) => LoginScreen()));
+    //     },
+    //     child: Text('Sign Out',),
+    //   ),
+    // );
     print(" user id "+widget.userId);
-    return Container(
+    return widget.isLogin?Container(
       //color: Colors.grey.withOpacity(0.3),
       child: Column(
         children: [
@@ -50,21 +76,22 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
               children: [
 
                 SizedBox(height: getProportionateScreenHeight(space_height*2, context),),
-                Center(
-                  child: SizedBox(
-                    height: 120,
-                    width: 120,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60),
-                        side: BorderSide(color: Colors.white),
-                      ),
-                      color: Color(0xFFF5F6F9),
-                      onPressed: () {},
-                      // TODO: Icon not centered.
-                      child: Center(child: Icon(Icons.person, size: 70,),),
-                    )),
-                ), // photo avater
+                ProfilePic(isEdit: false,photoUrl: HomeScreenProfile.photoUrl),
+                // Center(
+                //   child: SizedBox(
+                //     height: 120,
+                //     width: 120,
+                //     child: FlatButton(
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(60),
+                //         side: BorderSide(color: Colors.white),
+                //       ),
+                //       color: Color(0xFFF5F6F9),
+                //       onPressed: () {},
+                //       // TODO: Icon not centered.
+                //       child: Center(child: Icon(Icons.person, size: 70,),),
+                //     )),
+                // ), // photo avater
                 SizedBox(height: space_height,),
                 Text(HomeScreenProfile.name, style: TextStyle(fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenWidth(22, context)),),
@@ -98,20 +125,30 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
             ),
           ),
           SizedBox( height: getProportionateScreenHeight(space_height*3, context), ),
-          darkMode(context),
+          profileContent(context,DarkModeSwitch(context)),
+
 
           SizedBox ( height: 0, width: getProportionateScreenWidth(300, context),
             child: Divider(
               color: Colors.grey.withOpacity(0.5), thickness: 1,),
 
           ),
+          profileContent(context,GestureDetector(onTap: ()async{
+            FirebaseAuth.instance.signOut();
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs?.setBool("isLoggedIn", false);
+            Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) => LoginScreen()));
+
+          },child: Text('Log Out'),) ),
         ],
       ),
-    );
+    ):Container(child: SizedBox(height: 20,),);
   }
 
-  Widget darkMode(BuildContext context){
+  Widget profileContent(BuildContext context,Widget content){
     return Container(
+      padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         //color: Colors.white,
 
@@ -120,20 +157,24 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         ),
       ),
       //color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Text("Dark Mode", style: TextStyle(
-            fontSize: getProportionateScreenWidth(18, context)
-          ),),
-        ),
-          createSwitch(context),
-
-      ],),
+      child: content,
     );
 
+  }
+
+  Row DarkModeSwitch(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+      Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Text("Dark Mode", style: TextStyle(
+          fontSize: getProportionateScreenWidth(18, context)
+        ),),
+      ),
+        createSwitch(context),
+
+    ],);
   }
   void toggleSwitch(bool value) {
 

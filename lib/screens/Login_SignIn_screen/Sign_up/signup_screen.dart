@@ -14,6 +14,7 @@ class SignUpScreen extends StatelessWidget {
   String name;
   String email;
   String password;
+  String otp;
   bool validate;
   void validateAndSave() {
     final FormState form = _formKey.currentState;
@@ -108,6 +109,21 @@ class SignUpScreen extends StatelessWidget {
                                 // print("Email = " + text);
                               },
                             )),
+                        // FadeAnimation(
+                        //     1.4,
+                        //     Row(
+                        //       children: [
+                        //         makeInput(
+                        //           label: "OTP for email Verification",
+                        //           obscureText: true,
+                        //           onChanged: (text) {
+                        //             otp = text;
+                        //             // print("Email = " + text);
+                        //           },
+                        //         ),
+                        //
+                        //       ],
+                        //     )),
                       ],
                     ),
                     FadeAnimation(
@@ -122,6 +138,14 @@ class SignUpScreen extends StatelessWidget {
                             height: getProportionateScreenHeight(70, context),
                             onPressed: () async {
                               validateAndSave();
+                              // var acs = ActionCodeSettings(
+                              //   // URL you want to redirect back to. The domain (www.example.com) for this
+                              //   // URL must be whitelisted in the Firebase Console.
+                              //     url: "https://awesome-burma.firebaseapp.com /finishSignUp",
+                              //     handleCodeInApp: true,
+                              //     androidPackageName: "com.example.travel_guide",
+                              //     androidInstallApp: true,
+                              //     androidMinimumVersion: "12");
                               if (validate == false) {
                                 return null;
                               } else {
@@ -131,14 +155,22 @@ class SignUpScreen extends StatelessWidget {
                                           email: email, password: password);
                                   print("New User uid ===========" +new_user.user.uid);
 
-                                  if (new_user != null) {
+
+                                  if (new_user!=null) {
+                                    // new_user.user.sendEmailVerification(acs
+                                    //
+                                    // );
+
+
+                                    new_user.user.sendEmailVerification();
                                      _firestore
                                         .collection('users')
                                         .doc(new_user.user.uid)
                                         .set({
                                       'name': name,
                                       'email': email,
-                                      'uid': new_user.user.uid
+                                      'uid': new_user.user.uid,
+                                       'image':"https://firebasestorage.googleapis.com/v0/b/awesome-burma.appspot.com/o/user_galary%2FProfile_Image_PNG.png?alt=media&token=3c874677-ba57-49b4-beaa-5acdf9cf38da"
 
                                     }).whenComplete(() => print('Updated user.'))
                                          .catchError((e) => print(e));
@@ -166,27 +198,6 @@ class SignUpScreen extends StatelessWidget {
                                   //   content: Text(e.message.toString(),style: TextStyle(color: Colors.red),),));
                                   print("Error++++++++++++"+e.toString());
                                 }
-                                //                             FirebaseAuth.getInstance()
-                                // .createUserWithEmailAndPassword(email, password)
-                                // .addOnCompleteListener(this, { task: Task<AuthResult> ->
-                                //   // Receive response from Firebase Console
-                                // })
-                                // .addOnSuccessListener(this, { authResult: AuthResult? ->
-                                //   // Account has been created
-                                //   val currentUser = FirebaseAuth.getInstance().currentUser
-                                // })
-                                // .addOnFailureListener(this, { exception: Exception ->
-                                //   // New account cannot be created and exception is thrown
-                                // })
-                                //                             FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-                                //    try {
-                                //       await user.sendEmailVerification();
-                                //       return user.uid;
-                                //    } catch (e) {
-                                //       print("An error occured while trying to send email        verification");
-                                //       print(e.message);
-                                //    }
-                                //  }
                                 print(
                                     "SignIn ------------ > email $email Name $name Password $password");
                               }
