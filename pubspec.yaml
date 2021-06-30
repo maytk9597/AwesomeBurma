@@ -22,14 +22,16 @@ environment:
 
 # The following section is specific to Flutter.
 
-
+uses-material-design: true
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_switch: ^0.0.2
+  material_design_icons_flutter: 3.4.4595
 
   translator: ^0.1.0+7
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -50,6 +52,8 @@ dependencies:
   shared_preferences: ^0.5.12+4
   after_layout: ^1.0.7+2
   simple_animations: ^1.3.3
+  image_picker: ^0.6.1+4
+  flutter_plugin_android_lifecycle: ^1.0.11
 
 dev_dependencies:
   flutter_test:

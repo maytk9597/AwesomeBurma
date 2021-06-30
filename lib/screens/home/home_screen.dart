@@ -6,10 +6,10 @@ import 'package:travel_guide/Components/home_app_bar.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:travel_guide/screens/home/cities_list.dart';
-import 'package:travel_guide/screens/home/edit_profile.dart';
+import 'package:travel_guide/screens/home/profile/edit_profile.dart';
 import 'package:travel_guide/screens/home/homeScreen_body.dart';
 import 'package:travel_guide/screens/home/homeScreen_favourite.dart';
-import 'package:travel_guide/screens/home/homeScreen_profile.dart';
+import 'package:travel_guide/screens/home/profile/homeScreen_profile.dart';
 import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -47,10 +47,12 @@ class _home_screenState extends State<home_screen> {
         currentuser_id = null;
       }
     else{
+      // bool verify = user.emailVerified;
+      // print("Email verification ========== ${verify.toString()}");
       currentuser_id = user.uid;
       isUserLogin = true;
     }
-    HomeScreenProfile.getData(currentuser_id); // get user info first because of await
+    HomeScreenProfile.getData(currentuser_id,isUserLogin); // get user info first because of await
 
     var Screen = [HomeScreen_body(), HomeScreen_favourite(),
       HomeScreenProfile(isLogin: isUserLogin, userId: currentuser_id,),
@@ -70,45 +72,45 @@ class _home_screenState extends State<home_screen> {
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.home,
-                color: ktextColor,
+                color: temp,
               ),
               activeIcon: Icon(
                 Icons.home,
-                color: ktextColor,
+                color: temp,
               ),
               title: Text(
                 "Home",
-                style: TextStyle(color: ktextColor),
+                style: TextStyle(color: temp),
               ),
               backgroundColor: kMainColor,
             ),
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.favorite,
-                color: ktextColor,
+                color: temp,
               ),
               activeIcon: Icon(
                 Icons.favorite,
-                color: ktextColor,
+                color: temp,
               ),
               title: Text(
                 "Favourites",
-                style: TextStyle(color: ktextColor),
+                style: TextStyle(color: temp),
               ),
               backgroundColor: kMainColor,
             ),
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.person,
-                color: ktextColor,
+                color: temp,
               ),
               activeIcon: Icon(
                 Icons.person,
-                color: ktextColor,
+                color: temp,
               ),
               title: Text(
                 "Profile",
-                style: TextStyle(color: ktextColor),
+                style: TextStyle(color: temp),
               ),
               backgroundColor: kMainColor,
             ),

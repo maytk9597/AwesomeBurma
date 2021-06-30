@@ -68,7 +68,7 @@ class HomeHeader extends StatelessWidget {
                   'To Travel is To Live',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: ktextColor,
+                      color: temp,
                       fontFamily: 'DancingScript',
                       fontSize: getProportionateScreenWidth(25, context)),
                 ),

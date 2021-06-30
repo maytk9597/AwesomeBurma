@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
     //print("dark mode on is = ${Provider.of<StateChanger>(context).dark.toString()}");
     return ChangeNotifierProvider(
       create: (context) => StateChanger(),
+
       child: SubMain(),
     );
   }

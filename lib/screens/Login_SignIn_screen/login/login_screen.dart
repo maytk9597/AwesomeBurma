@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/fade_animation.dart';
@@ -8,13 +9,30 @@ import 'package:travel_guide/screens/Login_SignIn_screen/Sign_up/signup_screen.d
 import 'package:travel_guide/screens/Login_SignIn_screen/components/makeInputField.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({
+    @required this.isFromProfile
+
+  }) ;
+  final bool isFromProfile;
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String password;
+
   String email;
+
   bool validate;
+
   bool loginFlag;
+
   final _auth = FirebaseAuth.instance;
 
   void validateAndSave() {
@@ -33,21 +51,45 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
+        backgroundColor: white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+           if(widget.isFromProfile) {
+
+             Provider.of<StateChanger>(context).changeToEdit(0);
+             return Navigator.pushReplacement(
+               context,
+               MaterialPageRoute(
+                   builder: (context) => home_screen()));
+
+           }
+           else
+             Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back,
             size: getProportionateScreenWidth(24, context),
-            color: Colors.black,
+            color: ktextColor,
           ),
         ),
+         actions: <Widget>[
+        RawMaterialButton(
+          onPressed: (){
+            Provider.of<StateChanger>(context).changeToEdit(0);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => home_screen()));
+          },
+          child:
+          Text('Skip >>',style: TextStyle(color: kMainColor,fontSize: getProportionateScreenWidth(18, context),),),
+        )
+        ],
+
       ),
       body: Builder(
         builder:(context)=>  Form(
@@ -141,6 +183,8 @@ class LoginScreen extends StatelessWidget {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         home_screen()));
+
+                                          Provider.of<StateChanger>(context).changeToEdit(0);
                                         }
                                     }
                                     catch(e){
@@ -190,9 +234,9 @@ class LoginScreen extends StatelessWidget {
                                 child: Text(
                                   "Login",
                                   style: TextStyle(
-                                      color: ktextColor,
+                                      color: temp,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 18),
+                                      fontSize: 25),
                                 ),
                               ),
                             ),

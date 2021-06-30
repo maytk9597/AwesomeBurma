@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/screens/detail_screen/detail_screen.dart';
 import 'package:travel_guide/screens/list/item.dart';
 import 'package:travel_guide/screens/list/search_screen.dart';
 import 'package:travel_guide/models/size_config.dart';
@@ -172,7 +173,11 @@ class _SearchViewState extends State<SearchView> {
         child: ListView.builder(
             itemCount: _filterList.length,
             itemBuilder: (context, index){
-              return Card(
+              return GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => detail_screen(placeType: widget.type,placeDocument:_filterList[index] ,)));
+                },
                 //color: Colors.white60,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
