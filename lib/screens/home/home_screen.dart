@@ -62,7 +62,7 @@ class _home_screenState extends State<home_screen> {
     return SafeArea(
       child: Scaffold(
         // appBar: buildAppBar(context, isTransparent: true),
-        drawer: Drawer(),
+        // drawer: Drawer(),
         body: Screen[Provider.of<StateChanger>(context).index],
         bottomNavigationBar: BubbleBottomBar(
           backgroundColor: Colors.white,
@@ -72,45 +72,45 @@ class _home_screenState extends State<home_screen> {
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.home,
-                color: ktextColor,
+                color: temp,
               ),
               activeIcon: Icon(
                 Icons.home,
-                color: ktextColor,
+                color: temp,
               ),
               title: Text(
                 "Home",
-                style: TextStyle(color: ktextColor),
+                style: TextStyle(color: temp),
               ),
               backgroundColor: kMainColor,
             ),
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.favorite,
-                color: ktextColor,
+                color: temp,
               ),
               activeIcon: Icon(
                 Icons.favorite,
-                color: ktextColor,
+                color: temp,
               ),
               title: Text(
                 "Favourites",
-                style: TextStyle(color: ktextColor),
+                style: TextStyle(color: temp),
               ),
               backgroundColor: kMainColor,
             ),
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.person,
-                color: ktextColor,
+                color: temp,
               ),
               activeIcon: Icon(
                 Icons.person,
-                color: ktextColor,
+                color: temp,
               ),
               title: Text(
                 "Profile",
-                style: TextStyle(color: ktextColor),
+                style: TextStyle(color: temp),
               ),
               backgroundColor: kMainColor,
             ),
