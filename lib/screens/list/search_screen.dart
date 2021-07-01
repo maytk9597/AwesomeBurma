@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/screens/list/search_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'search_view.dart';
@@ -25,7 +26,13 @@ class SearchScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SearchView(search: true, searchType: searchType,),
+
+              SearchView(search: true, searchType: searchType, back: IconButton(
+                icon: Icon(Icons.arrow_back, size: 30, color: ktextColor,),
+                onPressed: (){
+                  Navigator. pop(context);
+                },
+              ),),
               //SearchField(),
             ],
           ),

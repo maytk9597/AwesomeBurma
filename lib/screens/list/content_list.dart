@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_guide/screens/list/item.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 //import 'package:travel_guide/size_config.dart';
 import 'title_list.dart';
@@ -17,7 +18,7 @@ class ContentList extends StatefulWidget {
   dynamic sub_type;
 
   static var default_stream;
-  static List<DocumentSnapshot> documentSnapshotList = <DocumentSnapshot>[];
+  static List<Item> documentSnapshotList = <Item>[];
 
   @override
   _ContentListState createState() => _ContentListState();
@@ -49,7 +50,8 @@ class _ContentListState extends State<ContentList> {
             }
             else
               newList.add(snapshot.data.docs[i]);
-              ContentList.documentSnapshotList.add(snapshot.data.docs[i]);
+              Item item = new Item(data: snapshot.data.docs[i], type: widget.type);
+              ContentList.documentSnapshotList.add(item);
           }
           //print("length of new list = ${newList.length}");
           return Expanded(

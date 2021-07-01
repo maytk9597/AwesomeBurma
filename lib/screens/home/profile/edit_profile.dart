@@ -108,100 +108,103 @@ class _EditProfileState extends State<EditProfile> {
     var space_height = 10.0;
     var profile_size = 180.0;
     print("in edit profile");
-    return SingleChildScrollView(
-      child: Column(children: [
-        SizedBox(height: getProportionateScreenHeight(space_height*3, context),),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-          FlatButton(
-            child: Text("Cancel", style: TextStyle( color: kMainColor,
-              fontSize: getProportionateScreenWidth(20, context)
+    return Container(
+      color: white,
+      child: SingleChildScrollView(
+        child: Column(children: [
+          SizedBox(height: getProportionateScreenHeight(space_height*3, context),),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            FlatButton(
+              child: Text("Cancel", style: TextStyle( color: kMainColor,
+                fontSize: getProportionateScreenWidth(20, context)
+                ),
               ),
+              onPressed: (){
+                setState(() {
+
+                  name_controller = new TextEditingController(text: HomeScreenProfile.name);
+                  email_controller = new TextEditingController(text: HomeScreenProfile.email);
+                  Provider.of<StateChanger>(context).changeToEdit(2);
+                });
+              },
             ),
-            onPressed: (){
-              setState(() {
+            ProfilePic(isEdit: true, photoUrl: hasChange? uploadedPhotoUrl:photoUrl,onPressed: () {
+              _showPicker(context);
+            }),
 
-                name_controller = new TextEditingController(text: HomeScreenProfile.name);
-                email_controller = new TextEditingController(text: HomeScreenProfile.email);
-                Provider.of<StateChanger>(context).changeToEdit(2);
-              });
-            },
-          ),
-          ProfilePic(isEdit: true, photoUrl: hasChange? uploadedPhotoUrl:photoUrl,onPressed: () {
-            _showPicker(context);
-          }),
+            // Center(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10.0),
+            //     child: SizedBox(
+            //       height: profile_size,
+            //       width: profile_size,
+            //       child: FlatButton(
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(profile_size/2),
+            //           side: BorderSide(color: Colors.white),
+            //         ),
+            //         color: Color(0xFFF5F6F9),
+            //         onPressed: () {},
+            //         // TODO: Icon not centered.
+            //         child: Center(child: Icon(Icons.person, size: profile_size/1.5,),),
+            //       )),
+            //   ),
+            // ),Center(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10.0),
+            //     child: SizedBox(
+            //       height: profile_size,
+            //       width: profile_size,
+            //       child: FlatButton(
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(profile_size/2),
+            //           side: BorderSide(color: Colors.white),
+            //         ),
+            //         color: Color(0xFFF5F6F9),
+            //         onPressed: () {},
+            //         // TODO: Icon not centered.
+            //         child: Center(child: Icon(Icons.person, size: profile_size/1.5,),),
+            //       )),
+            //   ),
+            // ),
+            FlatButton(
+              child: Text("Save",  style: TextStyle(fontWeight: FontWeight.bold,
+                  fontSize: getProportionateScreenWidth(20, context), color: kMainColor,
+                )
+              ),
+              onPressed: (){
+                print("** userid = ${widget.userId}");
+                print("** name = ${name_controller.text}");
+                print("** email = ${email_controller.text}");
+                print("** imageUrl = ${uploadedPhotoUrl}");
+                name = name_controller.text;
+                email = email_controller.text;
+                // FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
+                // _firestore.collection('users').doc(widget.userId).update({
+                //   'name' : name,
+                //   'email': email,
+                //   'image': hasChange? uploadedPhotoUrl:photoUrl
+                // }).then((value) => "update successfully #### ");
+                setState(() {
+                  HomeScreenProfile.name = name;
+                  HomeScreenProfile.email = email;
+                  HomeScreenProfile.photoUrl= hasChange? uploadedPhotoUrl:photoUrl;
+                  Provider.of<StateChanger>(context).changeToEdit(2);
+                });
 
-          // Center(
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(10.0),
-          //     child: SizedBox(
-          //       height: profile_size,
-          //       width: profile_size,
-          //       child: FlatButton(
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(profile_size/2),
-          //           side: BorderSide(color: Colors.white),
-          //         ),
-          //         color: Color(0xFFF5F6F9),
-          //         onPressed: () {},
-          //         // TODO: Icon not centered.
-          //         child: Center(child: Icon(Icons.person, size: profile_size/1.5,),),
-          //       )),
-          //   ),
-          // ),Center(
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(10.0),
-          //     child: SizedBox(
-          //       height: profile_size,
-          //       width: profile_size,
-          //       child: FlatButton(
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(profile_size/2),
-          //           side: BorderSide(color: Colors.white),
-          //         ),
-          //         color: Color(0xFFF5F6F9),
-          //         onPressed: () {},
-          //         // TODO: Icon not centered.
-          //         child: Center(child: Icon(Icons.person, size: profile_size/1.5,),),
-          //       )),
-          //   ),
-          // ),
-          FlatButton(
-            child: Text("Save",  style: TextStyle(fontWeight: FontWeight.bold,
-                fontSize: getProportionateScreenWidth(20, context), color: kMainColor,
-              )
+              },
             ),
-            onPressed: (){
-              print("** userid = ${widget.userId}");
-              print("** name = ${name_controller.text}");
-              print("** email = ${email_controller.text}");
-              print("** imageUrl = ${uploadedPhotoUrl}");
-              name = name_controller.text;
-              email = email_controller.text;
-              // FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
-              // _firestore.collection('users').doc(widget.userId).update({
-              //   'name' : name,
-              //   'email': email,
-              //   'image': hasChange? uploadedPhotoUrl:photoUrl
-              // }).then((value) => "update successfully #### ");
-              setState(() {
-                HomeScreenProfile.name = name;
-                HomeScreenProfile.email = email;
-                HomeScreenProfile.photoUrl= hasChange? uploadedPhotoUrl:photoUrl;
-                Provider.of<StateChanger>(context).changeToEdit(2);
-              });
-
-            },
+          ],
           ),
+          SizedBox(height: space_height,),
+          createTextField(context, name_controller),
+          SizedBox(height: space_height,),
+          createTextField(context, email_controller)
         ],
         ),
-        SizedBox(height: space_height,),
-        createTextField(context, name_controller),
-        SizedBox(height: space_height,),
-        createTextField(context, email_controller)
-      ],
       ),
     );
   }
@@ -217,6 +220,7 @@ class _EditProfileState extends State<EditProfile> {
         style: TextStyle(
           height: getProportionateScreenHeight(2, context),// cursor height
           fontSize: getProportionateScreenWidth(20, context),
+          color: ktextColor
         ),
 
         decoration: InputDecoration(
