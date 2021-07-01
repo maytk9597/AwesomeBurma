@@ -10,12 +10,13 @@ import 'content_list.dart';
 enum search_type { search, searchAll}
 
 class SearchView extends StatefulWidget {
-  SearchView({this.city, this.type, this.searchType, this.search, });
+  SearchView({this.city, this.type, @required this.searchType, @required this.search, this.back});
 
   final String city;
   final String type;
   final search_type searchType;
   final bool search;
+  final Widget back;
   //final bool searchAll;
 
   static bool search_;
@@ -31,7 +32,7 @@ class _SearchViewState extends State<SearchView> {
   var _searchView = new TextEditingController();
   String _query = "";
   //List <dynamic> _list = <dynamic>[];
-  List<DocumentSnapshot> _filterList = <DocumentSnapshot>[];
+  List<Item> _filterList = <Item>[];
 
   @override
   void initState() {
@@ -104,13 +105,13 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _performSearch() {
     print("In perform Search");
-    _filterList = new List<DocumentSnapshot>();
+    _filterList = new List<Item>();
     int length = ContentList.documentSnapshotList.length;
 
     for(int i = 0; i < length; i++){
-      DocumentSnapshot item = ContentList.documentSnapshotList[i];
+      Item item = ContentList.documentSnapshotList[i];
 
-      if(item.data()['name'].toString().toLowerCase().contains(_query.toLowerCase())){
+      if(item.data.data()['name'].toString().toLowerCase().contains(_query.toLowerCase())){
         _filterList.add(item);
       }
     }
@@ -148,16 +149,16 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _performSearchAll(){
 
-    _filterList = new List<DocumentSnapshot>();
+    _filterList = new List<Item>();
     int length = SearchView.searchList.length;
     print("Search view list length 2 = $length");
 
     if(_query == "") _filterList.clear();
 
     for(int i = 0; i < length; i++){
-      DocumentSnapshot item = SearchView.searchList[i].data;
+      Item item = SearchView.searchList[i];
 
-      if(item.data()['name'].toString().toLowerCase().contains(_query.toLowerCase())){
+      if(item.data.data()['name'].toString().toLowerCase().contains(_query.toLowerCase())){
         _filterList.add(item);
       }
     }
@@ -176,7 +177,7 @@ class _SearchViewState extends State<SearchView> {
               return GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => detail_screen(placeType: widget.type,placeDocument:_filterList[index] ,)));
+                      builder: (context) => detail_screen(placeType: _filterList[index].type,placeDocument:_filterList[index].data ,)));
                 },
                 //color: Colors.white60,
                 child: Padding(
@@ -186,10 +187,10 @@ class _SearchViewState extends State<SearchView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(_filterList[index].data()['name'],
+                        Text(_filterList[index].data.data()['name'],
                           style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),
                         ),
-                        Text(_filterList[index].data()['address'], overflow: TextOverflow.clip, maxLines: 1,
+                        Text(_filterList[index].data.data()['address'], overflow: TextOverflow.clip, maxLines: 1,
                             style: TextStyle(fontSize: getProportionateScreenWidth(14, context), color: Colors.grey)),
                       ],
                     ),
@@ -203,60 +204,68 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _createSearchView(bool active) {
     //bool enable = false;
-    return Container(
-        width: getProportionateScreenWidth(313, context),
-        height: getProportionateScreenHeight(55, context),
-        decoration: BoxDecoration(
 
-          color: white,
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            // color: Color(0xFF3E4067),
-              color: ktextColor,
-              width: getProportionateScreenWidth(2, context)),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(3, 3),
-              blurRadius: 10,
-              color: Colors.black.withOpacity(0.16),
-              spreadRadius: -2,
-            )
-          ],
-        ),
-        child: GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context) => SearchScreen(searchType: widget.searchType,)));
-            print("click the button behind text field");
-          },
-          child: TextField(
-            enabled: active,
-            cursorColor: ktextColor,
-            controller: _searchView,
-
-            style: TextStyle(
-              //height: getProportionateScreenHeight(2, context),// cursor height
-              fontSize: getProportionateScreenWidth(18, context),
-              //color: Colors.black,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      //crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if(widget.back != null)
+          widget.back,
+        Container(
+            width: getProportionateScreenWidth(313, context),
+            height: getProportionateScreenHeight(55, context),
+            decoration: BoxDecoration(
+              color: white,
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                // color: Color(0xFF3E4067),
+                  color: ktextColor,
+                  width: getProportionateScreenWidth(2, context)),
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(3, 3),
+                  blurRadius: 10,
+                  color: Colors.black.withOpacity(0.16),
+                  spreadRadius: -2,
+                )
+              ],
             ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "Search your destination…",
-              hintStyle: TextStyle(
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => SearchScreen(searchType: widget.searchType,)));
+                print("click the button behind text field");
+              },
+              child: TextField(
+                enabled: active,
+                cursorColor: ktextColor,
+                controller: _searchView,
+
+                style: TextStyle(
+                  //height: getProportionateScreenHeight(2, context),// cursor height
                   fontSize: getProportionateScreenWidth(18, context),
-                  color: ktextColor),
-              suffixIcon: Icon(
-                Icons.search,
-                color: ktextColor,
+                  color: ktextColor,
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Search your destination…",
+                  hintStyle: TextStyle(
+                      fontSize: getProportionateScreenWidth(18, context),
+                      color: ktextColor),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: ktextColor,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20, context),
+                    vertical: getProportionateScreenWidth(10, context),
+                  ),
+                ),
+                textAlign: TextAlign.left,
               ),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(20, context),
-                vertical: getProportionateScreenWidth(10, context),
-              ),
-            ),
-            textAlign: TextAlign.left,
-          ),
-        )
+            )
+        ),
+      ],
     );
   }
 }

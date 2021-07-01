@@ -4,17 +4,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 
-Color kMainColor = Color(0xFFBB83FA);
-Color white = Colors.white;
-Color darkWhite = white.withOpacity(0.05);
-Color ktextColor = Color(0xFF53292F);
+List<Color> color_list = [Color(0xffbb83fa), Color(0xFF53292F), Colors.white, Color(0xFFC6BCEE),
+  Color(0xFFF4F0FE)];
+List<Color> dark_color_list = [Color(0xff296ea5), Colors.white, Color(0xff1e3546),
+  Color(0xff296ea5), Color(0xff1c2a35)];
+
+// List<Color> light_color_list = [Color(0xffF6ABB6), Color(0xFF53292F), Color(0xffF4B6C2),
+//   Color(0xffEEC9D2), Color(0xffEAD5DC)];
+
+List<Color> current_color_list  = color_list;
+Color kMainColor = current_color_list[0];
+Color ktextColor = current_color_list[1];
+Color white = current_color_list[2];
+Color buttonBackgroundColour = color_list[3];
+Color kSecondaryColour = color_list[4];
 Color temp = ktextColor;
-//Color kMainColor = Color(0xFF7063fe);
-Color buttonBackgroundColour = Color(0xFFC6BCEE);
-Color kSecondaryColour = Color(0xFFF4F0FE);
-Color buttonColor = Color(0xFFbd98eb);
-//Color viberColor = Color(0xFF7063fe);
-Color viberColor = Color(0xFF5740be);
+
 const double size = 50;
 const contentCardHeight = 220.0;
 const contentCardWidth = 350.0;

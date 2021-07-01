@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 
 //Mon Mon Tin - Based on which page the widget is used, the camera icon will be appeared.
@@ -17,14 +18,14 @@ class ProfilePic extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            boxShadow: [
-              // BoxShadow(
-              //   color: Colors.grey.withOpacity(0.3),
-              //   spreadRadius: 8,
-              //   blurRadius: 3,
-              //   offset: Offset(0, 3), // changes position of shadow
-              // ),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.grey.withOpacity(0.3),
+            //     spreadRadius: 8,
+            //     blurRadius: 3,
+            //     offset: Offset(0, 3), // changes position of shadow
+            //   ),
+            // ],
           ),
           child: SizedBox(
             height: getProportionateScreenWidth(150, context), //155
@@ -34,6 +35,11 @@ class ProfilePic extends StatelessWidget {
               overflow: Overflow.visible,
               fit: StackFit.expand,
               children: [
+                photoUrl == '' ?
+                    CircleAvatar(
+                      backgroundColor: kSecondaryColour,
+                      child: Icon(Icons.person, size: 100, color: kMainColor,),
+                    ):
                 CircleAvatar(
                   backgroundImage: NetworkImage(photoUrl),
 
@@ -58,19 +64,22 @@ class ProfilePic extends StatelessWidget {
                         ),
                         color: Color(0xFFF5F6F9),
                         onPressed: onPressed,
-                        child: Icon(Icons.camera_alt,size: getProportionateScreenWidth(40, context),color: Colors.black54,),),
+                        child: Icon(Icons.camera_alt,size: getProportionateScreenWidth(40, context),color: kMainColor,),),
                   ),
                 )
               ],
             )
-                : CircleAvatar(
-              backgroundImage: photoUrl == ''
-                  ? AssetImage("assets/images/home_bg.png")
-                  : NetworkImage(photoUrl),
+                : photoUrl == '' ? CircleAvatar(
+              backgroundColor: kSecondaryColour,
+              child: Icon(Icons.person, size: 100, color: kMainColor,),
+            ) :
+                CircleAvatar(
+                  backgroundImage:  NetworkImage(photoUrl),
             ),
           ),
         ),
       ),
+
     );
   }
 }

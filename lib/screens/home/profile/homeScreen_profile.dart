@@ -73,6 +73,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     print("inside user Profile++++++++++++");
     print(" Login "+ widget.isLogin.toString());
     print(" user id "+widget.userId.toString());
+    print(" image url "+HomeScreenProfile.photoUrl.toString());
     bool dark = Provider.of<StateChanger>(context).dark;
     // return Container(
     //   color: Colors.grey.withOpacity(0.3),
@@ -91,7 +92,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     //   ),
     // );
     return widget.isLogin?Container(
-      color: Colors.grey.withOpacity(0.3),
+      //color: Colors.grey.withOpacity(0.3),
       child: Column(
         children: [
           Container(
@@ -100,7 +101,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
               children: [
 
                 SizedBox(height: getProportionateScreenHeight(space_height*2, context),),
-                ProfilePic(isEdit: false,photoUrl: HomeScreenProfile.photoUrl),
+                ProfilePic(isEdit: false, photoUrl: HomeScreenProfile.photoUrl),
 
                 SizedBox(height: space_height,),
                 Text(HomeScreenProfile.name, style: TextStyle(fontWeight: FontWeight.bold,
@@ -125,7 +126,9 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Edit Profile", style: TextStyle(fontSize: getProportionateScreenWidth(20, context)),),
+                        child: Text("Edit Profile",
+                          style: TextStyle(fontSize: getProportionateScreenWidth(20, context),
+                          color: ktextColor),),
                       ),
                     ),
                   ),
@@ -242,8 +245,9 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
       setState(() {
         //switchControl = true;
         Provider.of<StateChanger>(context).changeDarkMode(true);
-        ktextColor = kMainColor;
-        white = darkWhite;
+        current_color_list = dark_color_list;
+        // ktextColor = Colors.white;
+        // white = darkWhite;
       });
       print('Switch is ON');
 
@@ -253,8 +257,9 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
       setState(() {
         //switchControl = false;
         Provider.of<StateChanger>(context).changeDarkMode(false);
-        ktextColor = temp;
-        white = Colors.white;
+        current_color_list = color_list;
+        // ktextColor = temp;
+        // white = Colors.white;
       });
       print('Switch is OFF');
       // Put your code here which you want to execute on Switch OFF event.

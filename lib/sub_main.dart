@@ -23,15 +23,15 @@ class _SubMainState extends State<SubMain> {
     return MaterialApp(
 
       theme: Provider.of<StateChanger>(context).dark == true ?
-          ThemeData.dark().copyWith(
-            primaryColor: hslDark.toColor(),
-          ):
-       // ThemeData(primaryColor: Color(0xFF0A0E21),
-       //  scaffoldBackgroundColor: hslDark.toColor(),
-       //  //accentColor: Colors.red,
-       //  textTheme: TextTheme(
-       //      body1: TextStyle(color: Colors.white)
-       //  ),) :
+          // ThemeData.dark().copyWith(
+          //   primaryColor: hslDark.toColor(),
+          // ):
+       ThemeData(//primaryColor: Color(0xFF0A0E21),
+        scaffoldBackgroundColor: Color(0xff171E24),
+        //accentColor: Colors.red,
+        textTheme: TextTheme(
+            body1: TextStyle(color: Colors.white)
+        ),) :
       ThemeData(
         //primaryColor: Colors.black.withOpacity(0.7),
         primarySwatch: Colors.blue,

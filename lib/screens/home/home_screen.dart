@@ -72,45 +72,45 @@ class _home_screenState extends State<home_screen> {
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.home,
-                color: temp,
+                color: ktextColor,
               ),
               activeIcon: Icon(
                 Icons.home,
-                color: temp,
+                color: ktextColor,
               ),
               title: Text(
                 "Home",
-                style: TextStyle(color: temp),
+                style: TextStyle(color: ktextColor),
               ),
               backgroundColor: kMainColor,
             ),
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.favorite,
-                color: temp,
+                color: ktextColor,
               ),
               activeIcon: Icon(
                 Icons.favorite,
-                color: temp,
+                color: ktextColor,
               ),
               title: Text(
                 "Favourites",
-                style: TextStyle(color: temp),
+                style: TextStyle(color: ktextColor),
               ),
               backgroundColor: kMainColor,
             ),
             BubbleBottomBarItem(
               icon: Icon(
                 Icons.person,
-                color: temp,
+                color: ktextColor,
               ),
               activeIcon: Icon(
                 Icons.person,
-                color: temp,
+                color: ktextColor,
               ),
               title: Text(
                 "Profile",
-                style: TextStyle(color: temp),
+                style: TextStyle(color: ktextColor),
               ),
               backgroundColor: kMainColor,
             ),
