@@ -71,7 +71,7 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
 
                               deleteItem(index);
                               Scaffold.of(context).showSnackBar(SnackBar(
-                                  duration: const Duration(seconds: 3),
+                                  duration: const Duration(seconds: 1),
                                   content: Text("Item deleted"),
                                   action: SnackBarAction(
                                       label: "UNDO",

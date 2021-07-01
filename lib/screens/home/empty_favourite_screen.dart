@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
 
 class EmptyList extends StatelessWidget {
   const EmptyList({
@@ -35,6 +37,7 @@ class EmptyList extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => home_screen()));
+                  Provider.of<StateChanger>(context).changeToEdit(0);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 12),

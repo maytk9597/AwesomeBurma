@@ -65,7 +65,7 @@ class _home_screenState extends State<home_screen> {
         // drawer: Drawer(),
         body: Screen[Provider.of<StateChanger>(context).index],
         bottomNavigationBar: BubbleBottomBar(
-          backgroundColor: Colors.white,
+          backgroundColor: white,
           opacity: 0.7,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
           items: [

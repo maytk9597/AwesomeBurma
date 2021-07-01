@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/splash_screen.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 
@@ -13,16 +15,18 @@ class SubMain extends StatefulWidget {
 class _SubMainState extends State<SubMain> {
   @override
   Widget build(BuildContext context) {
+
     final hsl = HSLColor.fromColor(Colors.black);
     final hslDark = hsl.withLightness((hsl.lightness - 1).clamp(0.0, 1.0));
     hslDark.toColor();
     // print("****** dark mode on is = ${Provider.of<StateChanger>(context).dark.toString()}");
     return MaterialApp(
+
       theme: Provider.of<StateChanger>(context).dark == true ?
           ThemeData.dark().copyWith(
             primaryColor: hslDark.toColor(),
           ):
-       // ThemeData(// primaryColor: Color(0xFF0A0E21),
+       // ThemeData(primaryColor: Color(0xFF0A0E21),
        //  scaffoldBackgroundColor: hslDark.toColor(),
        //  //accentColor: Colors.red,
        //  textTheme: TextTheme(

@@ -26,7 +26,7 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
       await prefs.setBool('LogIn_seen', true);
 
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+          new MaterialPageRoute(builder: (context) => new LoginScreen(isFromProfile: false,)));
     }
   }
 

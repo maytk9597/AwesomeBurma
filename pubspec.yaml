@@ -20,10 +20,17 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+# The following section is specific to Flutter.
+
+uses-material-design: true
+
 dependencies:
   flutter:
     sdk: flutter
   flutter_switch: ^0.0.2
+  material_design_icons_flutter: 3.4.4595
+
+  translator: ^0.1.0+7
 
 
   # The following adds the Cupertino Icons font to your application.

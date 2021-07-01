@@ -8,18 +8,26 @@ import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/home/profile/profile_pic.dart';
+import 'package:travel_guide/screens/home/profile/userNotLogin.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+// import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:translator/translator.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 
 class HomeScreenProfile extends StatefulWidget {
-  const HomeScreenProfile({Key key,@required this.isLogin,@required this.userId, this.user_name, this.user_email}) : super(key: key);
+  HomeScreenProfile({Key key,@required this.isLogin,@required this.userId}) : super(key: key);
 
   final bool isLogin;
   final String userId;
-  final String user_name; final String user_email;
+  // final String user_name; final String user_email;
+
+  
   static String name; static String email= ""; static var user_info; static String photoUrl;
   //static bool switchControl;
-
 
   @override
   _HomeScreenProfileState createState() => _HomeScreenProfileState();
@@ -46,13 +54,30 @@ class HomeScreenProfile extends StatefulWidget {
 class _HomeScreenProfileState extends State<HomeScreenProfile> {
 
   //var switchControl = Provider.of<StateChanger>(context).dark;
+  // var _translator = new GoogleTranslator();
+  // var translation;
+
 
   @override
   Widget build(BuildContext context){
+    // print("The translator is active &&&&&&&&&&&&&&&&&&&&&");
+    // _translator.translate("I love Brazil!", from: 'en', to: 'pt').then((s) {
+    //   print(s);
+    // });
+    // translation = _translator.translate("hello", from: 'English', to: 'French');
+    // print("After translation = ${translation.text}");
+    //_translator.translateAndPrint("wait", to: 'es');
+    //_translator.translate("hello", from: 'en', to: 'es').toString().then(print);
+    // print('${translation.source} (${translation.sourceLanguage}) == ${translation.text} (${translation.targetLanguage})');
     var space_height = 10.0;
     print("inside user Profile++++++++++++");
-    print(" Login "+widget.isLogin.toString());
+    print(" Login "+ widget.isLogin.toString());
     print(" user id "+widget.userId.toString());
+    bool dark = Provider.of<StateChanger>(context).dark;
+    // return Container(
+    //   color: Colors.grey.withOpacity(0.3),
+    // // print(" Login "+widget.isLogin.toString());
+    // print(" user id "+widget.userId.toString());
     // return Container(
     //   child: RawMaterialButton(
     //     onPressed: ()async{
@@ -65,33 +90,18 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     //     child: Text('Sign Out',),
     //   ),
     // );
-    print(" user id "+widget.userId);
     return widget.isLogin?Container(
-      //color: Colors.grey.withOpacity(0.3),
+      color: Colors.grey.withOpacity(0.3),
       child: Column(
         children: [
           Container(
-            //color: Colors.white,
+            color: white,
             child: Column(
               children: [
 
                 SizedBox(height: getProportionateScreenHeight(space_height*2, context),),
                 ProfilePic(isEdit: false,photoUrl: HomeScreenProfile.photoUrl),
-                // Center(
-                //   child: SizedBox(
-                //     height: 120,
-                //     width: 120,
-                //     child: FlatButton(
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(60),
-                //         side: BorderSide(color: Colors.white),
-                //       ),
-                //       color: Color(0xFFF5F6F9),
-                //       onPressed: () {},
-                //       // TODO: Icon not centered.
-                //       child: Center(child: Icon(Icons.person, size: 70,),),
-                //     )),
-                // ), // photo avater
+
                 SizedBox(height: space_height,),
                 Text(HomeScreenProfile.name, style: TextStyle(fontWeight: FontWeight.bold,
                     fontSize: getProportionateScreenWidth(22, context)),),
@@ -125,39 +135,88 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
             ),
           ),
           SizedBox( height: getProportionateScreenHeight(space_height*3, context), ),
-          profileContent(context,DarkModeSwitch(context)),
+          profileContent(context,dark?"assets/images/dark_mode.svg":"assets/images/Light.svg","Dark Mode" , createSwitch(context)),
 
 
-          SizedBox ( height: 0, width: getProportionateScreenWidth(300, context),
+          SizedBox ( height: 0, width: getProportionateScreenWidth(250, context),
             child: Divider(
               color: Colors.grey.withOpacity(0.5), thickness: 1,),
 
           ),
-          profileContent(context,GestureDetector(onTap: ()async{
-            FirebaseAuth.instance.signOut();
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs?.setBool("isLoggedIn", false);
-            Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) => LoginScreen()));
 
-          },child: Text('Log Out'),) ),
+          GestureDetector(
+            onTap: ()async{
+              FirebaseAuth.instance.signOut();
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs?.setBool("isLoggedIn", false);
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) => LoginScreen(isFromProfile: true,)));
+            },
+              child: profileContent(context, 'assets/images/profile.svg',"Log out", Logout(context))),
+
         ],
       ),
-    ):Container(child: SizedBox(height: 20,),);
+    ):userNotLogin();
+
   }
 
-  Widget profileContent(BuildContext context,Widget content){
+  Widget Logout(BuildContext context){
+    return GestureDetector(
+        onTap: ()async{
+        FirebaseAuth.instance.signOut();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs?.setBool("isLoggedIn", false);
+        Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) => LoginScreen(isFromProfile: true,)));
+
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: SvgPicture.asset(
+          'assets/images/log_out.svg', width: 30,
+          color: ktextColor,
+        ),
+      ),
+    );
+  }
+
+
+  Widget profileContent(BuildContext context, String icon, String text, Widget content){
     return Container(
-      padding: const EdgeInsets.all(15.0),
+      //padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        //color: Colors.white,
+        color: white,
 
         border: Border(
           bottom: BorderSide(width: 1.0,  color: Colors.white),
         ),
       ),
       //color: Colors.white,
-      child: content,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+
+         Row(
+           children: [
+             Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: SvgPicture.asset(
+                  icon, width: 30,
+                  color: ktextColor,
+                ),
+              ),
+             Padding(
+               padding: const EdgeInsets.all(15.0),
+               child: Text(text, style: TextStyle(
+                   fontSize: getProportionateScreenWidth(18, context)
+               ),),
+             ),
+           ],
+         ),
+
+          content,
+
+        ],),
     );
 
   }
@@ -184,9 +243,9 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         //switchControl = true;
         Provider.of<StateChanger>(context).changeDarkMode(true);
         ktextColor = kMainColor;
+        white = darkWhite;
       });
       print('Switch is ON');
-
 
     }
     else
@@ -195,6 +254,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
         //switchControl = false;
         Provider.of<StateChanger>(context).changeDarkMode(false);
         ktextColor = temp;
+        white = Colors.white;
       });
       print('Switch is OFF');
       // Put your code here which you want to execute on Switch OFF event.
@@ -220,3 +280,5 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
     );
   }
 }
+
+

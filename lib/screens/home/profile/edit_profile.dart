@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_guide/Components/constants.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/home/profile/ImagePicker.dart';
@@ -27,6 +28,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   static var name_controller = new TextEditingController(text: HomeScreenProfile.name);
   static var email_controller = new TextEditingController(text: HomeScreenProfile.email);
+  static var password_controller =  new TextEditingController();
   String name, email;
   String photoUrl = HomeScreenProfile.photoUrl;
 
@@ -178,40 +180,136 @@ class _EditProfileState extends State<EditProfile> {
               print("** name = ${name_controller.text}");
               print("** email = ${email_controller.text}");
               print("** imageUrl = ${uploadedPhotoUrl}");
+              print("++++++++${password_controller.text}");
               name = name_controller.text;
               email = email_controller.text;
+
+              // FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"))
+              //         .catchError((onError) => print('Email Update error $onError') );
               _firestore.collection('users').doc(widget.userId).update({
                 'name' : name,
                 'email': email,
-                'image': uploadedPhotoUrl
+                'image': hasChange? uploadedPhotoUrl:photoUrl
               }).then((value) => "update successfully #### ");
               setState(() {
                 HomeScreenProfile.name = name;
                 HomeScreenProfile.email = email;
-                HomeScreenProfile.photoUrl= uploadedPhotoUrl;
+                HomeScreenProfile.photoUrl= hasChange? uploadedPhotoUrl:photoUrl;
                 Provider.of<StateChanger>(context).changeToEdit(2);
               });
+
             },
           ),
         ],
         ),
         SizedBox(height: space_height,),
-        createTextField(context, name_controller),
+        createTextField(context, name_controller,"name"),
         SizedBox(height: space_height,),
-        createTextField(context, email_controller)
+        createTextField(context, email_controller,"email")
       ],
       ),
     );
   }
 
-  Widget createTextField(BuildContext context, var controller){
+  Widget createTextField(BuildContext context, var controller, String fieldType){
+    bool isEmail = false;
+    bool isPassword = false;
+    bool isName = false;
+    if(fieldType == "name")
+      isName = true;
+    else if(fieldType == "email")
+      isEmail = true;
+    else
+      isPassword = true;
+
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: TextField(
 
-        enabled: true,
+        enabled: isEmail? false : true,
         cursorColor: kMainColor,
         controller: controller,
+        // onTap: (){
+        //   password_controller = new TextEditingController(text: "");
+        //   print("+++++on Tap ++++++ $fieldType");
+        //   return isEmail? showDialog(context: context,builder:(BuildContext context){
+        //     return AlertDialog(
+        //         title: Text('Change your Email'),
+        //         content: Container(
+        //           height: getProportionateScreenHeight(150, context),
+        //           width: getProportionateScreenWidth(300, context),
+        //           child: Column(
+        //             children: [
+        //               TextField(
+        //                 controller: controller,
+        //                 decoration: InputDecoration(
+        //
+        //                     contentPadding: EdgeInsets.symmetric(
+        //                         horizontal: getProportionateScreenWidth(10, context)),
+        //                     enabledBorder: OutlineInputBorder(
+        //                         borderSide: BorderSide(color: Colors.grey[400])),
+        //                     border: OutlineInputBorder(
+        //                         borderSide: BorderSide(color: Colors.grey[400])),
+        //                     focusedBorder:
+        //                     OutlineInputBorder(borderSide: BorderSide(color: ktextColor)),
+        //
+        //                     hintText: "Enter New Email"),
+        //
+        //               ),
+        //               SizedBox(height: getProportionateScreenHeight(20,context),),
+        //               TextField(
+        //
+        //                 controller: password_controller,
+        //                 decoration: InputDecoration(
+        //                     contentPadding: EdgeInsets.symmetric(
+        //                         horizontal: getProportionateScreenWidth(10, context)),
+        //                     enabledBorder: OutlineInputBorder(
+        //                         borderSide: BorderSide(color: Colors.grey[400])),
+        //                     border: OutlineInputBorder(
+        //                         borderSide: BorderSide(color: Colors.grey[400])),
+        //                     focusedBorder:
+        //                     OutlineInputBorder(borderSide: BorderSide(color: ktextColor)),
+        //                     hintText: "Enter Password"),
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //
+        //         actions: <Widget>[
+        //           FlatButton(
+        //               child: Text("Confirm",style: TextStyle(color: ktextColor),),
+        //               onPressed: () {
+        //                 print("Email +++++++${HomeScreenProfile.email}");
+        //                 try {
+        //                  final user =  FirebaseAuth.instance.signInWithEmailAndPassword(
+        //                       email: HomeScreenProfile.email,
+        //                       password: password_controller.text);
+        //                   if(user != null){
+        //                     FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"))
+        //                             .catchError((onError) => print('Email Update error $onError') );
+        //                   }
+        //                 }
+        //                 catch(e){
+        //                   showDialog(context: context,
+        //                       builder: (BuildContext context){
+        //                         return AlertDialog(title: Text(e.message,style: TextStyle(color: ktextColor),),actions: <Widget>[
+        //                           RawMaterialButton(
+        //                             onPressed: (){
+        //                               Navigator.pop(context);
+        //                             },
+        //                             child: Text("try again",style: TextStyle(color: ktextColor,fontSize: getProportionateScreenWidth(13, context)),),
+        //
+        //
+        //                           )
+        //                         ],);
+        //                       });
+        //                 }
+        //                 Navigator.pop(context);
+        //               })
+        //         ]
+        //     );
+        //   } ): null;
+        // },
         style: TextStyle(
           height: getProportionateScreenHeight(2, context),// cursor height
           fontSize: getProportionateScreenWidth(20, context),
