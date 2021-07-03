@@ -204,6 +204,7 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _createSearchView(bool active) {
     //bool enable = false;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       //crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/fade_animation.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/components/makeInputField.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
 
 class SignUpScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -32,11 +34,11 @@ class SignUpScreen extends StatelessWidget {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
+      // backgroundColor: white,
       appBar: AppBar(
         elevation: 0,
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
+        backgroundColor: white,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -180,6 +182,7 @@ class SignUpScreen extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => home_screen()));
+                                    Provider.of<StateChanger>(context).changeToEdit(0);
                                   }
                                 } catch (e) {
                                   showDialog(context: context,

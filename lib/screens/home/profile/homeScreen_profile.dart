@@ -30,7 +30,9 @@ class HomeScreenProfile extends StatefulWidget {
   // final String user_name; final String user_email;
 
   
+
   static String name; static String email= ""; static var user_info; static String photoUrl; static bool dark;
+
   //static bool switchControl;
 
   @override
@@ -44,7 +46,9 @@ class HomeScreenProfile extends StatefulWidget {
     HomeScreenProfile.photoUrl = HomeScreenProfile.user_info.data()['image'];
     HomeScreenProfile.email = HomeScreenProfile.user_info.data()['email'];
     HomeScreenProfile.dark = HomeScreenProfile.user_info.data()['dark'];
+
     // Provider.of<StateChanger>(context).changeDarkMode(HomeScreenProfile.dark);
+
     // print("name = ${HomeScreenProfile.name}");
     // print("email = ${HomeScreenProfile.email}");
     }
@@ -243,9 +247,15 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
       setState(() async{
         //switchControl = true;
         Provider.of<StateChanger>(context).changeDarkMode(true);
-        required_data.dark = true;
+
+
+        current_color_list = dark_color_list;
+
+
+        // required_data.dark = true;
         // await writeData(required_data);
         // current_color_list = dark_color_list;
+
         // ktextColor = Colors.white;
         // white = darkWhite;
         FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
@@ -263,8 +273,10 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
       setState(() async{
         //switchControl = false;
         Provider.of<StateChanger>(context).changeDarkMode(false);
+
         // required_data.dark = false;
         // await writeData(required_data);
+
         current_color_list = color_list;
         // ktextColor = temp;
         // white = Colors.white;

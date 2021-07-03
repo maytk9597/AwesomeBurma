@@ -130,7 +130,7 @@ class detailBody extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     print(placeDocument['ph_no']);
-                    launch('tel://${placeDocument['ph_no']}');
+                    isAttraction? null: launch('tel://${placeDocument['ph_no']}');
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

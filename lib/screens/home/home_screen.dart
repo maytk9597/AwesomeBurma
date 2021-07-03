@@ -82,7 +82,7 @@ class _home_screenState extends State<home_screen> {
     return SafeArea(
       child: Scaffold(
         // appBar: buildAppBar(context, isTransparent: true),
-        drawer: Drawer(),
+        // drawer: Drawer(),
         body: Screen[Provider.of<StateChanger>(context).index],
         bottomNavigationBar: BubbleBottomBar(
           backgroundColor: white,

@@ -15,7 +15,7 @@ import 'package:travel_guide/screens/list/state_changer.dart';
 
 class EditProfile extends StatefulWidget {
   EditProfile({@required this.userId});
-  
+
   String userId;
   static var name_controller = new TextEditingController(text: HomeScreenProfile.name);
   static var email_controller = new TextEditingController(text: HomeScreenProfile.email);
@@ -120,51 +120,51 @@ class _EditProfileState extends State<EditProfile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            FlatButton(
-              child: Text("Cancel", style: TextStyle( color: kMainColor,
-                fontSize: getProportionateScreenWidth(20, context)
+              FlatButton(
+                child: Text("Cancel", style: TextStyle( color: kMainColor,
+                    fontSize: getProportionateScreenWidth(20, context)
                 ),
+                ),
+                onPressed: (){
+                  setState(() {
+                    EditProfile.name_controller = new TextEditingController(text: HomeScreenProfile.name);
+                    EditProfile.email_controller = new TextEditingController(text: HomeScreenProfile.email);
+                    Provider.of<StateChanger>(context).changeToEdit(2);
+                  });
+                },
               ),
-              onPressed: (){
-                setState(() {
-                  EditProfile.name_controller = new TextEditingController(text: HomeScreenProfile.name);
-                  EditProfile.email_controller = new TextEditingController(text: HomeScreenProfile.email);
-                  Provider.of<StateChanger>(context).changeToEdit(2);
-                });
-              },
-            ),
-            ProfilePic(isEdit: true, photoUrl: hasChange? uploadedPhotoUrl:photoUrl,onPressed: () {
-              _showPicker(context);
-            }),
+              ProfilePic(isEdit: true, photoUrl: hasChange? uploadedPhotoUrl:photoUrl,onPressed: () {
+                _showPicker(context);
+              }),
 
-            FlatButton(
-              child: Text("Save",  style: TextStyle(fontWeight: FontWeight.bold,
+              FlatButton(
+                child: Text("Save",  style: TextStyle(fontWeight: FontWeight.bold,
                   fontSize: getProportionateScreenWidth(20, context), color: kMainColor,
                 )
-              ),
-              onPressed: (){
-                print("** userid = ${widget.userId}");
-                print("** name = ${EditProfile.name_controller.text}");
-                print("** email = ${EditProfile.email_controller.text}");
-                print("** imageUrl = ${uploadedPhotoUrl}");
-                name = EditProfile.name_controller.text;
-                email = EditProfile.email_controller.text;
-                // FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
-                // _firestore.collection('users').doc(widget.userId).update({
-                //   'name' : name,
-                //   'email': email,
-                //   'image': hasChange? uploadedPhotoUrl:photoUrl
-                // }).then((value) => "update successfully #### ");
-                setState(() {
-                  HomeScreenProfile.name = name;
-                  HomeScreenProfile.email = email;
-                  HomeScreenProfile.photoUrl= hasChange? uploadedPhotoUrl:photoUrl;
-                  Provider.of<StateChanger>(context).changeToEdit(2);
-                });
+                ),
+                onPressed: (){
+                  print("** userid = ${widget.userId}");
+                  print("** name = ${EditProfile.name_controller.text}");
+                  print("** email = ${EditProfile.email_controller.text}");
+                  print("** imageUrl = ${uploadedPhotoUrl}");
+                  name = EditProfile.name_controller.text;
+                  email = EditProfile.email_controller.text;
+                  FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
+                  _firestore.collection('users').doc(widget.userId).update({
+                    'name' : name,
+                    'email': email,
+                    'image': hasChange? uploadedPhotoUrl:photoUrl
+                  }).then((value) => "update successfully #### ");
+                  setState(() {
+                    HomeScreenProfile.name = name;
+                    HomeScreenProfile.email = email;
+                    HomeScreenProfile.photoUrl= hasChange? uploadedPhotoUrl:photoUrl;
+                    Provider.of<StateChanger>(context).changeToEdit(2);
+                  });
 
-              },
-            ),
-          ],
+                },
+              ),
+            ],
           ),
           SizedBox(height: space_height,),
           createTextField(context, EditProfile.name_controller),
@@ -185,9 +185,9 @@ class _EditProfileState extends State<EditProfile> {
         cursorColor: kMainColor,
         controller: controller,
         style: TextStyle(
-          height: getProportionateScreenHeight(2, context),// cursor height
-          fontSize: getProportionateScreenWidth(20, context),
-          color: ktextColor
+            height: getProportionateScreenHeight(2, context),// cursor height
+            fontSize: getProportionateScreenWidth(20, context),
+            color: ktextColor
         ),
 
         decoration: InputDecoration(

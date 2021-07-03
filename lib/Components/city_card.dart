@@ -35,10 +35,11 @@ class City_card extends StatelessWidget {
           // _firestore
           //     .collection('cities')
           //     .doc(city.id)
-          //     .collection('Attractions')
+          //     .collection('Attractions').where('recommendation', isEqualTo: true)
           //     .doc()
           //     .update({
-          //   'remark': "Not Available",
+          //   'remark': "Open Everyday",
+          //   'openingHours':"5 A.M - 8 P.M"
           // });
         },
         child: Container(

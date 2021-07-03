@@ -61,6 +61,9 @@ class TopPlacesList extends StatelessWidget {
                         // _firestore
                         //     .collection('cities')
                         //     .doc(cityId)
+                        //     .collection('Restaurants')
+                        //     // .doc(snapshot.data.docs[index].id)
+                        //     .add({
                         //     .collection('Attractions')
                         //     .doc(snapshot.data.docs[index].id)
                         //     .update({
@@ -79,18 +82,18 @@ class TopPlacesList extends StatelessWidget {
                         //     .collection('cities')
                         //     .doc(cityId)
                         //     .collection('Restaurants')
-                        //     //.doc(snapshot.data.docs[index].id)
-                        //     .add({
+                        //     .doc(snapshot.data.docs[index].id)
+                        //     .update({
                         //   'remark': "Open Everyday",
-                        //   'description': "",
-                        //   'imageUrl': "",
-                        //   'name': "",
-                        //   'note': "",
-                        //   'openingHours': "7 A.M - 9 P.M ",
-                        //   'ph_no': "Not Available",
-                        //   'type_list': typeList,
-                        //   'recommendation': true,
-                        //   'address': "",
+                        //   // 'description': "",
+                        //   // 'imageUrl': "",
+                        //   // 'name': "",
+                        //   // 'note': "",
+                        //   // 'openingHours': "7 A.M - 9 P.M ",
+                        //   // 'ph_no': "Not Available",
+                        //   // 'type_list': typeList,
+                        //   // 'recommendation': true,
+                        //   // 'address': "",
                         // });
                         DocumentSnapshot recommendationPlace =
                             snapshot.data.docs[index];

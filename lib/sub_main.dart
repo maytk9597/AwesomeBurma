@@ -5,7 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/splash_screen.dart';
+
+import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
+
 import 'package:travel_guide/screens/home/profile/homeScreen_profile.dart';
+
 import 'package:travel_guide/screens/list/state_changer.dart';
 
 class SubMain extends StatefulWidget {
@@ -20,6 +24,7 @@ class SubMain extends StatefulWidget {
 
 class _SubMainState extends State<SubMain> {
   @override
+
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) =>
         build(context));
@@ -58,7 +63,7 @@ class _SubMainState extends State<SubMain> {
     // readData();
     // SubMain.dark = required_data.dark;
     // print("static dark 2 = ${SubMain.dark}");
-    print("dark mode = ${required_data.dark}");
+    // print("dark mode = ${required_data.dark}");
 
     // Provider.of<StateChanger>(context).changeDarkMode(required_data.dark);
     // print("****** dark mode on is = ${Provider.of<StateChanger>(context).dark.toString()}");
@@ -80,7 +85,7 @@ class _SubMainState extends State<SubMain> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: Splash(),
+      home: start_screen(),
     );
   }
 }

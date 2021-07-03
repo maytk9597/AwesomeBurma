@@ -25,6 +25,7 @@ class makeInput extends StatelessWidget {
           height: 5,
         ),
         TextFormField(
+
           onChanged: onChanged,
           obscureText: obscureText,
           validator: (value) {
@@ -59,6 +60,8 @@ class makeInput extends StatelessWidget {
             }
           },
           decoration: InputDecoration(
+            fillColor: white,
+            filled: true,
             // labelText: label,
             labelStyle: TextStyle(
                 fontSize: 15, fontWeight: FontWeight.w400, color: ktextColor),

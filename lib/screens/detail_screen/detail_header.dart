@@ -30,7 +30,7 @@ class _Detail_headerState extends State<Detail_header> {
     print("inside initState");
     readData();
 
-    print("${required_data.favList.length.toString()}");
+    print("${favouriteList.length.toString()}");
   }
 
   @override
@@ -65,7 +65,7 @@ class _Detail_headerState extends State<Detail_header> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    await writeData(required_data);
+                    await writeData(favouriteList);
                     await readData();
                     Navigator.pop(context);
                   },
