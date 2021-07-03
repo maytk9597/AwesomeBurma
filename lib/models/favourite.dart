@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'data.dart';
-
 class Favourite {
   final String id;
   final String type;
@@ -21,11 +19,7 @@ class Favourite {
   }
 }
 
-// Data required_data = new Data(favList: [], dark: false);
-//var favList = [];
-// data.dark = false;
 List<Favourite> favouriteList = [];
-
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
 
@@ -52,13 +46,13 @@ Future readData() async {
     // If encountering an error, return 0
     return null;
   }
-  print('read successful' );
+  // print('read successful' + cartsList.length.toString());
 }
 
 Future writeData(List<Favourite> favourite) async {
-  print('inside writeData ' + favouriteList.length.toString());
+  print('inside writeData ' + favourite.length.toString());
   final file = await _localFile;
-  String jsonFormat = jsonEncode(favourite);
+  String jsonFormat = jsonEncode(favouriteList);
 
   // Write the file
   return await file.writeAsString(jsonFormat);

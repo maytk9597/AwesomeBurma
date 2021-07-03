@@ -27,27 +27,20 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
 
   @override
   Widget build(BuildContext context) {
-    print("in homeScreen_favourite");
     bool isEmptyList;
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     StateChanger listChange = Provider.of<StateChanger>(context);
     // List<Favourite> favListChange = listChange.getFavouriteList;
-    readData();
+    // readData();
     // listChange.changeFavourite();
-    print("before favlist");
     if (favouriteList.isEmpty) {
-      print("Favlist is empty");
       isEmptyList = true;
     } else
-      print("FavList is not empty");
       isEmptyList = false;
-    // print("FavList length = ${required_data.favList.length}");
-    // print("dark mode = ${required_data.dark.toString()}");
-    // int length = required_data.favList.length;
+
     return isEmptyList
         ? EmptyList()
         : ListView.builder(
-
         itemCount: favouriteList.length,
         itemBuilder: (context, index) {
           return StreamBuilder<QuerySnapshot>(
@@ -78,7 +71,7 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
 
                           deleteItem(index);
                           Scaffold.of(context).showSnackBar(SnackBar(
-                              duration: const Duration(seconds: 1),
+                              duration: const Duration(seconds: 3),
                               content: Text("Item deleted"),
                               action: SnackBarAction(
                                   label: "UNDO",
@@ -95,7 +88,6 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
                 }
               });
         });
-
   }
 
   void deleteItem(index) async {
