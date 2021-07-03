@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/home/profile/profile_pic.dart';
@@ -26,7 +27,7 @@ class HomeScreenProfile extends StatefulWidget {
   // final String user_name; final String user_email;
 
   
-  static String name; static String email= ""; static var user_info; static String photoUrl;
+  static String name; static String email= ""; static var user_info; static String photoUrl; bool dark;
   //static bool switchControl;
 
   @override
@@ -39,6 +40,7 @@ class HomeScreenProfile extends StatefulWidget {
     HomeScreenProfile.name = HomeScreenProfile.user_info.data()['name'];
     HomeScreenProfile.photoUrl = HomeScreenProfile.user_info.data()['image'];
     HomeScreenProfile.email = HomeScreenProfile.user_info.data()['email'];
+    HomeScreenProfile.dark = HomeScreenProfile.user_info.data()['dark'];
     // print("name = ${HomeScreenProfile.name}");
     // print("email = ${HomeScreenProfile.email}");
     }
@@ -245,7 +247,9 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
       setState(() {
         //switchControl = true;
         Provider.of<StateChanger>(context).changeDarkMode(true);
+
         current_color_list = dark_color_list;
+
         // ktextColor = Colors.white;
         // white = darkWhite;
       });
@@ -257,6 +261,7 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
       setState(() {
         //switchControl = false;
         Provider.of<StateChanger>(context).changeDarkMode(false);
+
         current_color_list = color_list;
         // ktextColor = temp;
         // white = Colors.white;

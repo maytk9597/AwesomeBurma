@@ -1,10 +1,13 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/home/home_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
+import 'package:travel_guide/screens/list/state_changer.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -20,10 +23,13 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
     print("inside splash +++++++ $status login Status ${_Loginseen} loginScreen status");
 
     if (_Loginseen||status) {
+      // requireddark = true;
+
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new home_screen()));
     } else {
       await prefs.setBool('LogIn_seen', true);
+
 
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new LoginScreen(isFromProfile: false,)));
@@ -32,7 +38,11 @@ class SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
 
   @override
   void afterFirstLayout(BuildContext context) {
+    // requiredDataList = requiredData(favouriteItem: favList,dark: true);
+
+
     checkFirstSeen();
+
   }
 
   @override

@@ -104,7 +104,7 @@ class _FavouriteButtonState extends State<FavouriteButton> {
       child: CustomPaint(
         size: Size(30, 33),
         painter:
-            HeartPainter(fillColor: isFavourite ? kMainColor : Colors.white),
+        HeartPainter(fillColor: isFavourite ? kMainColor : Colors.white),
       ),
     );
   }

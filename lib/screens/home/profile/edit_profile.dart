@@ -186,11 +186,11 @@ class _EditProfileState extends State<EditProfile> {
                   name = name_controller.text;
                   email = email_controller.text;
                   // FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
-                  // _firestore.collection('users').doc(widget.userId).update({
-                  //   'name' : name,
-                  //   'email': email,
-                  //   'image': hasChange? uploadedPhotoUrl:photoUrl
-                  // }).then((value) => "update successfully #### ");
+                  _firestore.collection('users').doc(widget.userId).update({
+                    'name' : name,
+                    'email': email,
+                    'image': hasChange? uploadedPhotoUrl:photoUrl
+                  }).then((value) => "update successfully #### ");
                   setState(() {
                     HomeScreenProfile.name = name;
                     HomeScreenProfile.email = email;

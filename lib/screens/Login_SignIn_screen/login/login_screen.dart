@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: white,
         leading: IconButton(
           onPressed: () {
-           if(widget.isFromProfile) {
+           if(!widget.isFromProfile) {
 
              Provider.of<StateChanger>(context).changeToEdit(0);
              return Navigator.pushReplacement(

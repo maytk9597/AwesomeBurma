@@ -10,9 +10,9 @@ class Favourite {
   Favourite({@required this.id, @required this.type});
 
   Map toJson() => {
-        'productId': id,
-        'quantity': type,
-      };
+    'productId': id,
+    'quantity': type,
+  };
   factory Favourite.fromJson(dynamic json) {
     return Favourite(
         id: json['productId'] as String, type: json['quantity'] as String);

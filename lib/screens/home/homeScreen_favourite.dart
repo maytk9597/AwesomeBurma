@@ -41,53 +41,53 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
     return isEmptyList
         ? EmptyList()
         : ListView.builder(
-            itemCount: favouriteList.length,
-            itemBuilder: (context, index) {
-              return StreamBuilder<QuerySnapshot>(
-                  stream: _firestore
-                      .collectionGroup(favouriteList[index].type.toString())
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      int length = snapshot.data.docs.length;
-                      for (int i = 0; i < length; i++) {
-                        if (snapshot.data.docs[i].id ==
-                            favouriteList[index].id) {
-                          DocumentSnapshot favourite = snapshot.data.docs[i];
-                          return Dismissible(
-                            background: stackBehindDismiss(),
-                            key: ObjectKey(favouriteList[index]),
-                            child: Container(
-                              child: Place_card(
-                                height: 150,
-                                width: MediaQuery.of(context).size.width,
-                                placeDocument: favourite,
-                                placeType: favouriteList[index].type,
-                                isHome: false,
-                              ),
-                            ),
-                            onDismissed: (direction) async {
-                              var item = favouriteList.elementAt(index);
+        itemCount: favouriteList.length,
+        itemBuilder: (context, index) {
+          return StreamBuilder<QuerySnapshot>(
+              stream: _firestore
+                  .collectionGroup(favouriteList[index].type.toString())
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  int length = snapshot.data.docs.length;
+                  for (int i = 0; i < length; i++) {
+                    if (snapshot.data.docs[i].id ==
+                        favouriteList[index].id) {
+                      DocumentSnapshot favourite = snapshot.data.docs[i];
+                      return Dismissible(
+                        background: stackBehindDismiss(),
+                        key: ObjectKey(favouriteList[index]),
+                        child: Container(
+                          child: Place_card(
+                            height: 150,
+                            width: MediaQuery.of(context).size.width,
+                            placeDocument: favourite,
+                            placeType: favouriteList[index].type,
+                            isHome: false,
+                          ),
+                        ),
+                        onDismissed: (direction) async {
+                          var item = favouriteList.elementAt(index);
 
-                              deleteItem(index);
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                  duration: const Duration(seconds: 1),
-                                  content: Text("Item deleted"),
-                                  action: SnackBarAction(
-                                      label: "UNDO",
-                                      onPressed: () {
-                                        undoDeletion(index, item);
-                                      })));
-                            },
-                          );
-                        }
-                      }
-                      print(snapshot.data.docs.length);
-                    } else {
-                      return Center(child: CircularProgressIndicator());
+                          deleteItem(index);
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              duration: const Duration(seconds: 1),
+                              content: Text("Item deleted"),
+                              action: SnackBarAction(
+                                  label: "UNDO",
+                                  onPressed: () {
+                                    undoDeletion(index, item);
+                                  })));
+                        },
+                      );
                     }
-                  });
-            });
+                  }
+                  print(snapshot.data.docs.length);
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              });
+        });
   }
 
   void deleteItem(index) async {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/splash_screen.dart';
+import 'package:travel_guide/screens/Login_SignIn_screen/start_screen.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
 
 class SubMain extends StatefulWidget {
@@ -15,6 +17,11 @@ class SubMain extends StatefulWidget {
 class _SubMainState extends State<SubMain> {
   @override
   Widget build(BuildContext context) {
+    // requiredDataList = requiredData(favouriteItem: favList,dark: false);
+    // writeData(requiredDataList);
+    FirebaseFirestore.instance.
+
+
 
     final hsl = HSLColor.fromColor(Colors.black);
     final hslDark = hsl.withLightness((hsl.lightness - 1).clamp(0.0, 1.0));
@@ -38,7 +45,7 @@ class _SubMainState extends State<SubMain> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
 
-      home: Splash(),
+      home: start_screen(),
     );
   }
 }

@@ -44,7 +44,13 @@ class EmptyList extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     'Let\'s Find Some Favourites',
+
+                    textAlign: TextAlign.center,
+
                     style: TextStyle(
+
+
+
                       fontSize: getProportionateScreenWidth(15, context),
                       color: ktextColor,
                       fontWeight: FontWeight.w600,
