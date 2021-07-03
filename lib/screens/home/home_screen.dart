@@ -14,6 +14,7 @@ import 'package:travel_guide/screens/home/home_header.dart';
 import 'package:travel_guide/screens/home/recommendations.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
+import 'package:travel_guide/sub_main.dart';
 
 class home_screen extends StatefulWidget {
   const home_screen({Key key}) : super(key: key);
@@ -32,7 +33,26 @@ class _home_screenState extends State<home_screen> {
       _selectedIndex = Provider.of<StateChanger>(context).index;
     });
   }
-
+  static void getData(String userId,bool isLogin) async{
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    if(isLogin){
+      HomeScreenProfile.user_info =  await _firestore.collection('users').doc(userId).get();
+      HomeScreenProfile.name = HomeScreenProfile.user_info.data()['name'];
+      HomeScreenProfile.photoUrl = HomeScreenProfile.user_info.data()['image'];
+      HomeScreenProfile.email = HomeScreenProfile.user_info.data()['email'];
+      HomeScreenProfile.dark = HomeScreenProfile.user_info.data()['dark'];
+      // Provider.of<StateChanger>(context).changeDarkMode(HomeScreenProfile.dark);
+      // print("name = ${HomeScreenProfile.name}");
+      // print("email = ${HomeScreenProfile.email}");
+    }
+    else{
+      HomeScreenProfile.user_info = "";
+      HomeScreenProfile.name = "";
+      HomeScreenProfile.photoUrl = "";
+      HomeScreenProfile.email = "";
+      HomeScreenProfile.dark = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +73,7 @@ class _home_screenState extends State<home_screen> {
       isUserLogin = true;
     }
     HomeScreenProfile.getData(currentuser_id,isUserLogin); // get user info first because of await
-
+    // Provider.of<StateChanger>(context).changeDarkMode(HomeScreenProfile.dark);
     var Screen = [HomeScreen_body(), HomeScreen_favourite(),
       HomeScreenProfile(isLogin: isUserLogin, userId: currentuser_id,),
       EditProfile(userId: currentuser_id,),

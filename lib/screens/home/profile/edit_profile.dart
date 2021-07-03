@@ -17,6 +17,9 @@ class EditProfile extends StatefulWidget {
   EditProfile({@required this.userId});
 
   String userId;
+  static var name_controller = new TextEditingController(text: HomeScreenProfile.name);
+  static var email_controller = new TextEditingController(text: HomeScreenProfile.email);
+
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -25,8 +28,6 @@ class EditProfile extends StatefulWidget {
 
 
 class _EditProfileState extends State<EditProfile> {
-  static var name_controller = new TextEditingController(text: HomeScreenProfile.name);
-  static var email_controller = new TextEditingController(text: HomeScreenProfile.email);
   String name, email;
   String photoUrl = HomeScreenProfile.photoUrl;
 
@@ -102,12 +103,11 @@ class _EditProfileState extends State<EditProfile> {
         });
   }
 
-
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    name_controller = new TextEditingController(text: HomeScreenProfile.name);
-    email_controller = new TextEditingController(text: HomeScreenProfile.email);
+    EditProfile.name_controller = new TextEditingController(text: HomeScreenProfile.name);
+    EditProfile.email_controller = new TextEditingController(text: HomeScreenProfile.email);
     var space_height = 10.0;
     var profile_size = 180.0;
     print("in edit profile");
@@ -127,9 +127,8 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 onPressed: (){
                   setState(() {
-
-                    name_controller = new TextEditingController(text: HomeScreenProfile.name);
-                    email_controller = new TextEditingController(text: HomeScreenProfile.email);
+                    EditProfile.name_controller = new TextEditingController(text: HomeScreenProfile.name);
+                    EditProfile.email_controller = new TextEditingController(text: HomeScreenProfile.email);
                     Provider.of<StateChanger>(context).changeToEdit(2);
                   });
                 },
@@ -138,41 +137,6 @@ class _EditProfileState extends State<EditProfile> {
                 _showPicker(context);
               }),
 
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(10.0),
-              //     child: SizedBox(
-              //       height: profile_size,
-              //       width: profile_size,
-              //       child: FlatButton(
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(profile_size/2),
-              //           side: BorderSide(color: Colors.white),
-              //         ),
-              //         color: Color(0xFFF5F6F9),
-              //         onPressed: () {},
-              //         // TODO: Icon not centered.
-              //         child: Center(child: Icon(Icons.person, size: profile_size/1.5,),),
-              //       )),
-              //   ),
-              // ),Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(10.0),
-              //     child: SizedBox(
-              //       height: profile_size,
-              //       width: profile_size,
-              //       child: FlatButton(
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(profile_size/2),
-              //           side: BorderSide(color: Colors.white),
-              //         ),
-              //         color: Color(0xFFF5F6F9),
-              //         onPressed: () {},
-              //         // TODO: Icon not centered.
-              //         child: Center(child: Icon(Icons.person, size: profile_size/1.5,),),
-              //       )),
-              //   ),
-              // ),
               FlatButton(
                 child: Text("Save",  style: TextStyle(fontWeight: FontWeight.bold,
                   fontSize: getProportionateScreenWidth(20, context), color: kMainColor,
@@ -180,12 +144,12 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 onPressed: (){
                   print("** userid = ${widget.userId}");
-                  print("** name = ${name_controller.text}");
-                  print("** email = ${email_controller.text}");
+                  print("** name = ${EditProfile.name_controller.text}");
+                  print("** email = ${EditProfile.email_controller.text}");
                   print("** imageUrl = ${uploadedPhotoUrl}");
-                  name = name_controller.text;
-                  email = email_controller.text;
-                  // FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
+                  name = EditProfile.name_controller.text;
+                  email = EditProfile.email_controller.text;
+                  FirebaseAuth.instance.currentUser.updateEmail(email).then((value) => print("print update successful"));
                   _firestore.collection('users').doc(widget.userId).update({
                     'name' : name,
                     'email': email,
@@ -203,9 +167,9 @@ class _EditProfileState extends State<EditProfile> {
             ],
           ),
           SizedBox(height: space_height,),
-          createTextField(context, name_controller),
+          createTextField(context, EditProfile.name_controller),
           SizedBox(height: space_height,),
-          createTextField(context, email_controller)
+          createTextField(context, EditProfile.email_controller)
         ],
         ),
       ),

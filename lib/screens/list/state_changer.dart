@@ -3,10 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:travel_guide/Components/textStyle.dart';
 import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/main.dart';
+import 'package:travel_guide/screens/home/profile/homeScreen_profile.dart';
 
 class StateChanger with ChangeNotifier {
   dynamic sub = 'All';
   int index = 0;
+
   bool dark = false;
 
   void changeState(dynamic newTitle) {
