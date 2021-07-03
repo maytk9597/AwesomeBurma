@@ -27,16 +27,16 @@ class _FavouriteButtonState extends State<FavouriteButton> {
     print("inside initState");
     readData();
 
-    print("${favouriteList.length.toString()}");
+    print("${required_data.favList.length.toString()}");
   }
 
   checkFavourite() {
     int flag = 1;
-    if (favouriteList.isEmpty) {
+    if (required_data.favList.isEmpty) {
       return false;
     } else {
-      for (int i = 0; i < favouriteList.length; i++) {
-        if (favouriteList[i].id == widget.id) {
+      for (int i = 0; i < required_data.favList.length; i++) {
+        if (required_data.favList[i].id == widget.id) {
           flag = flag * (-1);
         } else
           flag = flag * 1;
@@ -53,17 +53,17 @@ class _FavouriteButtonState extends State<FavouriteButton> {
     bool isFavourite = checkFavourite();
     return RawMaterialButton(
       onPressed: () async {
-        await writeData(favouriteList);
+        await writeData(required_data);
         await readData();
         int index;
         int flag = 1;
         // print(widget.placeDocument.id.toString());
         // print(widget.placeType.toString());
-        print(favouriteList.length.toString());
+        print(required_data.favList.length.toString());
         print("add to favourite");
 
-        for (int i = 0; i < favouriteList.length; i++) {
-          if (favouriteList[i].id == widget.id) {
+        for (int i = 0; i < required_data.favList.length; i++) {
+          if (required_data.favList[i].id == widget.id) {
             print("same item inside the local file");
             flag = flag * (-1);
             index = i;
@@ -80,16 +80,16 @@ class _FavouriteButtonState extends State<FavouriteButton> {
           }
         }
         if (flag < 1) {
-          favouriteList.removeAt(index);
-          await writeData(favouriteList);
+          required_data.favList.removeAt(index);
+          await writeData(required_data);
           print("After removing data");
           setState(() {
             isFavourite ? isFavourite = false : isFavourite = true;
           });
         } else {
-          favouriteList
+          required_data.favList
               .add(Favourite(id: widget.id.toString(), type: widget.type));
-          await writeData(favouriteList);
+          await writeData(required_data);
           setState(() {
             isFavourite ? isFavourite = false : isFavourite = true;
           });

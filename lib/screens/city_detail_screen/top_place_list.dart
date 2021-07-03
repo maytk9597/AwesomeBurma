@@ -62,8 +62,8 @@ class TopPlacesList extends StatelessWidget {
                         //     .collection('cities')
                         //     .doc(cityId)
                         //     .collection('Attractions')
-                        //     // .doc(snapshot.data.docs[index].id)
-                        //     .add({
+                        //     .doc(snapshot.data.docs[index].id)
+                        //     .update({
                         //   'remark': "Open Everyday",
                         //   'description': "",
                         //   'imageUrl': "",

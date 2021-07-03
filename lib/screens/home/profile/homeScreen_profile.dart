@@ -1,12 +1,16 @@
 
+// import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_guide/Components/textStyle.dart';
+import 'package:travel_guide/models/favourite.dart';
 import 'package:travel_guide/models/size_config.dart';
 import 'package:travel_guide/screens/Login_SignIn_screen/login/login_screen.dart';
+import 'package:travel_guide/screens/home/profile/edit_profile.dart';
 import 'package:travel_guide/screens/home/profile/profile_pic.dart';
 import 'package:travel_guide/screens/home/profile/userNotLogin.dart';
 import 'package:travel_guide/screens/list/state_changer.dart';
@@ -26,7 +30,7 @@ class HomeScreenProfile extends StatefulWidget {
   // final String user_name; final String user_email;
 
   
-  static String name; static String email= ""; static var user_info; static String photoUrl;
+  static String name; static String email= ""; static var user_info; static String photoUrl; static bool dark;
   //static bool switchControl;
 
   @override
@@ -39,6 +43,8 @@ class HomeScreenProfile extends StatefulWidget {
     HomeScreenProfile.name = HomeScreenProfile.user_info.data()['name'];
     HomeScreenProfile.photoUrl = HomeScreenProfile.user_info.data()['image'];
     HomeScreenProfile.email = HomeScreenProfile.user_info.data()['email'];
+    HomeScreenProfile.dark = HomeScreenProfile.user_info.data()['dark'];
+    // Provider.of<StateChanger>(context).changeDarkMode(HomeScreenProfile.dark);
     // print("name = ${HomeScreenProfile.name}");
     // print("email = ${HomeScreenProfile.email}");
     }
@@ -47,6 +53,7 @@ class HomeScreenProfile extends StatefulWidget {
     HomeScreenProfile.name = "";
     HomeScreenProfile.photoUrl = "";
     HomeScreenProfile.email = "";
+    HomeScreenProfile.dark = false;
   }
   }
 }
@@ -60,15 +67,6 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
 
   @override
   Widget build(BuildContext context){
-    // print("The translator is active &&&&&&&&&&&&&&&&&&&&&");
-    // _translator.translate("I love Brazil!", from: 'en', to: 'pt').then((s) {
-    //   print(s);
-    // });
-    // translation = _translator.translate("hello", from: 'English', to: 'French');
-    // print("After translation = ${translation.text}");
-    //_translator.translateAndPrint("wait", to: 'es');
-    //_translator.translate("hello", from: 'en', to: 'es').toString().then(print);
-    // print('${translation.source} (${translation.sourceLanguage}) == ${translation.text} (${translation.targetLanguage})');
     var space_height = 10.0;
     print("inside user Profile++++++++++++");
     print(" Login "+ widget.isLogin.toString());
@@ -238,32 +236,52 @@ class _HomeScreenProfileState extends State<HomeScreenProfile> {
 
     ],);
   }
-  void toggleSwitch(bool value) {
+  void toggleSwitch (bool value) async{
 
     if(Provider.of<StateChanger>(context).dark == false)
     {
-      setState(() {
+      setState(() async{
         //switchControl = true;
         Provider.of<StateChanger>(context).changeDarkMode(true);
-        current_color_list = dark_color_list;
+        required_data.dark = true;
+        // await writeData(required_data);
+        // current_color_list = dark_color_list;
         // ktextColor = Colors.white;
         // white = darkWhite;
+        FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+          'dark' : Provider.of<StateChanger>(context).dark,
+        }).then((value) => "update successfully #### ");
+        HomeScreenProfile.dark = Provider.of<StateChanger>(context).dark;
+        print("HomeScreen Profile dark = ${HomeScreenProfile.dark.toString()}");
       });
       print('Switch is ON');
+
 
     }
     else
     {
-      setState(() {
+      setState(() async{
         //switchControl = false;
         Provider.of<StateChanger>(context).changeDarkMode(false);
+        // required_data.dark = false;
+        // await writeData(required_data);
         current_color_list = color_list;
         // ktextColor = temp;
         // white = Colors.white;
+        FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+          'dark' : Provider.of<StateChanger>(context).dark,
+        }).then((value) => "update successfully #### ");
+        HomeScreenProfile.dark = Provider.of<StateChanger>(context).dark;
+        print("HomeScreen Profile dark = ${HomeScreenProfile.dark.toString()}");
       });
       print('Switch is OFF');
       // Put your code here which you want to execute on Switch OFF event.
     }
+    FirebaseFirestore.instance.collection('users').doc(widget.userId).update({
+      'dark' : Provider.of<StateChanger>(context).dark,
+    }).then((value) => "update successfully #### ");
+    HomeScreenProfile.dark = Provider.of<StateChanger>(context).dark;
+    print("HomeScreen Profile dark = ${HomeScreenProfile.dark.toString()}");
   }
 
   Widget createSwitch(BuildContext context){

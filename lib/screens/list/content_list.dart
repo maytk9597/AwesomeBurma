@@ -68,6 +68,7 @@ class _ContentListState extends State<ContentList> {
                     //ContentList.documentSnapshotList.add(item);
                     return ContentCard(
                       item: item,
+                      type: widget.type,
                     );
                   }),
                 )

@@ -27,47 +27,64 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
 
   @override
   Widget build(BuildContext context) {
+    print("in homeScreen_favourite");
     bool isEmptyList;
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     StateChanger listChange = Provider.of<StateChanger>(context);
     // List<Favourite> favListChange = listChange.getFavouriteList;
-    // readData();
+    readData();
     // listChange.changeFavourite();
-    if (favouriteList.isEmpty) {
+    print("before favlist");
+    if (required_data.favList.isEmpty) {
+      print("Favlist is empty");
       isEmptyList = true;
     } else
+      print("FavList is not empty");
       isEmptyList = false;
-
+    print("FavList length = ${required_data.favList.length}");
+    print("dark mode = ${required_data.dark.toString()}");
+    int length = required_data.favList.length;
     return isEmptyList
         ? EmptyList()
         : ListView.builder(
-            itemCount: favouriteList.length,
+            itemCount: length,
             itemBuilder: (context, index) {
+              print("FavList length = ${required_data.favList.length}");
+              print("dark mode = ${required_data.dark.toString()}");
+              // var name = _firestore.collectionGroup("Attractions").
+              if(length > 0)
+                // print("")
+                print("?????? type = ${required_data.favList[0].type}");
+              else
+                print("??????????????????");
               return StreamBuilder<QuerySnapshot>(
                   stream: _firestore
-                      .collectionGroup(favouriteList[index].type.toString())
+                      .collectionGroup(required_data.favList[index].type.toString())
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      print("^^^^^^^^ has data");
                       int length = snapshot.data.docs.length;
-                      for (int i = 0; i < length; i++) {
+                      print("length of snapshot = $length");
+                      for(int i = 0 ; i < snapshot.data.docs.length; i++){
+                        print("name name = ${snapshot.data.docs[i]['name']}");
                         if (snapshot.data.docs[i].id ==
-                            favouriteList[index].id) {
+                            required_data.favList[index].id) {
                           DocumentSnapshot favourite = snapshot.data.docs[i];
                           return Dismissible(
                             background: stackBehindDismiss(),
-                            key: ObjectKey(favouriteList[index]),
+                            key: ObjectKey(required_data.favList[index]),
                             child: Container(
                               child: Place_card(
                                 height: 150,
                                 width: MediaQuery.of(context).size.width,
                                 placeDocument: favourite,
-                                placeType: favouriteList[index].type,
+                                placeType: required_data.favList[index].type,
                                 isHome: false,
                               ),
                             ),
                             onDismissed: (direction) async {
-                              var item = favouriteList.elementAt(index);
+                              var item = required_data.favList.elementAt(index);
 
                               deleteItem(index);
                               Scaffold.of(context).showSnackBar(SnackBar(
@@ -81,11 +98,57 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
                             },
                           );
                         }
+                        // else
+                        //   return Text("no data..............");
                       }
-                      print(snapshot.data.docs.length);
+                      // return Text("no data");
+                      print(snapshot.data.docs.length.toString() + "111 &&&&&&&&&&&");
+                      // for (int i = 0; i < snapshot.data.docs.length; i++) {
+                      //   print("i = $i");
+                      //   print("snapshot id = ${snapshot.data.docs[i].id}");
+                      //   print("snapshot name = ${snapshot.data.docs[i]['name']}");
+                      //   print("data id = ${required_data.favList[index].id}");
+                      //   if (snapshot.data.docs[i].id ==
+                      //       required_data.favList[index].id) {
+                      //     DocumentSnapshot favourite = snapshot.data.docs[i];
+                      //     return Dismissible(
+                      //       background: stackBehindDismiss(),
+                      //       key: ObjectKey(required_data.favList[index]),
+                      //       child: Container(
+                      //         child: Place_card(
+                      //           height: 150,
+                      //           width: MediaQuery.of(context).size.width,
+                      //           placeDocument: favourite,
+                      //           placeType: required_data.favList[index].type,
+                      //           isHome: false,
+                      //         ),
+                      //       ),
+                      //       onDismissed: (direction) async {
+                      //         var item = required_data.favList.elementAt(index);
+                      //
+                      //         deleteItem(index);
+                      //         Scaffold.of(context).showSnackBar(SnackBar(
+                      //             duration: const Duration(seconds: 1),
+                      //             content: Text("Item deleted"),
+                      //             action: SnackBarAction(
+                      //                 label: "UNDO",
+                      //                 onPressed: () {
+                      //                   undoDeletion(index, item);
+                      //                 })));
+                      //       },
+                      //     );
+                      //   }
+                      //   else
+                      //     return Text("no data..........");
+                      // }
+                      print(snapshot.data.docs.length.toString() + "&&&&&&&&&&&");
+
+                      return Text("no data");
                     } else {
+                      print("^^^^^^^^ no data");
                       return Center(child: CircularProgressIndicator());
                     }
+
                   });
             });
   }
@@ -93,18 +156,18 @@ class _HomeScreen_favouriteState extends State<HomeScreen_favourite> {
   void deleteItem(index) async {
     await readData();
     setState(() {
-      favouriteList.removeAt(index);
+      required_data.favList.removeAt(index);
     });
 
-    await writeData(favouriteList);
+    await writeData(required_data);
   }
 
   void undoDeletion(index, item) async {
     setState(() {
-      favouriteList.insert(index, item);
+      required_data.favList.insert(index, item);
     });
 
-    await writeData(favouriteList);
+    await writeData(required_data);
   }
 
   Widget stackBehindDismiss() {
